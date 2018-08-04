@@ -1,0 +1,1 @@
+curl -s "https://projects.intra.42.fr/uploads/document/document/266/contacts_hard.txt" | grep -i "Nicolas" | grep -i "bauer" | grep -iv "bomber" | grep -o "\([()0-9]\+\)*\([0-9]\+\-\)\+\([0-9]\+\)"

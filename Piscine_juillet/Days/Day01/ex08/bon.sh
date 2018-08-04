@@ -1,0 +1,1 @@
+ldapsearch -x "sn=*bon*" | grep "sn:" | wc -l | cut -c6-

@@ -1,0 +1,5 @@
+Credentials cache: API:52A7FC62-D760-444C-8EFF-0409CE6F0737
+        Principal: kicausse@42.FR
+
+  Issued                Expires               Principal
+Jul  2 08:57:45 2018  Jul  9 08:57:40 2018  krbtgt/42.FR@42.FR
