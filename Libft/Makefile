@@ -32,7 +32,7 @@ OBJ 	= 	$(SRC:.c=.o)
 WFLAGS 	= 	-Wall -Wextra -Werror 
 
 $(NAME):
-	$(CC) $(WFLAGS) -c $(SRC)
+	gcc $(WFLAGS) -c $(SRC)
 	ar rc $(NAME) $(OBJ)
 
 all: $(NAME)
