@@ -38,13 +38,14 @@ char		*ft_itoa(int n)
 	output = (char*)malloc(len + 1);
 	if (output == 0)
 		return (0);
-	output[len] = 0;
+	output[len] = '\0';
 	output[0] = '0';
 	if (n < 0)
 		output[0] = '-';
+	n = ft_abs(n);
 	while (n != 0)
 	{
-		output[--len] = '0' + (ft_abs(n) % 10);
+		output[--len] = '0' + (n % 10);
 		n /= 10;
 	}
 	return (output);

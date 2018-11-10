@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 int	ft_set_bit(int nbr, int idx, char value)
 {
 	return (nbr |= (value << idx));

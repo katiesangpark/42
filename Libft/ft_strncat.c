@@ -27,7 +27,5 @@ char	*ft_strncat(char *destination, const char *source, size_t num)
 		i++;
 	}
 	destination[offset + i] = '\0';
-	while (++i < num)
-		destination[offset + i] = '\0';
 	return (destination);
 }

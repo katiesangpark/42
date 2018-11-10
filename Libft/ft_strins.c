@@ -18,8 +18,8 @@ char	*ft_strins(char *dest, const char *src, unsigned int pos)
 	unsigned int	destlen;
 	unsigned int	offset;
 
-	if (dest == 0 || src == 0)
-		return (0);
+	if (dest == NULL || src == NULL)
+		return (NULL);
 	destlen = ft_strlen(dest);
 	offset = ft_strlen(src);
 	i = destlen + offset;

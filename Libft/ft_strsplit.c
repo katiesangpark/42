@@ -20,7 +20,8 @@ static char		*copy_word(const char *src, char limit)
 	i = 0;
 	while (src[i] && src[i] != limit)
 		i++;
-	if ((output = (char*)malloc(sizeof(char) * (i + 1))) == NULL)
+	output = (char*)malloc(i);
+	if (output == NULL)
 		return (NULL);
 	i = 0;
 	while (src[i] && src[i] != limit)

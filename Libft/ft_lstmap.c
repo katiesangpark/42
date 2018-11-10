@@ -32,14 +32,14 @@ t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 	t_list	*nlist;
 	t_list	*tmp;
 
-	if (lst == 0 || f == 0)
-		return (0);
-	nlist = 0;
-	while (lst != 0)
+	if (lst == NULL || f == NULL)
+		return (NULL);
+	nlist = NULL;
+	while (lst != NULL)
 	{
 		tmp = f(lst);
-		if (tmp == 0)
-			return (0);
+		if (tmp == NULL)
+			return (NULL);
 		ft_list_push_back(&nlist, tmp);
 		lst = lst->next;
 	}

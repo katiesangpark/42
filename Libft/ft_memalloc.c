@@ -18,8 +18,8 @@ void	*ft_memalloc(size_t size)
 	unsigned char	*output;
 
 	output = (unsigned char*)malloc(size);
-	if (output == 0)
-		return (0);
+	if (output == NULL)
+		return (NULL);
 	i = 0;
 	while (i < size)
 	{

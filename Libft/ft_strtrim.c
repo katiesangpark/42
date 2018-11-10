@@ -12,41 +12,32 @@
 
 #include "libft.h"
 
-static char	*copy_word(char const *s, unsigned int start,
-			unsigned int end)
+static int	is_space(char c)
 {
-	char			*output;
-	unsigned int	i;
-
-	output = (char*)malloc(end - start + 2);
-	if (output == 0)
-		return (0);
-	i = 0;
-	while (start + i <= end)
-	{
-		output[i] = s[start + i];
-		i++;
-	}
-	output[i] = '\0';
-	return (output);
+	return (c == ' ' || c == '\t' || c == '\n');
 }
 
 char		*ft_strtrim(char const *s)
 {
+	char			*output;
 	unsigned int	start;
 	unsigned int	end;
 
-	if (s == 0)
-		return (0);
+	if (s == NULL)
+		return (NULL);
+	if (s[0] == '\0')
+		return (ft_strdup(""));
 	start = 0;
-	while (s[start] == ' ' || s[start] == '\t' || s[start] == '\n')
+	while (is_space(s[start]))
 		start++;
-	end = start;
-	while (s[end])
-		end++;
-	if (end != 0)
+	end = ft_strlen(s);
+	if (end - 1 > start)
 		end--;
-	while (end > start && (s[end] == ' ' || s[end] == '\t' || s[end] == '\n'))
+	while (end > start && is_space(s[end]))
 		end--;
-	return (copy_word(s, start, end));
+	output = (char*)malloc(end - start + 2);
+	if (output == NULL)
+		return (NULL);
+	output[end - start + 1] = '\0';
+	return (ft_memcpy(output, s + start, end - start + 1));
 }

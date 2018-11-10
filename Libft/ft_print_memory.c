@@ -12,39 +12,19 @@
 
 #include "libft.h"
 
-static void	print_hex(unsigned int value, int length)
-{
-	char	*base;
-	char	output[sizeof(int) * 2];
-	int		i;
-
-	i = 7;
-	base = "0123456789abcdef";
-	while (value > 0)
-	{
-		output[i] = base[value % 16];
-		value /= 16;
-		i--;
-	}
-	while (i >= 8 - length)
-		output[i--] = '0';
-	while (i < 8)
-		ft_putchar(output[i++]);
-}
-
 static void	print_hex_line(unsigned char *curr, unsigned char *end, \
 						unsigned char *addr)
 {
 	unsigned int i;
 
 	i = 0;
-	print_hex((unsigned int)(curr - addr), 8);
+	ft_print_hex((unsigned int)(curr - addr), 8);
 	ft_putchar(':');
 	ft_putchar(' ');
 	while (i < 16)
 	{
 		if (curr + i < end)
-			print_hex((unsigned int)curr[i], 2);
+			ft_print_hex((unsigned int)curr[i], 2);
 		else
 		{
 			ft_putchar(' ');
@@ -64,13 +44,13 @@ void		*ft_print_memory(void *addr, unsigned int size)
 
 	curr = (unsigned char*)addr;
 	end = curr + size;
-	while (curr < end && end - curr > 1)
+	while (curr < end)
 	{
 		print_hex_line(curr, end, (unsigned char*)addr);
 		i = 0;
 		while (i < 16 && curr + i < end)
 		{
-			if (curr[i] < 32 || curr[i] > 126)
+			if (!ft_isprint(curr[i]))
 				ft_putchar('.');
 			else
 				ft_putchar(curr[i]);

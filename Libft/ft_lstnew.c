@@ -17,11 +17,11 @@ t_list			*ft_lstnew(void const *content, size_t content_size)
 	t_list	*list;
 
 	list = (t_list*)malloc(sizeof(t_list));
-	if (list == 0)
-		return (0);
+	if (list == NULL)
+		return (NULL);
 	if (content == NULL)
 	{
-		list->content = 0;
+		list->content = NULL;
 		list->content_size = 0;
 	}
 	else

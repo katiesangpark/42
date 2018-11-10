@@ -19,8 +19,8 @@ void			*ft_memmove(void *dest, const void *src, size_t n)
 	if (n != 0)
 	{
 		buffer = (unsigned char*)malloc(n);
-		if (buffer == 0)
-			return (0);
+		if (buffer == NULL)
+			return (NULL);
 		ft_memcpy(buffer, src, n);
 		ft_memcpy(dest, buffer, n);
 		free(buffer);

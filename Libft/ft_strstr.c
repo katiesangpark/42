@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strstr(char *str1, const char *str2)
+#include "libft.h"
+
+char	*ft_strstr(const char *str1, const char *str2)
 {
 	int i;
 	int i2;
@@ -22,10 +24,10 @@ char	*ft_strstr(char *str1, const char *str2)
 		while (str1[i + i2] == str2[i2] && str1[i + i2])
 			i2++;
 		if (str2[i2] == '\0')
-			return (str1 + i);
+			return ((char*)str1 + i);
 		i++;
 	}
 	if (str1[0] == '\0' && str2[0] == '\0')
-		return (str1);
-	return ((void*)0);
+		return ((char*)str1);
+	return (NULL);
 }

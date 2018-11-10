@@ -40,8 +40,8 @@ char			*ft_strncat(char *destination, const char *source, size_t num);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 char			*ft_strchr(const char *str, int character);
 char			*ft_strrchr(char *str, int character);
-char			*ft_strstr(char *str1, const char *str2);
-char			*ft_strnstr(char *s1, char *s2, int length);
+char			*ft_strstr(const char *str1, const char *str2);
+char			*ft_strnstr(const char *s1, const char *s2, int length);
 int				ft_strcmp(const char *str1, const char *str2);
 int				ft_strncmp(const char *str1, const char *str2, size_t num);
 int				ft_atoi(const char *str);
@@ -93,6 +93,7 @@ char			*ft_strtoupper(char *string);
 int				ft_set_bit(int nbr, int idx, char value);
 char			ft_get_bit(int nbr, int idx);
 void			*ft_print_memory(void *addr, unsigned int size);
+void			ft_print_hex(unsigned int value, int length);
 char			*ft_strins(char *dest, const char *src, unsigned int pos);
 
 #endif
