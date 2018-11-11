@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex.c                                     :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 02:39:29 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/10 02:39:30 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/06 19:11:30 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/06 19:11:31 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_print_hex(unsigned int value, int length)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*base;
-	char	output[sizeof(int) * 2];
-	int		i;
+	char			*output;
+	unsigned int	len;
 
-	i = 7;
-	base = "0123456789abcdef";
-	while (value > 0)
-	{
-		output[i] = base[value % 16];
-		value /= 16;
-		i--;
-	}
-	while (i >= 8 - length && i >= 0)
-		output[i--] = '0';
-	while (i < 8)
-		ft_putchar(output[i++]);
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	len = ft_strlen(s1);
+	output = (char*)malloc(len + ft_strlen(s2) + 1);
+	if (output == NULL)
+		return (NULL);
+	ft_strcpy(output, s1);
+	ft_strcpy(output + len, s2);
+	return (output);
 }

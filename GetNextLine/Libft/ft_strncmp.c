@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex.c                                     :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 02:39:29 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/10 02:39:30 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/06 07:09:23 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_print_hex(unsigned int value, int length)
+int		ft_strncmp(const char *str1, const char *str2, size_t num)
 {
-	char	*base;
-	char	output[sizeof(int) * 2];
-	int		i;
+	unsigned int i;
 
-	i = 7;
-	base = "0123456789abcdef";
-	while (value > 0)
-	{
-		output[i] = base[value % 16];
-		value /= 16;
-		i--;
-	}
-	while (i >= 8 - length && i >= 0)
-		output[i--] = '0';
-	while (i < 8)
-		ft_putchar(output[i++]);
+	i = 0;
+	while ((unsigned int)(str1[i]) && i < num &&
+			(unsigned int)(str1[i]) == (unsigned int)(str2[i]))
+		i++;
+	if (i == num)
+		return (0);
+	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 }

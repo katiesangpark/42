@@ -11,29 +11,20 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "libft/libft.h"
+#include "stdio.h"
+#include <fcntl.h>
 
-int			get_next_line(const int fd, char **line)
+int main(int argc, char **argv)
 {
-	char	*npos;
-	char	*output;
-	char	buffer[BUFF_SIZE + 1];
-	static char	*linebuffer;
-	int		read_chars;
+	int fd = open(argv[1], O_RDONLY);
+	char *output;
 
 	output = NULL;
-	buffer[BUFF_SIZE] = '\0';
-	while ((read_chars = read(fd, buffer, BUFF_SIZE - 1)) > 0)
+	while (1)
 	{
-		if ((npos = ft_strchr(buffer, '\n')) != NULL)
-		{
-			if (output == NULL) {
-				output = ft_strsub(buffer, 0, (size_t)(npos - buffer));
-				linebuffer = ft_strdup(npos);
-			}
-			break;
-		}
+		get_next_line(fd, &output);
+		printf("%s\n", output);
+		break;
 	}
-	*line = output;
-	return (0);
+	return 0;
 }

@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex.c                                     :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 02:39:29 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/10 02:39:30 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/06 16:03:07 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/06 16:03:07 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_print_hex(unsigned int value, int length)
+void			*ft_memmove(void *dest, const void *src, size_t n)
 {
-	char	*base;
-	char	output[sizeof(int) * 2];
-	int		i;
+	unsigned char *buffer;
 
-	i = 7;
-	base = "0123456789abcdef";
-	while (value > 0)
+	if (n != 0)
 	{
-		output[i] = base[value % 16];
-		value /= 16;
-		i--;
+		buffer = (unsigned char*)malloc(n);
+		if (buffer == NULL)
+			return (NULL);
+		ft_memcpy(buffer, src, n);
+		ft_memcpy(dest, buffer, n);
+		free(buffer);
 	}
-	while (i >= 8 - length && i >= 0)
-		output[i--] = '0';
-	while (i < 8)
-		ft_putchar(output[i++]);
+	return (dest);
 }

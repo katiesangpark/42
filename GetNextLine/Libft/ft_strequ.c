@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex.c                                     :+:      :+:    :+:   */
+/*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 02:39:29 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/10 02:39:30 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/06 19:02:52 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/06 19:02:52 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_print_hex(unsigned int value, int length)
+int	ft_strequ(char const *s1, char const *s2)
 {
-	char	*base;
-	char	output[sizeof(int) * 2];
-	int		i;
+	unsigned int	i;
 
-	i = 7;
-	base = "0123456789abcdef";
-	while (value > 0)
-	{
-		output[i] = base[value % 16];
-		value /= 16;
-		i--;
-	}
-	while (i >= 8 - length && i >= 0)
-		output[i--] = '0';
-	while (i < 8)
-		ft_putchar(output[i++]);
+	if (s1 == NULL || s2 == NULL)
+		return (0);
+	i = 0;
+	while (s1[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] == s2[i]);
 }

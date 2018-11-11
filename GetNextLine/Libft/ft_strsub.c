@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex.c                                     :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 02:39:29 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/10 02:39:30 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/06 19:08:46 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/06 19:08:46 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_print_hex(unsigned int value, int length)
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	char	*base;
-	char	output[sizeof(int) * 2];
-	int		i;
+	char			*output;
+	unsigned int	i;
 
-	i = 7;
-	base = "0123456789abcdef";
-	while (value > 0)
+	if (s == NULL)
+		return (NULL);
+	output = (char*)malloc(len + 1);
+	if (output == NULL)
+		return (NULL);
+	i = 0;
+	output[len] = '\0';
+	while (len--)
 	{
-		output[i] = base[value % 16];
-		value /= 16;
-		i--;
+		output[i] = s[start + i];
+		i++;
 	}
-	while (i >= 8 - length && i >= 0)
-		output[i--] = '0';
-	while (i < 8)
-		ft_putchar(output[i++]);
+	return (output);
 }

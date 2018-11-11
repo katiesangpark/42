@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex.c                                     :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 02:39:29 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/10 02:39:30 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/06 07:09:23 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_print_hex(unsigned int value, int length)
+char	*ft_strncpy(char *destination, const char *source, size_t num)
 {
-	char	*base;
-	char	output[sizeof(int) * 2];
-	int		i;
+	unsigned int i;
 
-	i = 7;
-	base = "0123456789abcdef";
-	while (value > 0)
+	i = 0;
+	while (source[i] != '\0' && i < num)
 	{
-		output[i] = base[value % 16];
-		value /= 16;
-		i--;
+		destination[i] = source[i];
+		i++;
 	}
-	while (i >= 8 - length && i >= 0)
-		output[i--] = '0';
-	while (i < 8)
-		ft_putchar(output[i++]);
+	while (i < num)
+	{
+		destination[i] = '\0';
+		i++;
+	}
+	return (destination);
 }

@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex.c                                     :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 02:39:29 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/10 02:39:30 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/06 16:19:10 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/06 16:19:11 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_print_hex(unsigned int value, int length)
+int				ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	char	*base;
-	char	output[sizeof(int) * 2];
-	int		i;
+	unsigned int	i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	i = 7;
-	base = "0123456789abcdef";
-	while (value > 0)
+	i = 0;
+	str1 = (unsigned char*)s1;
+	str2 = (unsigned char*)s2;
+	while (i < n)
 	{
-		output[i] = base[value % 16];
-		value /= 16;
-		i--;
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+		i++;
 	}
-	while (i >= 8 - length && i >= 0)
-		output[i--] = '0';
-	while (i < 8)
-		ft_putchar(output[i++]);
+	return (0);
 }

@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex.c                                     :+:      :+:    :+:   */
+/*   ft_strins.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 02:39:29 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/10 02:39:30 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/08 05:47:20 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/08 05:47:21 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_print_hex(unsigned int value, int length)
+char	*ft_strins(char *dest, const char *src, unsigned int pos)
 {
-	char	*base;
-	char	output[sizeof(int) * 2];
-	int		i;
+	unsigned int	i;
+	unsigned int	destlen;
+	unsigned int	offset;
 
-	i = 7;
-	base = "0123456789abcdef";
-	while (value > 0)
+	if (dest == NULL || src == NULL)
+		return (NULL);
+	destlen = ft_strlen(dest);
+	offset = ft_strlen(src);
+	i = destlen + offset;
+	while (i > pos)
 	{
-		output[i] = base[value % 16];
-		value /= 16;
+		dest[i] = dest[i - offset];
 		i--;
 	}
-	while (i >= 8 - length && i >= 0)
-		output[i--] = '0';
-	while (i < 8)
-		ft_putchar(output[i++]);
+	i = 0;
+	while (i < offset)
+	{
+		dest[pos + i] = src[i];
+		i++;
+	}
+	dest[destlen + offset] = '\0';
+	return (dest);
 }

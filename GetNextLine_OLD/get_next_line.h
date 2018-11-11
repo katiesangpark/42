@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex.c                                     :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 02:39:29 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/10 02:39:30 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/08 06:26:26 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/08 06:26:26 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# include <stdlib.h>
+# include <unistd.h>
+# define BUFF_SIZE (256)
+# define ERR_ALLOC_FAIL (-2)
+# define ERR_READ_FAIL (-1)
+# define ERR_FILE_END (0)
+# define ERR_SUCCESS (1)
 
-void	ft_print_hex(unsigned int value, int length)
-{
-	char	*base;
-	char	output[sizeof(int) * 2];
-	int		i;
+int	get_next_line(const int fd, char **line);
 
-	i = 7;
-	base = "0123456789abcdef";
-	while (value > 0)
-	{
-		output[i] = base[value % 16];
-		value /= 16;
-		i--;
-	}
-	while (i >= 8 - length && i >= 0)
-		output[i--] = '0';
-	while (i < 8)
-		ft_putchar(output[i++]);
-}
+#endif

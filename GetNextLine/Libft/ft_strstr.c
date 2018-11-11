@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex.c                                     :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 02:39:29 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/10 02:39:30 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/06 07:09:23 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_print_hex(unsigned int value, int length)
+char	*ft_strstr(const char *str1, const char *str2)
 {
-	char	*base;
-	char	output[sizeof(int) * 2];
-	int		i;
+	int i;
+	int i2;
 
-	i = 7;
-	base = "0123456789abcdef";
-	while (value > 0)
+	i = 0;
+	while (str1[i] != '\0')
 	{
-		output[i] = base[value % 16];
-		value /= 16;
-		i--;
+		i2 = 0;
+		while (str1[i + i2] == str2[i2] && str1[i + i2])
+			i2++;
+		if (str2[i2] == '\0')
+			return ((char*)str1 + i);
+		i++;
 	}
-	while (i >= 8 - length && i >= 0)
-		output[i--] = '0';
-	while (i < 8)
-		ft_putchar(output[i++]);
+	if (str1[0] == '\0' && str2[0] == '\0')
+		return ((char*)str1);
+	return (NULL);
 }

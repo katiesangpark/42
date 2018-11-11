@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex.c                                     :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 02:39:29 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/10 02:39:30 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/07 02:06:57 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/07 02:06:57 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_print_hex(unsigned int value, int length)
+t_list			*ft_lstnew(void const *content, size_t content_size)
 {
-	char	*base;
-	char	output[sizeof(int) * 2];
-	int		i;
+	t_list	*list;
 
-	i = 7;
-	base = "0123456789abcdef";
-	while (value > 0)
+	list = (t_list*)malloc(sizeof(t_list));
+	if (list == NULL)
+		return (NULL);
+	if (content == NULL)
 	{
-		output[i] = base[value % 16];
-		value /= 16;
-		i--;
+		list->content = NULL;
+		list->content_size = 0;
 	}
-	while (i >= 8 - length && i >= 0)
-		output[i--] = '0';
-	while (i < 8)
-		ft_putchar(output[i++]);
+	else
+	{
+		list->content = (unsigned char*)malloc(content_size);
+		list->content_size = content_size;
+		ft_memcpy(list->content, content, content_size);
+	}
+	list->next = NULL;
+	return (list);
 }
