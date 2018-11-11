@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft.h"
 #include <unistd.h>
 
 #include <stdio.h>
@@ -27,22 +28,6 @@ static int	get_line_end(const char *s, int maxlen)
 	return (-1);
 }
 
-static void	ft_list_push_back(t_list **begin_list,
-		void *content, int content_size)
-{
-	t_list	*current;
-
-	if (*begin_list == NULL)
-		*begin_list = ft_lstnew(content, content_size);
-	else
-	{
-		current = *begin_list;
-		while (current->next != NULL)
-			current = current->next;
-		current->next = ft_lstnew(content, content_size);
-	}
-}
-
 static char	*ft_list_to_str(t_list *list)
 {
 	t_list			*tmp;
@@ -52,8 +37,8 @@ static char	*ft_list_to_str(t_list *list)
 
 	tmp = list;
 	len = 0;
-	line_len = 0;
-	while (line_len != -1 && tmp != NULL)
+	line_len = -1;
+	while (line_len == -1 && tmp != NULL)
 	{
 		line_len = get_line_end(tmp->content, tmp->content_size);
 		len += (line_len == -1 ? tmp->content_size : line_len);
@@ -62,11 +47,12 @@ static char	*ft_list_to_str(t_list *list)
 	if ((output = (char*)malloc(len + 1)) == NULL)
 		return (NULL);
 	len = 0;
-	line_len = 0;
-	while (line_len != -1 && list != NULL)
+	line_len = -1;
+	while (line_len == -1 && list != NULL)
 	{
 		line_len = get_line_end(list->content, list->content_size);
-		ft_memcpy(output + len, list->content, list->content_size);
+		ft_memcpy(output + len, list->content,
+			(line_len == -1 ? list->content_size : line_len));
 		len += (line_len == -1 ? list->content_size : line_len);
 		list = list->next;
 	}
@@ -74,10 +60,33 @@ static char	*ft_list_to_str(t_list *list)
 	return (output);
 }
 
-static void	t_list_shorten(t_list **list)
+static void	ft_list_shorten(t_list **list)
 {
-	*list = 0;
-	(void)list;
+	char	*tmp;
+	int		npos;
+
+	if (*list == NULL)
+		return ;
+	while ((*list)->next != NULL)
+	{
+		tmp = (char*)*list;
+		(*list) = (*list)->next;
+		free(tmp);
+	}
+	tmp = (*list)->content;
+	npos = get_line_end(tmp, (*list)->content_size);
+	if (npos != -1)
+	{
+		tmp += npos + 1;
+		(*list)->content = tmp;
+		(*list)->content_size = (*list)->content_size - npos - 1;
+	}
+	else
+	{
+		free((*list)->content);
+		free(*list);
+		*list = NULL;
+	}
 }
 
 int			get_next_line(const int fd, char **line)
@@ -92,7 +101,7 @@ int			get_next_line(const int fd, char **line)
 	{
 		read_chars = read(fd, buffer, BUFF_SIZE);
 		buffer[read_chars > 0 ? read_chars : 0] = EOF;
-		ft_list_push_back(&prevbuffer,
+		ft_lstpush(&prevbuffer,
 			ft_strsub(buffer, 0, read_chars), read_chars);
 		if (read_chars <= 0)
 			return (read_chars);
@@ -100,6 +109,6 @@ int			get_next_line(const int fd, char **line)
 			break ;
 	}
 	*line = ft_list_to_str(prevbuffer);
-	t_list_shorten(&prevbuffer);
+	ft_list_shorten(&prevbuffer);
 	return (1);
 }

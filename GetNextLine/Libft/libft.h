@@ -95,5 +95,7 @@ char			ft_get_bit(int nbr, int idx);
 void			*ft_print_memory(void *addr, unsigned int size);
 void			ft_print_hex(unsigned int value, int length);
 char			*ft_strins(char *dest, const char *src, unsigned int pos);
+void			ft_lstpush(t_list **begin_list, void *content,
+													int content_size);
 
 #endif

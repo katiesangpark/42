@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_lstpush.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/11 16:25:06 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/11 16:25:07 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/11 19:21:29 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/11 19:21:30 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define EOF (-1)
-# define BUFF_SIZE (32)
+#include "libft.h"
 
-int			get_next_line(const int fd, char **line);
+void	ft_lstpush(t_list **begin_list, void *content, int content_size)
+{
+	t_list	*current;
 
-#endif
+	if (*begin_list == NULL)
+		*begin_list = ft_lstnew(content, content_size);
+	else
+	{
+		current = *begin_list;
+		while (current->next != NULL)
+			current = current->next;
+		current->next = ft_lstnew(content, content_size);
+	}
+}

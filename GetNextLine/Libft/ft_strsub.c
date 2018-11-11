@@ -23,11 +23,11 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 	if (output == NULL)
 		return (NULL);
 	i = 0;
-	while (i < len)
+	output[len] = '\0';
+	while (len--)
 	{
 		output[i] = s[start + i];
 		i++;
 	}
-	output[len] = '\0';
 	return (output);
 }
