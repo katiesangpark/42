@@ -26,7 +26,7 @@ void	ft_print_hex(unsigned int value, int length)
 		value /= 16;
 		i--;
 	}
-	while (i >= 8 - length)
+	while (i >= 8 - length && i >= 0)
 		output[i--] = '0';
 	while (i < 8)
 		ft_putchar(output[i++]);

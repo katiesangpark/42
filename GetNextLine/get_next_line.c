@@ -5,35 +5,46 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 06:28:55 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/08 06:28:55 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/11 16:25:04 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/11 16:25:04 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "libft/libft.h"
+#include <unistd.h>
+
+static int	get_line_end(const char *s)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == EOF || s[i] == '\n')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
 
 int			get_next_line(const int fd, char **line)
 {
-	char	*npos;
-	char	*output;
 	char	buffer[BUFF_SIZE + 1];
-	static char	*linebuffer;
 	int		read_chars;
 
-	output = NULL;
-	buffer[BUFF_SIZE] = '\0';
-	while ((read_chars = read(fd, buffer, BUFF_SIZE - 1)) > 0)
+	if (fd < 0 || line == 0)
+		return (-1);
+	while (1)
 	{
-		if ((npos = ft_strchr(buffer, '\n')) != NULL)
+		read_chars = read(fd, buffer, BUFF_SIZE);
+		buffer[read_chars > 0 ? read_chars : 0] = '\0';
+		if (read_chars <= 0)
+			return (read_chars);
+		if (get_line_end(buffer) != -1)
 		{
-			if (output == NULL) {
-				output = ft_strsub(buffer, 0, (size_t)(npos - buffer));
-				linebuffer = ft_strdup(npos);
-			}
-			break;
+			*line = ft_strsub(buffer, 0, get_line_end(buffer));
+			break ;
 		}
 	}
-	*line = output;
-	return (0);
+	return (1);
 }
