@@ -28,22 +28,39 @@ static int	get_line_end(const char *s, int maxlen)
 	return (-1);
 }
 
+static int	check_previous_buffer(t_list *prevbuff, int *read_chars)
+{
+	int		npos;
+	int		line_len;
+
+	npos = 0;
+	if (read_chars != NULL && prevbuff != NULL)
+	{
+		*read_chars = 0;
+		npos = get_line_end(prevbuff->content, prevbuff->content_size);
+		if (npos != -1)
+			*read_chars = -2;
+	}
+	else if (prevbuff != NULL && read_chars == NULL)
+	{
+		line_len = -1;
+		while (line_len == -1 && prevbuff != NULL)
+		{
+			line_len = get_line_end(prevbuff->content, prevbuff->content_size);
+			npos += (line_len == -1 ? prevbuff->content_size : line_len);
+			prevbuff = prevbuff->next;
+		}
+	}
+	return (npos);
+}
+
 static char	*ft_list_to_str(t_list *list)
 {
-	t_list			*tmp;
 	char			*output;
 	int				len;
 	int				line_len;
 
-	tmp = list;
-	len = 0;
-	line_len = -1;
-	while (line_len == -1 && tmp != NULL)
-	{
-		line_len = get_line_end(tmp->content, tmp->content_size);
-		len += (line_len == -1 ? tmp->content_size : line_len);
-		tmp = tmp->next;
-	}
+	len = check_previous_buffer(list, NULL);
 	if ((output = (char*)malloc(len + 1)) == NULL)
 		return (NULL);
 	len = 0;
@@ -69,7 +86,7 @@ static void	ft_list_shorten(t_list **list)
 		return ;
 	while ((*list)->next != NULL)
 	{
-		tmp = (char*)*list;
+		tmp = (char*)(*list);
 		(*list) = (*list)->next;
 		free(tmp);
 	}
@@ -97,7 +114,8 @@ int			get_next_line(const int fd, char **line)
 
 	if (fd < 0 || line == 0)
 		return (-1);
-	while (1)
+	check_previous_buffer(prevbuffer, &read_chars);
+	while (read_chars != -2)
 	{
 		read_chars = read(fd, buffer, BUFF_SIZE);
 		buffer[read_chars > 0 ? read_chars : 0] = EOF;
