@@ -1,44 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstdelelem.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/11 16:28:44 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/11 16:28:45 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/15 03:34:39 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/15 03:34:40 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
+#include "libft.h"
 
-int		main(int ac, char **av)
+void	ft_lstdelelem(t_list **alst, t_list *elem)
 {
-	char	*line;
-	int		idx;
-	int		fd;
-	int		tmp;
+	t_list *prev;
+	t_list *curr;
 
-	if (ac == 1)
-		return (0);
-	idx = 0;
-	fd = open(av[1], O_RDONLY);
-	while (1)
+	if (alst == NULL || *alst == NULL || elem == NULL)
+		return ;
+	curr = *alst;
+	prev = NULL;
+	while (curr != NULL)
 	{
-		tmp = get_next_line(fd, &line);
-		if (tmp == 0)
+		if (curr == elem)
 		{
-			printf("EOF\n");
-			break ;
+			if (prev != NULL)
+				prev->next = elem->next;
+			else
+				*alst = elem->next;
+			ft_memdel(&elem->content);
+			free(elem);
+			return ;
 		}
-		else if (tmp < 0)
-		{
-			printf("ERROR\n");
-			break ;
-		}
-		printf("%d. %s\n", idx++, line);
+		prev = curr;
+		curr = curr->next;
 	}
-	return (0);
 }

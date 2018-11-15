@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_lstdelelem.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 16:22:16 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/06 16:22:16 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/15 03:34:39 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/15 03:34:40 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strnstr(const char *s1, const char *s2, size_t length)
+void	ft_lstdelelem(t_list **alst, t_list *elem)
 {
-	size_t	i;
-	size_t	i2;
+	t_list *prev;
+	t_list *curr;
 
-	i = 0;
-	while (s1[i] != '\0' && i < length)
+	if (alst == NULL || *alst == NULL || elem == NULL)
+		return ;
+	curr = *alst;
+	prev = NULL;
+	while (curr != NULL)
 	{
-		i2 = 0;
-		while (s1[i + i2] == s2[i2] && s1[i + i2] && i + i2 < length)
-			i2++;
-		if (s2[i2] == '\0')
-			return ((char*)s1 + i);
-		i++;
+		if (curr == elem)
+		{
+			if (prev != NULL)
+				prev->next = elem->next;
+			else
+				*alst = elem->next;
+			ft_memdel(&elem->content);
+			free(elem);
+			return ;
+		}
+		prev = curr;
+		curr = curr->next;
 	}
-	if (s1[0] == '\0' && s2[0] == '\0')
-		return ((char*)s1);
-	return (NULL);
 }
