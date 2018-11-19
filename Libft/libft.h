@@ -41,7 +41,7 @@ size_t			ft_strlcat(char *dst, const char *src, size_t size);
 char			*ft_strchr(const char *str, int character);
 char			*ft_strrchr(const char *str, int character);
 char			*ft_strstr(const char *str1, const char *str2);
-char			*ft_strnstr(const char *s1, const char *s2, int length);
+char			*ft_strnstr(const char *s1, const char *s2, size_t length);
 int				ft_strcmp(const char *str1, const char *str2);
 int				ft_strncmp(const char *str1, const char *str2, size_t num);
 int				ft_atoi(const char *str);
@@ -95,5 +95,12 @@ char			ft_get_bit(int nbr, int idx);
 void			*ft_print_memory(void *addr, unsigned int size);
 void			ft_print_hex(unsigned int value, int length);
 char			*ft_strins(char *dest, const char *src, unsigned int pos);
+t_list			*ft_lstpush(t_list **begin_list, void *content,
+							int content_size);
+void			ft_lstdelelem(t_list **alst, t_list *elem);
+char			*ft_strjoinfree(char *source, const char *concat);
+void			*ft_realloc(void *ptr, size_t size);
+int				ft_floor(int min, int value);
+int				ft_ceil(int max, int value);
 
 #endif

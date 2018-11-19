@@ -15,94 +15,60 @@
 #include <unistd.h>
 #include <stdio.h>
 
-static t_list	*get_prev_buffer(t_list **list, const int fd)
+static int		copy_line(char **line, char **prevbuffer)
 {
-	t_list	*lst;
+	char	*tmp;
 
-	lst = *list;
-	while (lst != NULL)
+	*line = ft_strsub(*prevbuffer, 0,
+		(size_t)ft_strchr(*prevbuffer, '\n') - (size_t)*prevbuffer);
+	if (*line == NULL)
 	{
-		if ((int)lst->content_size == fd)
-			return (lst);
-		lst = lst->next;
-	}
-	return (ft_lstpush(list, "", fd));
-}
-
-static int		free_prevbuffer(t_list **prevbuffer)
-{
-	t_list	*list;
-	t_list	*tmp;
-
-	if (prevbuffer == NULL)
+		ft_strdel(prevbuffer);
 		return (-1);
-	list = *prevbuffer;
-	while (list != NULL)
-	{
-		tmp = list;
-		list = list->next;
-		free(tmp);
-		ft_memdel(&tmp->content);
 	}
-	*prevbuffer = NULL;
-	return (-1);
-}
-
-static int		copy_to_str(t_list *current, char **line,
-					t_list **prevbuffer)
-{
-	char	*tmp;
-	char	*npos;
-
-	if ((npos = ft_strchr(current->content, '\n')) == NULL)
-	{
-		*line = current->content;
-		current->content = NULL;
-		return (1);
-	}
-	if ((*line = ft_strsub(current->content,
-			0, npos - (char*)current->content)) == NULL)
-	{
-		free(current->content);
-		*line = NULL;
-		return (free_prevbuffer(prevbuffer));
-	}
-	tmp = current->content;
-	current->content = ft_strdup(npos + 1);
+	tmp = *prevbuffer;
+	*prevbuffer = ft_strdup(ft_strchr(*prevbuffer, '\n') + 1);
 	free(tmp);
-	return (current->content == NULL ? (free_prevbuffer(prevbuffer)) : 1);
+	return (*prevbuffer == NULL ? -1 : 1);
 }
 
-static char		*append_str(char *s1, const char *s2)
+static int		copy_rest(char **line, char **prevbuffer)
 {
-	char	*tmp;
-
-	tmp = ft_strjoin(s1, s2);
-	free(s1);
-	return (tmp);
+	if (*prevbuffer != NULL && ft_strlen(*prevbuffer) == 0)
+	{
+		ft_strdel(prevbuffer);
+		return (0);
+	}
+	*line = *prevbuffer;
+	*prevbuffer = NULL;
+	return (1);
 }
 
 int				get_next_line(const int fd, char **line)
 {
-	int				read_chars;
+	int				ret;
 	char			buffer[BUFF_SIZE + 1];
-	static t_list	*prevbuffer = NULL;
-	t_list			*current;
+	static char		*prevbuffer = NULL;
 
 	if (fd < 0 || line == 0 || BUFF_SIZE <= 0)
 		return (-1);
-	if ((current = get_prev_buffer(&prevbuffer, fd)) == NULL)
-		return (free_prevbuffer(&prevbuffer));
-	while ((read_chars = read(fd, buffer, BUFF_SIZE)) > 0)
+	if (prevbuffer == NULL || ft_strchr(prevbuffer, '\n') == NULL)
 	{
-		buffer[read_chars] = '\0';
-		if ((current->content = append_str(current->content, buffer)) == NULL)
-			return (free_prevbuffer(&prevbuffer));
-		if (ft_strchr(buffer, '\n') || read_chars < BUFF_SIZE)
-			break ;
+		ret = 1;
+		while (ft_strchr(prevbuffer, '\n') == NULL && ret > 0)
+		{
+			ret = read(fd, buffer, BUFF_SIZE);
+			buffer[ft_floor(0, ret)] = '\0';
+			if ((prevbuffer = ft_strjoinfree(prevbuffer, buffer)) == NULL)
+				return (-1);
+		}
+		if (ret == -1)
+		{
+			ft_strdel(&prevbuffer);
+			return (-1);
+		}
 	}
-	if (read_chars == 0 && current->content == NULL)
-		return (read_chars);
-	return (read_chars == -1 ? free_prevbuffer(&prevbuffer)
-			: copy_to_str(current, line, &prevbuffer));
+	if (ft_strchr(prevbuffer, '\n') != NULL)
+		return (copy_line(line, &prevbuffer));
+	return (copy_rest(line, &prevbuffer));
 }

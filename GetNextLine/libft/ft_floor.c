@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_floor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 15:48:54 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/06 15:48:55 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/19 01:56:16 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/19 01:56:16 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char		*ft_strchr(const char *str, int character)
+int	ft_floor(int min, int value)
 {
-	unsigned int	i;
-
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != character)
-	{
-		i++;
-	}
-	if (str[i] == character)
-		return ((char*)str + i);
-	return (0);
+	if (value < min)
+		return (min);
+	return (value);
 }

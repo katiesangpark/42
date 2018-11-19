@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strrealloc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 15:48:54 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/06 15:48:55 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/16 00:17:31 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/16 00:17:32 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strchr(const char *str, int character)
+char		*ft_strjoinfree(char *source, const char *concat)
 {
-	unsigned int	i;
+	char	*tmp;
 
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != character)
-	{
-		i++;
-	}
-	if (str[i] == character)
-		return ((char*)str + i);
-	return (0);
+	if (source == NULL)
+		tmp = ft_strdup(concat);
+	else
+		tmp = ft_strjoin(source, concat);
+	free(source);
+	return (tmp);
 }

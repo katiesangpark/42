@@ -35,10 +35,9 @@ char		*ft_itoa(int n)
 	if (n == INT_MIN)
 		return (ft_strdup("-2147483648"));
 	len = nbr_length(n);
-	output = (char*)malloc(len + 1);
+	output = ft_strnew(len);
 	if (output == 0)
 		return (0);
-	output[len] = '\0';
 	output[0] = '0';
 	if (n < 0)
 		output[0] = '-';

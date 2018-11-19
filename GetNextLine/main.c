@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 15:48:54 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/06 15:48:55 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/16 00:06:52 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/16 00:06:52 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
+#include <fcntl.h>
+#include "get_next_line.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-char		*ft_strchr(const char *str, int character)
+int	main(void)
 {
-	unsigned int	i;
+	int		fd;
+	int		idx;
+	char	*s;
 
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != character)
+	idx = 0;
+	s = NULL;
+	fd = open("get_next_line.c", O_RDWR);
+	while ((get_next_line(fd, &s)) > 0)
 	{
-		i++;
+		printf("%d. %s\n", idx++, s);
+		free(s);
 	}
-	if (str[i] == character)
-		return ((char*)str + i);
 	return (0);
 }

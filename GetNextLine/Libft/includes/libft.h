@@ -98,5 +98,9 @@ char			*ft_strins(char *dest, const char *src, unsigned int pos);
 t_list			*ft_lstpush(t_list **begin_list, void *content,
 							int content_size);
 void			ft_lstdelelem(t_list **alst, t_list *elem);
+char			*ft_strjoinfree(char *source, const char *concat);
+void			*ft_realloc(void *ptr, size_t size);
+int				ft_floor(int min, int value);
+int				ft_ceil(int max, int value);
 
 #endif
