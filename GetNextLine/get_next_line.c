@@ -13,7 +13,6 @@
 #include "get_next_line.h"
 #include "libft.h"
 #include <unistd.h>
-#include <stdio.h>
 
 static int		copy_line(char **line, char **prevbuffer)
 {
@@ -44,31 +43,52 @@ static int		copy_rest(char **line, char **prevbuffer)
 	return (1);
 }
 
+static int		copy_str(char **line, char **prevbuffer)
+{
+	if (ft_strchr(*prevbuffer, '\n') != NULL)
+		return (copy_line(line, prevbuffer));
+	return (copy_rest(line, prevbuffer));
+}
+
+static char		*ft_strjoinfree2(char *source, char *concat)
+{
+	char	*tmp;
+
+	if (source == NULL)
+		tmp = ft_strdup(concat);
+	else
+		tmp = ft_strjoin(source, concat);
+	free(source);
+	if (tmp == NULL)
+		free(concat);
+	return (tmp);
+}
+
 int				get_next_line(const int fd, char **line)
 {
 	int				ret;
-	char			buffer[BUFF_SIZE + 1];
+	char			*buffer;
 	static char		*prevbuffer = NULL;
 
 	if (fd < 0 || line == 0 || BUFF_SIZE <= 0)
 		return (-1);
-	if (prevbuffer == NULL || ft_strchr(prevbuffer, '\n') == NULL)
+	if ((!prevbuffer || ft_strchr(prevbuffer, '\n') == NULL) && (ret = 1))
 	{
-		ret = 1;
-		while (ft_strchr(prevbuffer, '\n') == NULL && ret > 0)
+		buffer = ft_strnew(BUFF_SIZE);
+		while (buffer != NULL && ft_strchr(prevbuffer, '\n') == NULL && ret > 0)
 		{
 			ret = read(fd, buffer, BUFF_SIZE);
 			buffer[ft_floor(0, ret)] = '\0';
-			if ((prevbuffer = ft_strjoinfree(prevbuffer, buffer)) == NULL)
+			if (ret >= 0 && !(prevbuffer = ft_strjoinfree2(prevbuffer, buffer)))
 				return (-1);
 		}
-		if (ret == -1)
+		if (buffer != NULL)
+			free(buffer);
+		if (ret == -1 || buffer == NULL)
 		{
 			ft_strdel(&prevbuffer);
 			return (-1);
 		}
 	}
-	if (ft_strchr(prevbuffer, '\n') != NULL)
-		return (copy_line(line, &prevbuffer));
-	return (copy_rest(line, &prevbuffer));
+	return (copy_str(line, &prevbuffer));
 }
