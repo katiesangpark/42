@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/26 05:27:08 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/07 02:26:17 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/07 02:26:17 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+void			ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	int result;
-	int i;
-	int mult;
+	t_list *next;
+	t_list *tmp;
 
-	i = 0;
-	result = 0;
-	mult = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' \
-		|| str[i] == '\n' || str[i] == '\r' || str[i] == '\f')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (alst == NULL || *alst == NULL || del == NULL)
+		return ;
+	next = *alst;
+	while (next != NULL)
 	{
-		if (str[i] == '-')
-			mult = -1;
-		i++;
+		tmp = next;
+		next = next->next;
+		del(tmp->content, tmp->content_size);
+		free(tmp);
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-		result = result * 10 + str[i++] - '0';
-	return (result * mult);
+	*alst = NULL;
 }

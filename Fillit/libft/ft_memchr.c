@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/26 05:27:08 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/06 16:14:19 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/06 16:14:19 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+void			*ft_memchr(const void *s, int c, size_t n)
 {
-	int result;
-	int i;
-	int mult;
+	unsigned int	i;
+	unsigned char	*src;
 
 	i = 0;
-	result = 0;
-	mult = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' \
-		|| str[i] == '\n' || str[i] == '\r' || str[i] == '\f')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	src = (unsigned char*)s;
+	while (i < n)
 	{
-		if (str[i] == '-')
-			mult = -1;
+		if (src[i] == (unsigned char)c)
+			return (src + i);
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-		result = result * 10 + str[i++] - '0';
-	return (result * mult);
+	return (NULL);
 }

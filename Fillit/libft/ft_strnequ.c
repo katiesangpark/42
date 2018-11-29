@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strnequ.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/26 05:27:08 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/06 19:05:39 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/06 19:05:40 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+int	ft_strnequ(char const *s1, char const *s2, size_t n)
 {
-	int result;
-	int i;
-	int mult;
+	unsigned int	i;
 
+	if (s1 == NULL || s2 == NULL)
+		return (0);
 	i = 0;
-	result = 0;
-	mult = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' \
-		|| str[i] == '\n' || str[i] == '\r' || str[i] == '\f')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	while (i < n && s1[i] && s2[i])
 	{
-		if (str[i] == '-')
-			mult = -1;
+		if (s1[i] != s2[i])
+			return (0);
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-		result = result * 10 + str[i++] - '0';
-	return (result * mult);
+	if (i < n)
+		return (s1[i] == s2[i]);
+	return (1);
 }

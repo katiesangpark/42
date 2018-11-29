@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_print_hex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/26 05:27:08 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/10 02:39:29 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/10 02:39:30 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+void	ft_print_hex(unsigned int value, int length)
 {
-	int result;
-	int i;
-	int mult;
+	char	*base;
+	char	output[sizeof(int) * 2];
+	int		i;
 
-	i = 0;
-	result = 0;
-	mult = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' \
-		|| str[i] == '\n' || str[i] == '\r' || str[i] == '\f')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	i = 7;
+	base = "0123456789abcdef";
+	while (value > 0)
 	{
-		if (str[i] == '-')
-			mult = -1;
-		i++;
+		output[i] = base[value % 16];
+		value /= 16;
+		i--;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-		result = result * 10 + str[i++] - '0';
-	return (result * mult);
+	while (i >= 8 - length && i >= 0)
+		output[i--] = '0';
+	while (i < 8)
+		ft_putchar(output[i++]);
 }

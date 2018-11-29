@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/26 05:27:08 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/06 16:03:07 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/06 16:03:07 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+void			*ft_memmove(void *dest, const void *src, size_t n)
 {
-	int result;
-	int i;
-	int mult;
+	unsigned int	i;
+	unsigned char	*destination;
+	unsigned char	*source;
 
-	i = 0;
-	result = 0;
-	mult = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' \
-		|| str[i] == '\n' || str[i] == '\r' || str[i] == '\f')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (n != 0)
 	{
-		if (str[i] == '-')
-			mult = -1;
-		i++;
+		if (dest < src)
+			ft_memcpy(dest, src, n);
+		else
+		{
+			destination = (unsigned char*)dest;
+			source = (unsigned char*)src;
+			i = n;
+			while (i-- != 0)
+			{
+				destination[i] = source[i];
+			}
+		}
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-		result = result * 10 + str[i++] - '0';
-	return (result * mult);
+	return (dest);
 }

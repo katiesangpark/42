@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_putstr_non_printable.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/26 05:27:08 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/25 07:24:45 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/25 07:24:46 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+void	*ft_putstr_non_printable(char *str)
 {
-	int result;
 	int i;
-	int mult;
 
 	i = 0;
-	result = 0;
-	mult = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' \
-		|| str[i] == '\n' || str[i] == '\r' || str[i] == '\f')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	while (str[i])
 	{
-		if (str[i] == '-')
-			mult = -1;
+		if (str[i] < 32 || str[i] > 126)
+		{
+			ft_putchar('\\');
+			ft_print_hex(str[i], 2);
+		}
+		else
+			ft_putchar(str[i]);
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-		result = result * 10 + str[i++] - '0';
-	return (result * mult);
+	return (0);
 }

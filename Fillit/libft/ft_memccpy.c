@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/26 05:27:08 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/06 15:27:52 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/06 15:27:52 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+void			*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
-	int result;
-	int i;
-	int mult;
+	unsigned int	i;
+	unsigned char	cmp;
+	unsigned char	*dst;
+	unsigned char	*source;
 
-	i = 0;
-	result = 0;
-	mult = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' \
-		|| str[i] == '\n' || str[i] == '\r' || str[i] == '\f')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (n != 0)
 	{
-		if (str[i] == '-')
-			mult = -1;
-		i++;
+		i = 0;
+		cmp = (unsigned char)c;
+		dst = (unsigned char*)dest;
+		source = (unsigned char*)src;
+		while (i < n)
+		{
+			dst[i] = source[i];
+			if (source[i] == cmp)
+				return (dst + i + 1);
+			i++;
+		}
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-		result = result * 10 + str[i++] - '0';
-	return (result * mult);
+	return (NULL);
 }

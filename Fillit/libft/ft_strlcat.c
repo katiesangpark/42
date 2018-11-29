@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/26 05:27:08 by kicausse         ###   ########.fr       */
+/*   Updated: 2018/11/06 07:09:23 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+size_t			ft_strlcat(char *dst, const char *src, size_t size)
 {
-	int result;
-	int i;
-	int mult;
+	size_t i;
+	size_t offset;
+	size_t srclen;
 
+	offset = 0;
+	while (dst[offset] != '\0')
+		offset++;
 	i = 0;
-	result = 0;
-	mult = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' \
-		|| str[i] == '\n' || str[i] == '\r' || str[i] == '\f')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	srclen = 0;
+	while (src[i] != '\0' && offset + i < size - 1)
 	{
-		if (str[i] == '-')
-			mult = -1;
+		if (size != 0)
+			dst[offset + i] = src[i];
 		i++;
+		srclen++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-		result = result * 10 + str[i++] - '0';
-	return (result * mult);
+	if (size != 0)
+		dst[offset + i] = '\0';
+	while (src[srclen] != '\0')
+		srclen++;
+	if (size < offset)
+		return (srclen + size);
+	return (offset + srclen);
 }

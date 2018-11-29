@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/26 05:27:08 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/06 16:22:16 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/06 16:22:16 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+char		*ft_strnstr(const char *s1, const char *s2, size_t length)
 {
-	int result;
-	int i;
-	int mult;
+	size_t	i;
+	size_t	i2;
 
 	i = 0;
-	result = 0;
-	mult = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' \
-		|| str[i] == '\n' || str[i] == '\r' || str[i] == '\f')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	while (s1[i] != '\0' && i < length)
 	{
-		if (str[i] == '-')
-			mult = -1;
+		i2 = 0;
+		while (s1[i + i2] == s2[i2] && s1[i + i2] && i + i2 < length)
+			i2++;
+		if (s2[i2] == '\0')
+			return ((char*)s1 + i);
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-		result = result * 10 + str[i++] - '0';
-	return (result * mult);
+	if (s1[0] == '\0' && s2[0] == '\0')
+		return ((char*)s1);
+	return (NULL);
 }

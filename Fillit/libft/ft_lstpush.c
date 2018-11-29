@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_lstpush.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/26 05:27:08 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/11 19:21:29 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/11 19:21:30 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+t_list	*ft_lstpush(t_list **begin_list, void *content, int content_size)
 {
-	int result;
-	int i;
-	int mult;
+	t_list	*current;
 
-	i = 0;
-	result = 0;
-	mult = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' \
-		|| str[i] == '\n' || str[i] == '\r' || str[i] == '\f')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (*begin_list == NULL)
 	{
-		if (str[i] == '-')
-			mult = -1;
-		i++;
+		*begin_list = ft_lstnew(content, content_size);
+		return (*begin_list);
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-		result = result * 10 + str[i++] - '0';
-	return (result * mult);
+	else
+	{
+		current = *begin_list;
+		while (current->next != NULL)
+			current = current->next;
+		current->next = ft_lstnew(content, content_size);
+	}
+	return (current->next);
 }

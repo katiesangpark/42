@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strins.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/26 05:27:08 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/08 05:47:20 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/08 05:47:21 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+char	*ft_strins(char *dest, const char *src, unsigned int pos)
 {
-	int result;
-	int i;
-	int mult;
+	unsigned int	i;
+	unsigned int	destlen;
+	unsigned int	offset;
 
-	i = 0;
-	result = 0;
-	mult = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' \
-		|| str[i] == '\n' || str[i] == '\r' || str[i] == '\f')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (dest == NULL || src == NULL)
+		return (NULL);
+	destlen = ft_strlen(dest);
+	offset = ft_strlen(src);
+	i = destlen + offset;
+	while (i > pos)
 	{
-		if (str[i] == '-')
-			mult = -1;
+		dest[i] = dest[i - offset];
+		i--;
+	}
+	i = 0;
+	while (i < offset)
+	{
+		dest[pos + i] = src[i];
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-		result = result * 10 + str[i++] - '0';
-	return (result * mult);
+	dest[destlen + offset] = '\0';
+	return (dest);
 }
