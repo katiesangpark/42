@@ -35,12 +35,16 @@ static t_specifier	*get_specifiers(const char *format)
 
 static void			print_arg(va_list args, t_specifier *spec)
 {
-	if (charset_match("diouxX", spec->option))
+	if (spec->option == 'p')
+		int_handling(va_arg(args, long), spec);
+	else if (charset_match("diouxX", spec->option))
 		int_handling(va_arg(args, int), spec);
 	else if (spec->option == 's')
 		ft_putstr(va_arg(args, char *));
 	else if (spec->option == 'c')
 		ft_putchar(va_arg(args, int));
+	else if (spec->option == '%')
+		ft_putchar('%');
 }
 
 int					ft_printf(const char *format, ...)

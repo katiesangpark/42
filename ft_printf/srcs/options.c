@@ -47,8 +47,6 @@ int			parse_option(t_specifier **specifiers, char *str, int idx)
 
 	if (*str == '\0')
 		return (0);
-	if (*str == '%')
-		return (2);
 	(void)ft_get_flag;
 	spec = spec_lst_new(0, NULL, idx);
 	spec->option = *str;

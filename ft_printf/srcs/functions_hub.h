@@ -20,11 +20,11 @@ typedef struct	s_opp
 	void	(*function)(int, t_specifier*);
 }				t_opp;
 
-void			int_handling(int value, t_specifier *spec);
+void			int_handling(long value, t_specifier *spec);
 
 void			ft_putinbr(int n);
 void			ft_putuinbr(unsigned int n);
 void			ft_putnbr_octal(unsigned int n);
-void			ft_print_hex2(unsigned int value, char *base);
+void			ft_print_hex2(unsigned long value, char *base);
 
 #endif

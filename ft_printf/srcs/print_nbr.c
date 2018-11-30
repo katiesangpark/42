@@ -44,18 +44,20 @@ void	ft_putnbr_octal(unsigned int n)
 	ft_putchar('0' + n % 8);
 }
 
-void	ft_print_hex2(unsigned int value, char *base)
+void	ft_print_hex2(unsigned long value, char *base)
 {
-	char	output[8];
+	char	output[32];
 	int		i;
 
-	i = 7;
+	i = 31;
+	if (value == 0)
+		ft_putchar(base[0]);
 	while (value > 0)
 	{
 		output[i] = base[value % 16];
 		value /= 16;
 		i--;
 	}
-	while (++i < 8)
+	while (++i < 32)
 		ft_putchar(output[i]);
 }

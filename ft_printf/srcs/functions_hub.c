@@ -12,19 +12,19 @@
 
 #include "functions_hub.h"
 #include "utils.h"
-#include <stdio.h>
+#include "libft.h"
 
-t_opp g_opptab[] =
-{
-	{'d', &int_handling},
-};
-
-void	int_handling(int value, t_specifier *spec)
+void	int_handling(long value, t_specifier *spec)
 {
 	if (charset_match("di", spec->option))
 		ft_putinbr(value);
 	else if (spec->option == 'x')
 		ft_print_hex2(*(unsigned int*)&value, "0123456789abcdef");
+	else if (spec->option == 'p')
+	{
+		ft_putstr("0x");
+		ft_print_hex2(*(unsigned long*)&value, "0123456789abcdef");
+	}
 	else if (spec->option == 'X')
 		ft_print_hex2(*(unsigned int*)&value, "0123456789ABCDEF");
 	else if (spec->option == 'o')
