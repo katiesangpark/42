@@ -103,5 +103,7 @@ void			*ft_realloc(void *ptr, size_t size);
 int				ft_floor(int min, int value);
 int				ft_ceil(int max, int value);
 void			*ft_putstr_non_printable(char *str);
+void			ft_putnbrendl(int n);
+void			ft_putnstr(char *str, unsigned int n);
 
 #endif

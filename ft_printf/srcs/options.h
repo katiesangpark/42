@@ -12,12 +12,12 @@
 
 #ifndef OPTIONS_H
 # define OPTIONS_H
-# define OPTIONS ("cspdiouxX%f")
+# define OPTIONS ("cspdiouxXf")
 # define FLAGS ("h;hh;l;ll")
+# define FLAG_COUNT (4)
 # include "lists.h"
 
-int			is_valid_option(char *c);
-int			is_valid_flag(char *c);
-int			parse_option(t_specifier **specifiers, char *str);
+int			is_valid_option(char c);
+int			parse_option(t_specifier **specifiers, char *str, int idx);
 
 #endif

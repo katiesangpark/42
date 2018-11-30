@@ -12,7 +12,8 @@
 
 NAME 	= 	libftprintf
 
-SRC 	= 	srcs/ft_printf.c srcs/lists.c srcs/options.c
+SRC 	= 	srcs/ft_printf.c srcs/lists.c srcs/options.c srcs/functions_hub.c \
+			srcs/utils.c srcs/print_nbr.c
 
 CC		=	gcc
 
@@ -22,7 +23,8 @@ CFLAGS 	= 	-Wall -Wextra -Werror -Ilibft
 
 all: $(NAME)
 
-$(NAME): $(OBJ) Makefile 
+$(NAME): libft/ $(OBJ) Makefile 
+	make -C libft/
 	ar rc $(NAME).a $(OBJ) 
 
 clean:

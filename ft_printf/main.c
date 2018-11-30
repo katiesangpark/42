@@ -15,6 +15,7 @@
 
 int main(void)
 {
-	ft_printf("%s %d\n", "test", 5);
+	ft_printf("String is : [%s] Number is : [%x]\n", "test", 0xABCDEF);
+	printf("String is : [%s] Number is : [%x]\n", "test", 0xABCDEF);
 	return 0;
 }

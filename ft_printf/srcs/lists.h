@@ -15,13 +15,15 @@
 
 typedef struct	s_specifier
 {
-	char	option;
-	char	*flag;
+	char				option;
+	char				*flag;
+	int					idx;
+	int					len;
 	struct s_specifier	*next;
 }				t_specifier;
 
-t_specifier			*spec_lst_new(char option, char *flag);
-t_specifier			*spec_lst_push(t_specifier **begin_list, char option, char *flag);
-void				spec_lst_clear(t_specifier *lst);
+t_specifier		*spec_lst_new(char option, char *flag, int idx);
+void			spec_lst_clear(t_specifier *lst);
+void			spec_lst_push(t_specifier **begin_list, t_specifier *spec);
 
 #endif

@@ -27,7 +27,7 @@ SRC 	= 	ft_abs.c ft_atoi.c ft_bzero.c ft_ceil.c ft_floor.c ft_get_bit.c \
 			ft_strlen.c ft_strmap.c ft_strmapi.c ft_strncat.c ft_strncmp.c \
 			ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c ft_strrchr.c \
 			ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtolower.c ft_strtoupper.c \
-			ft_strtrim.c ft_tolower.c ft_toupper.c ft_putnbrendl.c
+			ft_strtrim.c ft_tolower.c ft_toupper.c ft_putnbrendl.c ft_putnstr.c
 
 OBJ 	= 	$(SRC:.c=.o)
 
@@ -36,7 +36,6 @@ CFLAGS 	= 	-Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
 
 clean:
 	/bin/rm -f $(OBJ)

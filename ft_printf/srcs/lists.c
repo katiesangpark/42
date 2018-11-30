@@ -13,7 +13,7 @@
 #include "lists.h"
 #include <stdlib.h>
 
-t_specifier		*spec_lst_new(char option, char *flag)
+t_specifier		*spec_lst_new(char option, char *flag, int idx)
 {
 	t_specifier	*tmp;
 
@@ -21,30 +21,30 @@ t_specifier		*spec_lst_new(char option, char *flag)
 		return (NULL);
 	tmp->flag = flag;
 	tmp->option = option;
+	tmp->idx = idx;
 	tmp->next = NULL;
+	tmp->len = 0;
 	return (tmp);
 }
 
-t_specifier		*spec_lst_push(t_specifier **begin_list, char option, char *flag)
+void			spec_lst_push(t_specifier **begin_list, t_specifier *spec)
 {
-	t_specifier	*tmp;
-	t_specifier	*tmp2;
+	t_specifier *tmp;
 
-	if (begin_list == NULL || (tmp = spec_lst_new(option, flag)) == NULL)
-		return (NULL);
+	if (begin_list == NULL)
+		return ;
 	if (*begin_list == NULL)
-		*begin_list = tmp;
+		*begin_list = spec;
 	else
 	{
-		tmp2 = *begin_list;
-		while (tmp2->next != NULL)
-			tmp2 = tmp2->next;
-		tmp2->next = tmp;
+		tmp = *begin_list;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = spec;
 	}
-	return (tmp);
 }
 
-void		spec_lst_clear(t_specifier *lst)
+void			spec_lst_clear(t_specifier *lst)
 {
 	t_specifier	*tmp;
 
