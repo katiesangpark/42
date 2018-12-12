@@ -28,7 +28,7 @@ int		main(int ac, char **argv)
 	t_block	*blocks;
 	int		map_size;
 
-	if (ac != 2)
+	if (ac == 1)
 	{
 		ft_putendl("usage: fillit source_file");
 		return (0);
@@ -42,7 +42,7 @@ int		main(int ac, char **argv)
 	}
 	correct_blocks_starting_pos(blocks);
 	map_size = ft_sqrt(lst_size(blocks) * 4);
-	map_size = (int)solve(blocks, blocks, (char)map_size);
+	map_size = (int)solve2(blocks, blocks, (char)map_size);
 	print_map(blocks, map_size);
 	lst_clear(blocks);
 	return (0);

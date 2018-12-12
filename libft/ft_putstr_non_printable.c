@@ -13,21 +13,26 @@
 #include <unistd.h>
 #include "libft.h"
 
-void	*ft_putstr_non_printable(char *str)
+size_t		ft_putstr_non_printable(char *str)
 {
-	int i;
+	size_t	i;
 
-	i = 0;
-	while (str[i])
+	if (str == NULL)
+		return (ft_putstr("(null)"));
+	else
 	{
-		if (str[i] < 32 || str[i] > 126)
+		i = 0;
+		while (str[i])
 		{
-			ft_putchar('\\');
-			ft_print_hex(str[i], 2);
+			if (str[i] < 32 || str[i] > 126)
+			{
+				ft_putchar('\\');
+				ft_print_hex(str[i], 2);
+			}
+			else
+				ft_putchar(str[i]);
+			i++;
 		}
-		else
-			ft_putchar(str[i]);
-		i++;
 	}
-	return (0);
+	return (i);
 }

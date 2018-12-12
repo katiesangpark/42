@@ -11,20 +11,15 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 void	*ft_memalloc(size_t size)
 {
-	unsigned int	i;
 	unsigned char	*output;
 
 	output = (unsigned char*)malloc(size);
 	if (output == NULL)
 		return (NULL);
-	i = 0;
-	while (i < size)
-	{
-		output[i] = 0;
-		i++;
-	}
+	ft_bzero(output, size);
 	return (output);
 }

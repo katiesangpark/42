@@ -13,12 +13,12 @@
 #include <unistd.h>
 #include "libft.h"
 
-void	*ft_putstr_non_printable(char *str)
+size_t		ft_putstr_non_printable(char *str)
 {
-	int i;
+	size_t	i;
 
 	if (str == NULL)
-		ft_putstr("(null)");
+		return (ft_putstr("(null)"));
 	else
 	{
 		i = 0;
@@ -34,5 +34,5 @@ void	*ft_putstr_non_printable(char *str)
 			i++;
 		}
 	}
-	return (0);
+	return (i);
 }

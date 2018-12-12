@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include "libft.h"
 
 int		overlap(t_block *curr, t_block *block)
 {
@@ -39,10 +40,50 @@ int		overlap(t_block *curr, t_block *block)
 	return (0);
 }
 
-char	solve(t_block *beginlist, t_block *block, const char map_size)
+void stuff(t_block *block)
 {
-	const char h = block->h;
-	const char w = block->w;
+	if (!block)
+		return ;
+	stuff(block->next);
+	block->prevx = 0;
+	block->prevy = 0;
+}
+
+
+int		solve2(t_block *beginlist, t_block *block, int map_size)
+{
+	newblock: while (block != 0)
+	{
+		block->y = 0;
+		while (block->y + block->h < map_size)
+		{
+			block->x = 0;
+			overlapcheck: while (block->x + block->w < map_size)
+			{
+				if (!overlap(beginlist, block))
+				{
+					block = block->next;
+					goto newblock;
+				}
+				++block->x;
+			}
+			++block->y;
+		}
+		if (block->prev != 0)
+		{
+			block = block->prev;
+			++block->x;
+			goto overlapcheck;
+		}
+		++map_size;
+	}
+	return (map_size);
+}
+
+int		solve(t_block *beginlist, t_block *block, const int map_size)
+{
+	const int h = block->h;
+	const int w = block->w;
 
 	block->y = 0;
 	while (block->y + h < map_size)

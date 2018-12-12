@@ -45,12 +45,20 @@ int		move_bits(int nbr, int leftmost, int upmost)
 {
 	int tmp;
 
-	tmp = leftmost % 4;
-	while (tmp-- != 0)
-		nbr /= 2;
-	tmp = upmost / 4;
-	while (tmp-- != 0)
-		nbr /= 16;
+	if (leftmost == upmost)
+	{
+		while (leftmost-- != 0)
+			nbr /= 2;
+	}
+	else
+	{
+		tmp = leftmost % 4;
+		while (tmp-- != 0)
+			nbr /= 2;
+		tmp = upmost / 4;
+		while (tmp-- != 0)
+			nbr /= 16;
+	}
 	return (nbr);
 }
 

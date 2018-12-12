@@ -37,3 +37,20 @@ char	*ft_strins(char *dest, const char *src, unsigned int pos)
 	dest[destlen + offset] = '\0';
 	return (dest);
 }
+
+char	*ft_strins_malloc(char *dest, const char *src, unsigned int pos)
+{
+	unsigned int	destlen;
+	unsigned int	srclen;
+	char			*tmp;
+
+	if (dest == NULL || src == NULL)
+		return (NULL);
+	destlen = ft_strlen(dest);
+	srclen = ft_strlen(src);
+	tmp = ft_memalloc(destlen + srclen + 1);
+	ft_strcat(tmp, dest);
+	ft_strcpy(tmp + pos, src);
+	ft_strcpy(tmp + pos + srclen, dest + pos);
+	return (tmp);
+}

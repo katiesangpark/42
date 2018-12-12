@@ -17,6 +17,10 @@ int				ft_strcmp(const char *str1, const char *str2)
 	unsigned int i;
 
 	i = 0;
+	if (str1 == str2)
+		return (0);
+	if (str1 == 0 || str2 == 0)
+		return (-1);
 	while ((unsigned int)(str1[i]) &&
 			(unsigned int)(str1[i]) == (unsigned int)(str2[i]))
 		i++;

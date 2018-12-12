@@ -11,11 +11,15 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <unistd.h>
 
-void	ft_putstr(char const *s)
+size_t		ft_putstr(char const *s)
 {
+	size_t len;
+
 	if (s == NULL)
-		ft_putstr("(null)");
-	else
-		write(1, s, ft_strlen(s));
+		return (ft_putstr("(null)"));
+	len = ft_strlen(s);
+	write(1, s, len);
+	return (len);
 }

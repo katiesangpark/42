@@ -11,10 +11,12 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 void	ft_memdel(void **ap)
 {
-	if (*ap != NULL)
-		free(*ap);
+	if (ap == NULL || *ap == NULL)
+		return ;
+	free(*ap);
 	*ap = NULL;
 }

@@ -12,8 +12,11 @@
 
 #include "libft.h"
 
-void	ft_putendl(char const *s)
+size_t	ft_putendl(char const *s)
 {
-	ft_putstr(s);
+	size_t i;
+
+	i = ft_putstr(s);
 	ft_putchar('\n');
+	return (i + 1);
 }
