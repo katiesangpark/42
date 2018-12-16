@@ -34,6 +34,7 @@ typedef struct	s_folder
 
 t_files			*file_lst_new(char *name, char *prefix);
 void			files_lst_push(t_files **begin, t_files *file);
+int				folder_lst_size(t_folder *folder);
 
 t_folder		*folder_lst_new(char *name, char *prefix);
 void			folder_lst_push(t_folder **begin, t_folder *file);

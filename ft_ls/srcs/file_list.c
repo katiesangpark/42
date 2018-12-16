@@ -54,6 +54,19 @@ void		files_lst_push(t_files **begin, t_files *file)
 	}
 }
 
+int			folder_lst_size(t_folder *folder)
+{
+	int i;
+
+	i = 0;
+	while (folder != NULL)
+	{
+		folder = folder->next;
+		i++;
+	}
+	return (i);
+}
+
 t_folder	*folder_lst_new(char *name, char *prefix)
 {
 	t_folder *tmp;

@@ -13,7 +13,7 @@
 NAME 	= 	ft_ls
 
 SRC 	= 	srcs/ft_ls.c srcs/args.c srcs/args_struct.c srcs/file_list.c \
-			srcs/utils.c srcs/conditions.c
+			srcs/utils.c srcs/conditions.c srcs/printing.c srcs/printing_utils.c
 
 CC		=	gcc
 
