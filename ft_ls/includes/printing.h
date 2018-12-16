@@ -13,7 +13,8 @@
 #ifndef PRINTING_H
 # define PRINTING_H
 # include "file_list.h"
+# include "args.h"
 
-void	print_folder(t_folder *folders);
+void	print_folder(t_args *args, t_folder *folders);
 
 #endif

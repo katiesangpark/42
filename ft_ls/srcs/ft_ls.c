@@ -58,7 +58,7 @@ int		main(int ac, char **av)
 	if ((err = validate_arguments(args, ac, av)) == ERR_NO_ERR)
 	{
 		list_files(args, args->search_folder);
-		print_folder(args->search_folder);
+		print_folder(args, args->search_folder);
 	}
 	else if (err == ERR_INVALID_ARG)
 		ft_printf("usage: ft_ls [-%s] [file ...]\n", FLAGS);

@@ -13,7 +13,9 @@
 #include "printing.h"
 #include "file_list.h"
 #include "libft.h"
+#include "args.h"
 #include "printing_utils.h"
+#include "conditions.h"
 
 void	print_files_inline(t_files *files)
 {
@@ -22,25 +24,34 @@ void	print_files_inline(t_files *files)
 	maxlen = get_files_maxlen(files);
 	while (files != NULL)
 	{
-		print_file_with_pad(files, maxlen);
+		print_file_with_pad(files, files->next != NULL ? maxlen : 0);
 		ft_putchar(files->next != NULL ? ' ' : '\n');
 		files = files->next;
 	}
 }
 
-void	print_folder(t_folder *folders)
+void	print_folder_inline(t_args *args, t_folder *folders, int children)
 {
 	int		lst_size;
 
 	lst_size = folder_lst_size(folders);
-
 	while (folders != NULL)
 	{
-		if (lst_size > 1)
-			ft_printf("%s:\n", folders->name);
-		print_files_inline(folders->files);
+		if (is_dir(folders->fullpath) || 1)
+		{
+			if (lst_size > 1)
+				ft_printf("%s:\n", folders->fullpath);
+			print_files_inline(folders->files);
+			if (args->flags & FLAG_RECURSIVE)
+				print_folder_inline(args, folders->subfolders, 1);
+			if (folders->next != NULL || children)
+				ft_putchar('\n');
+		}
 		folders = folders->next;
-		if (folders != NULL)
-			ft_putchar('\n');
 	}
+}
+
+void	print_folder(t_args *args, t_folder *folders)
+{
+	print_folder_inline(args, folders, 0);
 }

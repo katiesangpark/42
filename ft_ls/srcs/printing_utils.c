@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include "file_list.h"
+#include "conditions.h"
 #include <unistd.h>
 
 int		get_files_maxlen(t_files *files)

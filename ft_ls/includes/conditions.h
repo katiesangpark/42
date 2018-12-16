@@ -12,8 +12,10 @@
 
 #ifndef CONDITIONS_H
 # define CONDITIONS_H
+# include "args.h"
 
 int		is_file(char *path);
+int		is_dir(char *path);
 int		is_recursive(char *foldername, t_args *args);
 int		is_hidden(char *filename, t_args *args);
 

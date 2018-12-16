@@ -22,6 +22,15 @@ int		is_file(char *path)
 	return (S_ISREG(path_stat.st_mode));
 }
 
+int		is_dir(char *path)
+{
+	struct stat	statbuf;
+
+	if (stat(path, &statbuf) != 0)
+		return (0);
+	return (S_ISDIR(statbuf.st_mode));
+}
+
 int		is_recursive(char *foldername, t_args *args)
 {
 	if (ft_strcmp(foldername, ".") == 0 || ft_strcmp(foldername, "..") == 0)

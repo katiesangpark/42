@@ -18,7 +18,6 @@ typedef struct	s_files
 	char			*name;
 	char			*prefix;
 	char			*fullpath;
-	int				size;
 	struct s_files	*next;
 }				t_files;
 
@@ -27,9 +26,9 @@ typedef struct	s_folder
 	char			*name;
 	char			*prefix;
 	char			*fullpath;
+	struct s_folder	*next;
 	t_files			*files;
 	struct s_folder	*subfolders;
-	struct s_folder	*next;
 }				t_folder;
 
 t_files			*file_lst_new(char *name, char *prefix);

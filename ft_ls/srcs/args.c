@@ -20,6 +20,8 @@ int		validate_parameters(t_args *args, char *str)
 	{
 		if (*str == 'a')
 			args->flags |= FLAG_ALL;
+		else if (*str == 'f')
+			args->flags |= FLAG_ALL | FLAG_NON_SORT;
 		else if (*str == 'l')
 			args->flags |= FLAG_LIST;
 		else if (*str == 'r')
@@ -28,11 +30,10 @@ int		validate_parameters(t_args *args, char *str)
 			args->flags |= FLAG_RECURSIVE;
 		else if (*str == 't')
 			args->flags |= FLAG_TIME_SORT;
-		else if (*str == '-')
-			;
 		else
 			return (*str);
 	}
+	ft_putnbrendl(args->flags);
 	return (0);
 }
 
