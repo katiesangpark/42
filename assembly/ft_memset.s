@@ -2,11 +2,11 @@
 .globl _ft_memset
 _ft_memset:
 	cmp rdi, 0
-	je end
+	jz end
 mainloop:
-	dec rdx
 	cmp rdx, 0
-	jl end
+	jz end
+	dec rdx
 	mov BYTE ptr[rdi + rdx], sil
 	jmp mainloop
 end:

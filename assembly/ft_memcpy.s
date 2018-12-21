@@ -2,10 +2,12 @@
 .globl _ft_memcpy
 _ft_memcpy:
 	cmp rdi, 0
-	je end
+	jz end
+	cmp rsi, 0
+	jz end
 mainloop:
 	cmp rdx, 0
-	je end
+	jz end
 	dec rdx
 	mov cl, BYTE ptr[rsi + rdx]
 	mov BYTE ptr[rdi + rdx], cl

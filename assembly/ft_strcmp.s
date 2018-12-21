@@ -2,9 +2,9 @@
 .globl  _ft_strcmp
 _ft_strcmp:                             ## @ft_strlen
 		xor 	al, al
-        cmp		rdi, 0
+        test	rdi, rdi
         je 		end	
-        cmp		rsi, 0
+        test	rsi, rdi
         je 		end
         xor		rcx, rcx
 compare:
@@ -12,10 +12,10 @@ compare:
 		mov		cl, BYTE ptr[rsi + rcx]
 		mov     al, bh
 		sub 	al, cl
-		cmp 	bh, 0
+		test 	bh, bh
 		jz		end
 		inc 	rcx
-		cmp 	al, 0
+		test 	al, al
 		jz		compare
 end:
 		movsx 	rax, al
