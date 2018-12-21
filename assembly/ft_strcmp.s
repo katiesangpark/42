@@ -1,7 +1,7 @@
 .intel_syntax noprefix
 .globl  _ft_strcmp
 _ft_strcmp:                             ## @ft_strlen
-		xor 	rax, rax
+		xor 	al, al
         cmp		rdi, 0
         je 		end	
         cmp		rsi, 0
