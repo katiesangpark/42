@@ -1,13 +1,10 @@
 .intel_syntax noprefix
 .globl _ft_bzero
 _ft_bzero:
-	test 	rdi, rdi
+	test 	rdx, rdx
 	jz 		end
-mainloop:
-	dec 	rsi
-	cmp 	rsi, 0
-	jl  	end
-	mov  	BYTE ptr[rdi + rsi], 0
-	jmp  	mainloop
+	dec 	rdx
+	mov 	BYTE ptr[rdi + rdx], 0
+	jmp 	_ft_bzero
 end:
 	ret

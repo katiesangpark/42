@@ -11,6 +11,6 @@ compare:
 	inc 	rax
 	jmp 	compare
 retzero:
-	xor rax, rax
+	xor 	rax, rax
 end:
         ret
