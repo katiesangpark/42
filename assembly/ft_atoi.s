@@ -10,7 +10,7 @@ start:
 	xor		sil, sil
 	cmp		BYTE ptr[rdi], 45
 	jne 	mainloop
-	mov 	sil, 1
+	or 		sil, 1
 	inc		rdi
 mainloop:
 	movsx 	rcx, BYTE ptr[rdi]
