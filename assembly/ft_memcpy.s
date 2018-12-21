@@ -8,4 +8,5 @@ _ft_memcpy:
 	mov 	BYTE ptr[rdi + rdx], cl
 	jmp 	_ft_memcpy	
 end:
+	mov	rdi, rax
 	ret

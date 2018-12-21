@@ -6,7 +6,7 @@
 
 unsigned int ft_strlen(char *str);
 int ft_tolower(int c);
-void	ft_memcpy(void *dest, void *src, unsigned int size);
+void	*ft_memcpy(void *dest, void *src, unsigned int size);
 char *ft_strchr(char *str, char c);
 void	ft_bzero(void *ptr, unsigned int nbr);
 void	ft_memset(void *ptr, int value, unsigned int nbr);
@@ -14,14 +14,13 @@ int	ft_strcmp(char *s, char *s2);
 long ft_atoi(char *str);
 void	ft_putchar(char c);
 void	ft_putstr(char *s);
+char	*ft_strdup(char *str);
 
 int main(int ac, char **av)
 {
-	char *s = "SALUT";
-	ft_putchar('A');
-	ft_putchar('!');
-	ft_putchar('\n');
-	ft_putstr("Test string\n");
+	char *s = "Bonjour ceci est un test";
+	char *s2 = ft_strdup(s);
+	printf("%s\n", s2);
 	//printf("%ld\n", ft_atoi("   -21474836499999999"));
 /*	char *s = "This is a test string.asdsads42.";
 	char *s2 = malloc(128);
