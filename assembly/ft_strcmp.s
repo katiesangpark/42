@@ -13,12 +13,10 @@ compare:
 		mov     al, bh
 		sub 	al, cl
 		cmp 	bh, 0
-		je		end
-		cmp 	cl, 0
-		je		end
+		jz		end
 		inc 	rcx
 		cmp 	al, 0
-		je		compare
+		jz		compare
 end:
 		movsx 	rax, al
         ret
