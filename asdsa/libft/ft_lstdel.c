@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 01:26:27 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/19 01:26:28 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/07 02:26:17 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/07 02:26:17 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-void			*ft_realloc(void *ptr, size_t size)
+void			ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	unsigned char	*tmp;
+	t_list *next;
+	t_list *tmp;
 
-	tmp = (unsigned char*)malloc(size);
-	if (tmp != NULL)
+	if (alst == NULL || *alst == NULL || del == NULL)
+		return ;
+	next = *alst;
+	while (next != NULL)
 	{
-		ft_memcpy(tmp, ptr, size);
-		free(ptr);
+		tmp = next;
+		next = next->next;
+		del(tmp->content, tmp->content_size);
+		free(tmp);
 	}
-	return (tmp);
+	*alst = NULL;
 }

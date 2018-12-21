@@ -11,47 +11,80 @@
 /* ************************************************************************** */
 
 #include "printing.h"
-#include "file_list.h"
-#include "libft.h"
 #include "args.h"
-#include "printing_utils.h"
-#include "conditions.h"
+#include "file_list.h"
+#include "print_inline.h"
+#include "print_list.h"
+#include "libft.h"
+#include "free.h"
 
-void	print_files_inline(t_files *files)
+void	remove_nonfiles_folders(t_folder **folders)
 {
-	int	maxlen;
+	t_folder	*curr;
+	t_folder	*prev;
+	t_folder	*tmp;
 
-	maxlen = get_files_maxlen(files);
-	while (files != NULL)
+	curr = *folders;
+	prev = 0;
+	while (curr != 0)
 	{
-		print_file_with_pad(files, files->next != NULL ? maxlen : 0);
-		ft_putchar(files->next != NULL ? ' ' : '\n');
-		files = files->next;
+		if (!curr->is_dir)
+		{
+			if (prev != 0)
+				prev->next = curr->next;
+			else
+				*folders = curr->next;
+			tmp = curr;
+			curr = curr->next;
+			free_single_folder(&tmp);
+			continue ;
+		}
+		prev = curr;
+		curr = curr->next;
 	}
 }
 
-void	print_folder_inline(t_args *args, t_folder *folders, int children)
+void	remove_unexisting_folders(t_folder **folders)
 {
-	int		lst_size;
+	t_folder	*curr;
+	t_folder	*prev;
+	t_folder	*tmp;
 
-	lst_size = folder_lst_size(folders);
-	while (folders != NULL)
+	curr = *folders;
+	prev = 0;
+	while (curr != 0)
 	{
-		if (is_dir(folders->fullpath) || 1)
+		if (!curr->exists)
 		{
-			if (lst_size > 1)
-				ft_printf("%s:\n", folders->fullpath);
-			print_files_inline(folders->files);
-			if (args->flags & FLAG_RECURSIVE)
-				print_folder_inline(args, folders->subfolders, 1);
-			if (folders->next != NULL || children)
-				ft_putchar('\n');
+			if (prev != 0)
+				prev->next = curr->next;
+			else
+				*folders = curr->next;
+			tmp = curr;
+			curr = curr->next;
+			free_single_folder(&tmp);
+			continue ;
 		}
-		folders = folders->next;
+		prev = curr;
+		curr = curr->next;
 	}
 }
 
 void	print_folder(t_args *args, t_folder *folders)
 {
-	print_folder_inline(args, folders, 0);
+	remove_unexisting_folders(&folders);
+	if (args->flags & FLAG_LIST)
+	{
+		print_folderfiles_list(folders);
+		remove_nonfiles_folders(&folders);
+		args->search_folder = folders;
+		print_folder_list(args, folders);
+	}
+	else
+	{
+		print_folderfiles_inline(folders);
+		remove_nonfiles_folders(&folders);
+		args->search_folder = folders;
+		print_folder_inline(args, folders);
+	}
 }

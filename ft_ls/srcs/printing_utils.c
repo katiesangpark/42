@@ -15,6 +15,16 @@
 #include "conditions.h"
 #include <unistd.h>
 
+void	print_colors(t_files *files)
+{
+	if (files->is_link)
+		ft_printf("{0a}");
+	else if (files->is_dir)
+		ft_printf("{0e}");
+	else if (files->is_exec)
+		ft_printf("{01}");
+}
+
 int		get_files_maxlen(t_files *files)
 {
 	int	maxlen;
@@ -26,6 +36,25 @@ int		get_files_maxlen(t_files *files)
 		tmp = ft_strlen(files->name);
 		if (tmp > maxlen)
 			maxlen = tmp;
+		files = files->next;
+	}
+	return (maxlen);
+}
+
+int		get_folderfiles_maxlen(t_folder *files)
+{
+	int	maxlen;
+	int	tmp;
+
+	maxlen = 0;
+	while (files != NULL)
+	{
+		if (files->is_dir)
+		{
+			tmp = ft_strlen(files->name);
+			if (tmp > maxlen)
+				maxlen = tmp;
+		}
 		files = files->next;
 	}
 	return (maxlen);

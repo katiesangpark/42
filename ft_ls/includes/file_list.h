@@ -18,6 +18,13 @@ typedef struct	s_files
 	char			*name;
 	char			*prefix;
 	char			*fullpath;
+	int				exists;
+	int				is_dir;
+	char			permission[13];
+	int				is_exec;
+	int				is_link;
+	int				sorted;
+	char			*symlink_path;
 	struct s_files	*next;
 }				t_files;
 
@@ -26,8 +33,17 @@ typedef struct	s_folder
 	char			*name;
 	char			*prefix;
 	char			*fullpath;
+	int				exists;
+	int				is_dir;
+	char			permission[13];
+	int				is_exec;
+	int				is_link;
+	int				sorted;
+	char			*symlink_path;
 	struct s_folder	*next;
+	int				is_readable;
 	t_files			*files;
+	int				total;
 	struct s_folder	*subfolders;
 }				t_folder;
 

@@ -17,6 +17,9 @@
 #include "utils.h"
 #include "conditions.h"
 #include "printing.h"
+#include "get_info.h"
+#include "free.h"
+#include "sort.h"
 #include <dirent.h>
 
 void	list_files(t_args *args, t_folder *curr)
@@ -33,7 +36,7 @@ void	list_files(t_args *args, t_folder *curr)
 			continue ;
 		file = file_lst_new(f->d_name, build_prefix(curr->prefix, curr->name));
 		files_lst_push(&curr->files, file);
-		if (file && f->d_type != DT_DIR)
+		if (!file || f->d_type != DT_DIR || is_dot(file->name))
 			continue ;
 		subfolder = folder_lst_new(f->d_name, ft_strdup(file->prefix));
 		folder_lst_push(&curr->subfolders, subfolder);
@@ -42,8 +45,6 @@ void	list_files(t_args *args, t_folder *curr)
 	}
 	if (d)
 		closedir(d);
-	else if (curr && !is_file(curr->fullpath))
-		ft_printf("ft_ls: %s: No such file or directory\n", curr->name);
 	if (curr)
 		list_files(args, curr->next);
 }
@@ -58,6 +59,8 @@ int		main(int ac, char **av)
 	if ((err = validate_arguments(args, ac, av)) == ERR_NO_ERR)
 	{
 		list_files(args, args->search_folder);
+		sort_folders(args, &args->search_folder);
+		get_folders_info(args, args->search_folder);
 		print_folder(args, args->search_folder);
 	}
 	else if (err == ERR_INVALID_ARG)

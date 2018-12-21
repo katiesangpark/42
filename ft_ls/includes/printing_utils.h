@@ -14,6 +14,8 @@
 # define PRINTING_UTILS_H
 
 void	print_file_with_pad(t_files *file, int maxlen);
+void	print_colors(t_files *files);
 int		get_files_maxlen(t_files *files);
+int		get_folderfiles_maxlen(t_folder *files);
 
 #endif

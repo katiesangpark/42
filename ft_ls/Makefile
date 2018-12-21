@@ -12,8 +12,11 @@
 
 NAME 	= 	ft_ls
 
-SRC 	= 	srcs/ft_ls.c srcs/args.c srcs/args_struct.c srcs/file_list.c \
-			srcs/utils.c srcs/conditions.c srcs/printing.c srcs/printing_utils.c
+SRC 	= 	srcs/args.c srcs/args_struct.c srcs/conditions.c srcs/file_list.c  \
+			srcs/free.c srcs/ft_ls.c srcs/get_info.c srcs/list_utils.c  \
+			srcs/print_inline.c srcs/print_list.c srcs/printing.c  \
+			srcs/printing_utils.c srcs/sort.c srcs/sort_reverse.c srcs/utils.c \
+			srcs/sort_alphabetical.c
 
 CC		=	gcc
 

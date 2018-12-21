@@ -14,21 +14,18 @@
 #include "libft.h"
 #include <sys/stat.h>
 
-int		is_file(char *path)
+int		file_exists(char *path)
 {
 	struct stat	path_stat;
 
 	stat(path, &path_stat);
-	return (S_ISREG(path_stat.st_mode));
+	return (stat(path, &path_stat) == 0);
 }
 
-int		is_dir(char *path)
+int		is_dot(char *foldername)
 {
-	struct stat	statbuf;
-
-	if (stat(path, &statbuf) != 0)
-		return (0);
-	return (S_ISDIR(statbuf.st_mode));
+	return (ft_strcmp(foldername, ".") == 0
+			|| ft_strcmp(foldername, "..") == 0);
 }
 
 int		is_recursive(char *foldername, t_args *args)

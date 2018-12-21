@@ -36,6 +36,7 @@ t_files		*file_lst_new(char *name, char *prefix)
 		free(tmp);
 		return (NULL);
 	}
+	tmp->exists = 1;
 	return (tmp);
 }
 
@@ -85,6 +86,7 @@ t_folder	*folder_lst_new(char *name, char *prefix)
 		free(tmp);
 		return (NULL);
 	}
+	tmp->exists = 1;
 	return (tmp);
 }
 
