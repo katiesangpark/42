@@ -21,12 +21,11 @@ mainloop:
 	sub		rcx, 48
 	imul	rax, 10
 	inc 	rdi
-	test	sil, sil
-	jnz		neg
 	add 	rax, rcx
 	jmp 	mainloop
-neg:
-	sub 	rax, rcx
-	jmp 	mainloop
 end:
+	test	sil, -1
+	jz		r
+	neg 	rax
+r:
 	ret
