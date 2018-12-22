@@ -7,4 +7,5 @@ _ft_memset:
 	mov 	BYTE ptr[rdi + rdx], sil
 	jmp 	_ft_memset
 end:
+	mov	rdi, rax
 	ret

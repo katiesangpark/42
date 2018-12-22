@@ -1,10 +1,11 @@
 .intel_syntax noprefix
 .globl _ft_bzero
 _ft_bzero:
-	test 	rdx, rdx
+	test 	rsi, rsi
 	jz 		end
-	dec 	rdx
-	mov 	BYTE ptr[rdi + rdx], 0
+	dec 	rsi
+	mov 	BYTE ptr[rdi + rsi], 0
 	jmp 	_ft_bzero
 end:
+	mov	rdi, rax
 	ret
