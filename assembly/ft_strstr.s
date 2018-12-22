@@ -23,8 +23,8 @@ lmain:
 	jmp		lmain
 found:
 	mov		rax, rdi
-	jmp		ret
+	jmp		retaddr
 retzero:
 	xor		rax, rax
-ret:
+retaddr:
 	ret
