@@ -141,17 +141,11 @@ int main(int ac, char **av)
 	ft_putchar('\n');
 	data = ((int (*)(int, int, int))&shift2)(data, x, y);
 	pb(data);*/
-	int mallocsize;
+	int	tab[10] = {0, 23, 150, 255,
+	              12, 16,  42, 126};
 
-	char *s = ft_memalloc(600);
-	ft_memset(s + 1, 0xFF, 500);
-		ft_strcat(s, ".intel_syntax; MOV RAX, 0x2000004; SYSCALL;");
-	for(int i = 0; i < 10000000; i++)
-	{
-		s[19] = 0;
-		ft_strcat(s, ".intel_syntax; MOV RAX, 0x2000004; SYSCALL;");
-	}
-	print_memory2(s, 600);
+	ft_print_memory(tab, sizeof(tab));
+	return (0);
 	//print_memory2(s, 200);
 	//printf("%p\n", "This is a test string");
 	//printf("%s\n", ft_strstr("This is a test string", "test"));
