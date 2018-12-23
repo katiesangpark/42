@@ -7,6 +7,9 @@ _ft_print_memory:
 print:
 	xor 	r8, r8
 printhex:
+	mov 	r11, 32
+	mov 	r12, 32
+
 	movzx	r11, BYTE ptr[r9 + r8]
 	mov 	r12, r11
 	shr		r11, 4
@@ -75,8 +78,11 @@ printchar:
 	SYSCALL
 	pop		rcx
 	inc 	r8
+	dec		r10
+	cmp		r8, r10
+	jge		newline
 	cmp		r8, 16
-	jne		charloop
+	jl		charloop
 newline:
 	push	10
 	mov		rax, 0x2000004
@@ -85,7 +91,6 @@ newline:
 	pop		rcx
 	cmp		r10, 16
 	jl		end
-	sub		r10, 16
 	add		r9, 16
 	jmp		print
 end:
