@@ -150,7 +150,7 @@ int main(int ac, char **av)
 		s[16] = 0;
 		ft_strcat(s, ".intel_syntax; MOV RAX, 0x2000004; SYSCALL;");
 	}
-	ft_print_memory(s, 360);
+	ft_print_memory(s, 15);
 	//print_memory2(s, 200);
 	//printf("%p\n", "This is a test string");
 	//printf("%s\n", ft_strstr("This is a test string", "test"));

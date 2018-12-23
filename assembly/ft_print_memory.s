@@ -10,6 +10,8 @@ printhex:
 	mov 	r11, 32
 	mov 	r12, 32
 
+	cmp		r8, r10
+	jge		printhexchar_1
 	movzx	r11, BYTE ptr[r9 + r8]
 	mov 	r12, r11
 	shr		r11, 4
@@ -31,6 +33,8 @@ printhexchar_1:
 	SYSCALL
 	pop		r11
 
+	cmp		r8, r10
+	jge		printhexchar_2
 	cmp		r12, 10
 	jae		alpha_2
 	add		r12, 48
@@ -61,7 +65,7 @@ loopback:
 	mov		rdx, 1
 	SYSCALL
 	pop		r11
-
+test:
 	xor		r8, r8
 charloop:
 	movsx	r11, BYTE ptr[r9 + r8]
