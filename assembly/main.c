@@ -29,18 +29,19 @@ int		sys_close(int fd);
 
 void	print_memory2(void *addr, int size)
 {
-	asm(".intel_syntax noprefix;push rbp;mov r9, rdi;mov r10, rsi;print:xor r8, r8;printhex:movzx r11, BYTE ptr[r9 + r8];\
-mov r12, r11;shr r11, 4;and r12, 0xF;and r11, 0xF;cmp r11, 10;jae alpha_1;add r11, 48;jmp printhexchar_1;\
-alpha_1:add r11, 87;printhexchar_1:push r11;mov rax, 33554436;mov rdi, 1;mov rsi, rsp;mov rdx, 1;\
-SYSCALL;pop r11;cmp r12, 10;jae alpha_2;add r12, 48;jmp printhexchar_2;alpha_2:add r12, 87;\
-printhexchar_2:push r12;mov rax, 33554436;mov rdi, 1;mov rsi, rsp;mov rdx, 1;SYSCALL;pop r12;\
-inc r8;test r8, 1;jnz loopback;push 32;mov rax, 33554436;mov rdi, 1;mov rsi, rsp;mov rdx, 1;\
-SYSCALL;pop rdi;loopback:cmp r8, 16;jl printhex;push 32;mov rax, 33554436;mov rdi, 1;mov rsi, rsp;\
-mov rdx, 1;SYSCALL;pop rdi;xor r8, r8;charloop:movsx r11, BYTE ptr[r9 + r8];mov rdi, 46;cmp r11, 32;\
-jl printchar;cmp r11, 127;jg printchar;movsx rdi, BYTE ptr[r9 + r8];printchar:push rdi;mov rax, 33554436;\
-mov rdi, 1;mov rsi, rsp;mov rdx, 1;SYSCALL;pop rdi;inc r8;cmp r8, 16;jne charloop;newline:push 10;\
-mov rax, 33554436;mov rdi, 1;mov rsi, rsp;mov rdx, 1;SYSCALL;pop rdi;cmp r10, 16;jl end;sub r10, 16;\
-add r9, 16;jmp print;end:pop rbp;");
+    asm(".intel_syntax noprefix;push rbp;mov r9,rdi;mov r10,rsi;_0:xor r8,r8;\
+_1:mov r11,32;mov r12,32;cmp r8,r10;jge _3;movzx r11,BYTE ptr[\
+r9+r8];mov r12,r11;shr r11,4;and r12,0xF;and r11,0xF;cmp r11,10;jae _2;add \
+r11,48;jmp _3;_2:add r11,87;_3:push r11;mov rax,33554436;\
+mov rdi,1;mov rsi,rsp;mov rdx,1;SYSCALL;pop r11;cmp r8,r10;jge _5;cmp \
+r12,10;jae _4;add r12,48;jmp _5;_4:add r12,87;_5:\
+push r12;mov rax,33554436;mov rdx,1;SYSCALL;pop r12;inc r8;test r8,1;jnz _6;\
+push 32;mov rax,33554436;mov rdx,1;SYSCALL;pop r12;_6:cmp r8,16;jl _1;\
+push 32;mov rax,33554436;mov rdi,1;mov rdx,1;SYSCALL;pop r11;_7:xor r8,r8;_8:\
+movsx r11,BYTE ptr[r9+r8];mov rcx,46;cmp r11,32;jl _9;cmp r11,127;jg _9;\
+mov rcx,r11;_9:push rcx;mov rax,33554436;mov rdx,1;SYSCALL;pop rcx;inc r8;\
+dec r10;cmp r8,r10;jge _A;cmp r8,16;jl _8;_A:push 10;mov rax,33554436;\
+mov rdx,1;SYSCALL;pop rcx;cmp r10,16;jl _B;add r9,16;jmp _0;_B:pop rbp;");
 }
 
 void 	pb(int data)
@@ -147,10 +148,10 @@ int main(int ac, char **av)
 		ft_strcat(s, ".intel_syntax; MOV RAX, 0x2000004; SYSCALL;");
 	for(int i = 0; i < 10000000; i++)
 	{
-		s[16] = 0;
+		s[19] = 0;
 		ft_strcat(s, ".intel_syntax; MOV RAX, 0x2000004; SYSCALL;");
 	}
-	ft_print_memory(s, 15);
+	print_memory2(s, 600);
 	//print_memory2(s, 200);
 	//printf("%p\n", "This is a test string");
 	//printf("%s\n", ft_strstr("This is a test string", "test"));
