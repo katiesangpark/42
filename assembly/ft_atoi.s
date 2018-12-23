@@ -18,10 +18,10 @@ mainloop:
 	jl		end
 	cmp		rcx, 57
 	jg		end
-	sub		rcx, 48
 	imul	rax, 10
-	inc 	rdi
+	sub		rcx, 48
 	add 	rax, rcx
+	inc 	rdi
 	jmp 	mainloop
 end:
 	test	sil, -1
