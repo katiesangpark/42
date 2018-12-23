@@ -37,8 +37,6 @@ alpha_2:
 printhexchar_2:
 	push	r12
 	mov		rax, 0x2000004
-	mov		rdi, 1
-	mov		rsi, rsp
 	mov		rdx, 1
 	SYSCALL
 	pop		r12
@@ -48,50 +46,43 @@ printhexchar_2:
 	jnz		loopback
 	push	32
 	mov		rax, 0x2000004
-	mov		rdi, 1
-	mov		rsi, rsp
 	mov		rdx, 1
 	SYSCALL
-	pop		rdi
+	pop		r12
 loopback:
 	cmp		r8, 16
 	jl		printhex
 	push	32
 	mov		rax, 0x2000004
 	mov		rdi, 1
-	mov		rsi, rsp
 	mov		rdx, 1
 	SYSCALL
-	pop		rdi
+	pop		r11
 
 	xor		r8, r8
 charloop:
 	movsx	r11, BYTE ptr[r9 + r8]
-	mov 	rdi, 46 
+	mov 	rcx, 46 
 	cmp		r11, 32
 	jl		printchar
 	cmp		r11, 127
 	jg		printchar
-	movsx	rdi, BYTE ptr[r9 + r8]
+	mov		rcx, r11
 printchar:
-	push 	rdi
+	push 	rcx
 	mov		rax, 0x2000004
-	mov		rdi, 1
-	mov		rsi, rsp
 	mov		rdx, 1
 	SYSCALL
-	pop		rdi
+	pop		rcx
 	inc 	r8
 	cmp		r8, 16
 	jne		charloop
 newline:
 	push	10
 	mov		rax, 0x2000004
-	mov		rdi, 1
-	mov		rsi, rsp
 	mov		rdx, 1
 	SYSCALL
-	pop		rdi
+	pop		rcx
 	cmp		r10, 16
 	jl		end
 	sub		r10, 16

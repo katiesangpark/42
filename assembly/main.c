@@ -140,10 +140,10 @@ int main(int ac, char **av)
 	data = ((int (*)(int, int, int))&shift2)(data, x, y);
 	pb(data);*/
 
-	char *s = malloc(200);
+	char *s = malloc(216);
 	ft_memcpy(s, ".intel_syntax; MOV RAX, 0x2000004; SYSCALL;", ft_strlen(".intel_syntax; MOV RAX, 0x2000004; SYSCALL;") + 1);
-	//ft_print_memory2(s, 200);
-	print_memory2(s, 200);
+	ft_print_memory(s, 180);
+	//print_memory2(s, 200);
 	//printf("%p\n", "This is a test string");
 	//printf("%s\n", ft_strstr("This is a test string", "test"));
 	/*int fd;
