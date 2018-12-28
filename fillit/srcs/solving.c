@@ -28,7 +28,7 @@ int		overlap(t_block *curr, t_block *block)
 			data = block->data;
 			data = (x >= 0) ? ((data >> x) & (0xF >> x)) | ((data >> x) \
 			& 0xF0 & (0xF0 >> x)) | ((data >> x) & 0xF00 & (0xF00 >> x)) \
-			| ((data >> x) & 0xF000) : ((data << -x) & 09xF) | ((data << -x) \
+			| ((data >> x) & 0xF000) : ((data << -x) & 0xF) | ((data << -x) \
 			& 0xF0 & (0xF0 << -x)) | ((data << -x) & 0xF00 & (0xF00 << -x)) \
 			| ((data << -x) & (0xF000 << -x));
 			if (((y >= 0) ? (data >> (y << 2)) : (data << (-y << 2))) \
