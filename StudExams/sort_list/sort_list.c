@@ -24,6 +24,6 @@ t_list	*sort_list(t_list* lst, int (*cmp)(int, int))
 			jmp		MAINLOOP;\
 			NEXTELEM: mov		r10, r15;\
 			jmp 	MAINLOOP;\
-			end: mov rax, r8;");
+			end:");
 	return (lst);
 }
