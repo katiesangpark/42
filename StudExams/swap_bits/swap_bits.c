@@ -1,11 +1,11 @@
 
 __attribute__ ((naked))
-void	swap(void)
+void _s(void)
 {
-	asm(".intel_syntax; mov rax, rdi; shr rax, 4; shl rdi, 4; or rax, rdi; ret;");
+	asm(".intel_syntax; mov al, dil; ror al, 4; ret;");
 }
 
 unsigned char	swap_bits(unsigned char octet)
 {
-	return (((unsigned char(*)(unsigned char))&swap)(octet));
+	return ((unsigned char(*)(unsigned char))&_s)(octet);
 }
