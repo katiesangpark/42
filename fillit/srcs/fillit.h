@@ -19,13 +19,11 @@
 
 typedef struct	s_block
 {
-	int				data;
 	int				x;
 	int				y;
-	int				prevx;
-	int				prevy;
 	int				w;
 	int				h;
+	int				data;
 	struct s_block	*next;
 	struct s_block	*prev;
 }				t_block;
@@ -48,7 +46,7 @@ void			get_block_size(t_block *block);
 int				get_bit_from_coords(const int data, const int x, const int y);
 int				overlap(t_block *curr, t_block *block);
 int				solve(t_block *beginlist, t_block *block, const int map_size);
-int				solve2(t_block *beginlist, t_block *block, int map_size);
+void			solve2(void);
 
 t_block			*lst_new(int data);
 t_block			*lst_push(t_block **begin_list, int data);

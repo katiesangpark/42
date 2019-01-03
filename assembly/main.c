@@ -132,6 +132,7 @@ void		*ft_print_memory2(void *addr, unsigned int size)
 
 int main(int ac, char **av)
 {
+	
 	/*int data = 0xF000;
 	int x = 0, y = 3;
 
@@ -141,11 +142,6 @@ int main(int ac, char **av)
 	ft_putchar('\n');
 	data = ((int (*)(int, int, int))&shift2)(data, x, y);
 	pb(data);*/
-	int	tab[10] = {0, 23, 150, 255,
-	              12, 16,  42, 126};
-
-	ft_print_memory(tab, sizeof(tab));
-	return (0);
 	//print_memory2(s, 200);
 	//printf("%p\n", "This is a test string");
 	//printf("%s\n", ft_strstr("This is a test string", "test"));
