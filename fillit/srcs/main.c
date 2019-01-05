@@ -29,7 +29,7 @@ int		main(int ac, char **argv)
 	t_block	*blocks;
 	int		map_size;
 
-	if (ac == 1)
+	if (ac != 2)
 	{
 		ft_putendl("usage: fillit source_file");
 		return (0);
