@@ -17,9 +17,9 @@ int abcd;
 
 int		overlap(t_block *curr, t_block *block)
 {
-	register int data;
-	register int x;
-	register int y;
+	int data;
+	int x;
+	int y;
 
 	while (curr != block)
 	{
@@ -40,18 +40,6 @@ int		overlap(t_block *curr, t_block *block)
 		curr = curr->next;
 	}
 	return (0);
-}
-
-__attribute__ ((naked))
-void		solve2(void)
-{
-	asm(".intel_syntax;\
-			push    rbp;\
-	        mov     rbp, rsp;\
-	        sub     rsp, 48;\
-	        add		rsp, 48;\
-	        pop 	rbp;\
-	    FUNCRET: ret;");
 }
 
 int		solve(t_block *beginlist, t_block *block, const int map_size)
