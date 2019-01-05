@@ -23,6 +23,10 @@
 void	print_file_name(t_files *files)
 {
 	ft_putstr(files->permission);
+	print_links_with_pad(files, 0);
+	print_owner_with_pad(files, 0);
+	print_group_with_pad(files, 0);
+	print_size_with_pad(files, 0);
 	print_colors(files);
 	ft_putstr(files->name);
 	ft_printf("{RESET}");
@@ -33,6 +37,10 @@ void	print_file_name(t_files *files)
 
 void	print_files_list(t_files *files)
 {
+	print_links_with_pad(files, 1);
+	print_owner_with_pad(files, 1);
+	print_group_with_pad(files, 1);
+	print_size_with_pad(files, 1);
 	while (files != 0)
 	{
 		print_file_name(files);
@@ -47,6 +55,10 @@ void	print_folderfiles_list(t_folder *files)
 
 	nonfolders = 0;
 	regfolders = 0;
+	print_links_with_pad((t_files*)files, 1);
+	print_owner_with_pad((t_files*)files, 1);
+	print_group_with_pad((t_files*)files, 1);
+	print_size_with_pad((t_files*)files, 1);
 	while (files != NULL)
 	{
 		if (!files->is_dir && files->exists)
@@ -66,13 +78,15 @@ void	print_folder_list(t_args *args, t_folder *folders)
 {
 	while (folders != NULL)
 	{
+		if (args->print_foldernames
+			|| (folders->next != NULL || folders != args->search_folder))
+			ft_printf("%s:\n", folders->fullpath);
 		if (folders->files != 0)
 			ft_printf("total %d\n", folders->total);
-		if ((folders->next != NULL || folders != args->search_folder))
-			ft_printf("%s:\n", folders->fullpath);
 		if (folders->is_readable == 0)
-			ft_printf("ft_ls: %s: Permission denied.\n", folders->name);
-		print_files_list(folders->files);
+			ft_printf("ft_ls: %s: Permission denied\n", folders->name);
+		else
+			print_files_list(folders->files);
 		if ((args->flags & FLAG_RECURSIVE) && folders->subfolders != 0)
 		{
 			ft_putchar('\n');

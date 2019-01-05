@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_struct.c                                      :+:      :+:    :+:   */
+/*   sort_access_time.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 06:43:03 by kicausse          #+#    #+#             */
-/*   Updated: 2018/12/07 06:43:04 by kicausse         ###   ########.fr       */
+/*   Created: 2019/01/05 06:15:31 by kicausse          #+#    #+#             */
+/*   Updated: 2019/01/05 06:15:31 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ARGS_STRUCT_H
-# define ARGS_STRUCT_H
+#ifndef SORT_ACCESS_TIME_H
+# define SORT_ACCESS_TIME_H
 # include "file_list.h"
 
-typedef struct	s_args
-{
-	int			flags;
-	t_folder	*search_folder;
-	int			print_foldernames;
-}				t_args;
-
-t_args			*new_args(void);
-void			free_args(t_args **args);
-void			free_folder(t_folder **folder);
+void	sort_access_time(t_folder **folders);
 
 #endif

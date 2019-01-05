@@ -16,7 +16,7 @@ SRC 	= 	srcs/args.c srcs/args_struct.c srcs/conditions.c srcs/file_list.c  \
 			srcs/free.c srcs/ft_ls.c srcs/get_info.c srcs/list_utils.c  \
 			srcs/print_inline.c srcs/print_list.c srcs/printing.c  \
 			srcs/printing_utils.c srcs/sort.c srcs/sort_reverse.c srcs/utils.c \
-			srcs/sort_alphabetical.c
+			srcs/sort_alphabetical.c srcs/get_info_2.c srcs/sort_access_time.c
 
 CC		=	gcc
 

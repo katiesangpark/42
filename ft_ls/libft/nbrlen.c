@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_struct.c                                      :+:      :+:    :+:   */
+/*   nbrlen.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 06:43:03 by kicausse          #+#    #+#             */
-/*   Updated: 2018/12/07 06:43:04 by kicausse         ###   ########.fr       */
+/*   Created: 2018/12/19 16:24:39 by kicausse          #+#    #+#             */
+/*   Updated: 2018/12/19 16:24:39 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ARGS_STRUCT_H
-# define ARGS_STRUCT_H
-# include "file_list.h"
-
-typedef struct	s_args
+int		nbrlen(long long n)
 {
-	int			flags;
-	t_folder	*search_folder;
-	int			print_foldernames;
-}				t_args;
+	int l;
 
-t_args			*new_args(void);
-void			free_args(t_args **args);
-void			free_folder(t_folder **folder);
+	l = (n <= 0);
+	while (n != 0)
+	{
+		n /= 10;
+		++l;
+	}
+	return (l);
+}
 
-#endif
+int		unbrlen(unsigned long long n)
+{
+	int l;
+
+	l = (n <= 0);
+	while (n != 0)
+	{
+		n /= 10;
+		++l;
+	}
+	return (l);
+}

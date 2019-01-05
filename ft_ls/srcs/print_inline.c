@@ -67,10 +67,11 @@ void	print_folder_inline(t_args *args, t_folder *folders)
 {
 	while (folders != NULL)
 	{
-		if ((folders->next != NULL || folders != args->search_folder))
+		if (args->print_foldernames || (folders->next != NULL
+			|| folders != args->search_folder))
 			ft_printf("%s:\n", folders->fullpath);
 		if (folders->is_readable == 0)
-			ft_printf("ft_ls: %s: Permission denied.\n", folders->name);
+			ft_printf("ft_ls: %s: Permission denied\n", folders->name);
 		print_files_inline(folders->files);
 		if ((args->flags & FLAG_RECURSIVE) && folders->subfolders != 0)
 		{

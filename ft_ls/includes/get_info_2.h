@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_struct.c                                      :+:      :+:    :+:   */
+/*   get_info_2.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 06:43:03 by kicausse          #+#    #+#             */
-/*   Updated: 2018/12/07 06:43:04 by kicausse         ###   ########.fr       */
+/*   Created: 2018/12/16 13:15:30 by kicausse          #+#    #+#             */
+/*   Updated: 2018/12/16 13:15:31 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ARGS_STRUCT_H
-# define ARGS_STRUCT_H
+#ifndef GET_INFO_2_H
+# define GET_INFO_2_H
+# include "args.h"
 # include "file_list.h"
+# include <sys/stat.h>
 
-typedef struct	s_args
-{
-	int			flags;
-	t_folder	*search_folder;
-	int			print_foldernames;
-}				t_args;
-
-t_args			*new_args(void);
-void			free_args(t_args **args);
-void			free_folder(t_folder **folder);
+void	build_permission_string(char *str, int st_mode);
+void	get_symlink_target(t_files *file);
+void	err_file_missing(t_files *files);
+int		is_readable(t_files *file, struct stat *f_stat, struct stat *l_stat);
 
 #endif

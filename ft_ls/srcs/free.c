@@ -24,6 +24,8 @@ void	free_file(t_files **file)
 	ft_strdel(&(*file)->prefix);
 	ft_strdel(&(*file)->fullpath);
 	ft_strdel(&(*file)->symlink_path);
+	ft_strdel(&(*file)->owner);
+	ft_strdel(&(*file)->group);
 	ft_memdel((void**)file);
 }
 
@@ -33,6 +35,9 @@ void	free_single_folder(t_folder **folder)
 	ft_strdel(&(*folder)->name);
 	ft_strdel(&(*folder)->prefix);
 	ft_strdel(&(*folder)->fullpath);
+	ft_strdel(&(*folder)->symlink_path);
+	ft_strdel(&(*folder)->owner);
+	ft_strdel(&(*folder)->group);
 	ft_memdel((void**)folder);
 }
 
@@ -42,11 +47,7 @@ void	free_folder(t_folder **folder)
 		return ;
 	free_folder(&(*folder)->subfolders);
 	free_folder(&(*folder)->next);
-	free_file(&((*folder)->files));
-	ft_strdel(&(*folder)->name);
-	ft_strdel(&(*folder)->prefix);
-	ft_strdel(&(*folder)->fullpath);
-	ft_strdel(&(*folder)->symlink_path);
+	free_single_folder(folder);
 	ft_memdel((void**)folder);
 }
 

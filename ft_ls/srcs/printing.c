@@ -18,17 +18,19 @@
 #include "libft.h"
 #include "free.h"
 
-void	remove_nonfiles_folders(t_folder **folders)
+int		remove_nonfiles_folders(t_folder **folders)
 {
 	t_folder	*curr;
 	t_folder	*prev;
 	t_folder	*tmp;
+	int			found;
 
 	curr = *folders;
 	prev = 0;
+	found = 0;
 	while (curr != 0)
 	{
-		if (!curr->is_dir)
+		if (!curr->is_dir && ++found)
 		{
 			if (prev != 0)
 				prev->next = curr->next;
@@ -42,6 +44,7 @@ void	remove_nonfiles_folders(t_folder **folders)
 		prev = curr;
 		curr = curr->next;
 	}
+	return (found);
 }
 
 void	remove_unexisting_folders(t_folder **folders)
@@ -76,14 +79,14 @@ void	print_folder(t_args *args, t_folder *folders)
 	if (args->flags & FLAG_LIST)
 	{
 		print_folderfiles_list(folders);
-		remove_nonfiles_folders(&folders);
+		args->print_foldernames = remove_nonfiles_folders(&folders);
 		args->search_folder = folders;
 		print_folder_list(args, folders);
 	}
 	else
 	{
 		print_folderfiles_inline(folders);
-		remove_nonfiles_folders(&folders);
+		args->print_foldernames = remove_nonfiles_folders(&folders);
 		args->search_folder = folders;
 		print_folder_inline(args, folders);
 	}

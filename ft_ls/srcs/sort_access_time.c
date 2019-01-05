@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_alphabetical.c                                :+:      :+:    :+:   */
+/*   sort_access_time.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/19 17:23:21 by kicausse          #+#    #+#             */
-/*   Updated: 2018/12/19 17:23:21 by kicausse         ###   ########.fr       */
+/*   Created: 2019/01/05 06:15:31 by kicausse          #+#    #+#             */
+/*   Updated: 2019/01/05 06:15:31 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sort_alphabetical.h"
+#include "sort_access_time.h"
 #include "libft.h"
 
-void	sort_alphabetical_files(t_files **files)
+void	sort_access_time_files(t_files **files)
 {
 	t_files	*curr;
 	t_files *next;
@@ -23,7 +23,9 @@ void	sort_alphabetical_files(t_files **files)
 	(*files)->sorted = 1;
 	while ((next = curr->next) != 0)
 	{
-		if (ft_strcmp(curr->name, next->name) > 0)
+		ft_printf("%d\n", curr->access_time);
+		if (curr->access_time < next->access_time || (curr->access_time
+			== next->access_time && ft_strcmp(curr->name, next->name) > 0))
 		{
 			ft_swap((void**)&curr->name, (void**)&next->name);
 			ft_swap((void**)&curr->fullpath, (void**)&next->fullpath);
@@ -35,7 +37,7 @@ void	sort_alphabetical_files(t_files **files)
 	}
 }
 
-void	sort_alphabetical(t_folder **folders)
+void	sort_access_time(t_folder **folders)
 {
 	t_folder	*curr;
 	t_folder	*next;
@@ -44,12 +46,13 @@ void	sort_alphabetical(t_folder **folders)
 	if (folders == 0 || (curr = *folders) == 0 || curr->sorted == 1)
 		return ;
 	(*folders)->sorted = 1;
-	sort_alphabetical(&curr->next);
-	sort_alphabetical(&curr->subfolders);
-	sort_alphabetical_files(&curr->files);
+	sort_access_time(&curr->next);
+	sort_access_time(&curr->subfolders);
+	sort_access_time_files(&curr->files);
 	while ((next = curr->next) != 0)
 	{
-		if (ft_strcmp(curr->name, next->name) > 0)
+		if (curr->access_time < next->access_time || (curr->access_time
+			== next->access_time && ft_strcmp(curr->name, next->name) > 0))
 		{
 			ft_memcpy(&tmp, curr, 24);
 			ft_memcpy(curr, next, 24);

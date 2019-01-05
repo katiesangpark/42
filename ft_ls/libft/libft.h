@@ -165,6 +165,8 @@ int						ft_min(int n1, int n2);
 unsigned int			ft_abs(int value);
 int						ft_floor(int min, int value);
 int						ft_ceil(int max, int value);
+int						nbrlen(long long n);
+int						unbrlen(unsigned long long n);
 
 /*
 ** Other
