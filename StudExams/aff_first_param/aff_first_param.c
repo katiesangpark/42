@@ -1,5 +1,5 @@
 
-
+__attribute__ ((naked))
 int main(void)
 {
 	asm(".intel_syntax\
@@ -35,5 +35,7 @@ int main(void)
 		mov	rax, 0;\
 		pop rbp;\
 		\
+		xor eax, eax;\
+		ret;\
 		");
 }

@@ -9,17 +9,17 @@ start:
 	xor 	rax, rax
 	xor		sil, sil
 	cmp		BYTE ptr[rdi], 45
+	sete	sil
 	jne 	mainloop
-	or 		sil, 1
 	inc		rdi
 mainloop:
 	movsx 	rcx, BYTE ptr[rdi]
-	cmp 	rcx, 48
+	cmp 	cl, 48
 	jl		end
-	cmp		rcx, 57
+	cmp		cl, 57
 	jg		end
 	imul	rax, 10
-	sub		rcx, 48
+	sub		cl, 48
 	add 	rax, rcx
 	inc 	rdi
 	jmp 	mainloop
