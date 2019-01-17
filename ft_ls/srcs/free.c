@@ -53,6 +53,6 @@ void	free_folder(t_folder **folder)
 
 void	free_args(t_args **args)
 {
-	free_folder(&(*args)->search_folder);
+	//free_folder(&(*args)->search_folder);
 	ft_memdel((void*)args);
 }

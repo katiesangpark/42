@@ -65,7 +65,7 @@ void	print_folderfiles_inline(t_folder *files)
 
 void	print_folder_inline(t_args *args, t_folder *folders)
 {
-	while (folders != NULL)
+	if (folders->exists)
 	{
 		if (args->print_foldernames || (folders->next != NULL
 			|| folders != args->search_folder))
@@ -78,8 +78,7 @@ void	print_folder_inline(t_args *args, t_folder *folders)
 			ft_putchar('\n');
 			print_folder_inline(args, folders->subfolders);
 		}
-		if (folders->next != NULL)
+		if (folders->next != NULL && folders->next->exists)
 			ft_putchar('\n');
-		folders = folders->next;
 	}
 }

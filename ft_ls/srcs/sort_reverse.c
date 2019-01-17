@@ -44,7 +44,6 @@ void	folders_reverse(t_folder **begin_list)
 	current = *begin_list;
 	while (current != 0)
 	{
-		files_reverse(&current->files);
 		folders_reverse(&current->subfolders);
 		next = current->next;
 		current->next = previous;

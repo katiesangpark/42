@@ -16,5 +16,6 @@
 # include "file_list.h"
 
 void	folders_reverse(t_folder **begin_list);
+void	files_reverse(t_files **files);
 
 #endif

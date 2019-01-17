@@ -48,36 +48,10 @@ void	print_files_list(t_files *files)
 	}
 }
 
-void	print_folderfiles_list(t_folder *files)
-{
-	int			nonfolders;
-	int			regfolders;
-
-	nonfolders = 0;
-	regfolders = 0;
-	print_links_with_pad((t_files*)files, 1);
-	print_owner_with_pad((t_files*)files, 1);
-	print_group_with_pad((t_files*)files, 1);
-	print_size_with_pad((t_files*)files, 1);
-	while (files != NULL)
-	{
-		if (!files->is_dir && files->exists)
-		{
-			print_file_name((t_files*)files);
-			nonfolders = 1;
-		}
-		else if (files->exists)
-			regfolders = 1;
-		files = files->next;
-	}
-	if (nonfolders && regfolders)
-		ft_putchar('\n');
-}
-
 void	print_folder_list(t_args *args, t_folder *folders)
 {
-	while (folders != NULL)
-	{
+	if (folders->exists)
+	{	
 		if (args->print_foldernames
 			|| (folders->next != NULL || folders != args->search_folder))
 			ft_printf("%s:\n", folders->fullpath);
@@ -91,9 +65,8 @@ void	print_folder_list(t_args *args, t_folder *folders)
 		{
 			ft_putchar('\n');
 			print_folder_list(args, folders->subfolders);
-		}
-		if (folders->next != NULL)
+		};
+		if (folders->next != NULL && folders->next->exists)
 			ft_putchar('\n');
-		folders = folders->next;
 	}
 }

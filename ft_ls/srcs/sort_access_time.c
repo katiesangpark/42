@@ -18,12 +18,10 @@ void	sort_access_time_files(t_files **files)
 	t_files	*curr;
 	t_files *next;
 
-	if (files == 0 || (curr = *files) == 0 || curr->sorted == 1)
+	if (files == 0 || (curr = *files) == 0)
 		return ;
-	(*files)->sorted = 1;
 	while ((next = curr->next) != 0)
 	{
-		ft_printf("%d\n", curr->access_time);
 		if (curr->access_time < next->access_time || (curr->access_time
 			== next->access_time && ft_strcmp(curr->name, next->name) > 0))
 		{
@@ -43,12 +41,8 @@ void	sort_access_time(t_folder **folders)
 	t_folder	*next;
 	t_folder	tmp;
 
-	if (folders == 0 || (curr = *folders) == 0 || curr->sorted == 1)
+	if (folders == 0 || (curr = *folders) == 0)
 		return ;
-	(*folders)->sorted = 1;
-	sort_access_time(&curr->next);
-	sort_access_time(&curr->subfolders);
-	sort_access_time_files(&curr->files);
 	while ((next = curr->next) != 0)
 	{
 		if (curr->access_time < next->access_time || (curr->access_time

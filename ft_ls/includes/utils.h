@@ -14,5 +14,6 @@
 # define UTILS_H
 
 char	*build_prefix(char *prev_prefix, char *curr_folder);
+int		exists(char *path);
 
 #endif

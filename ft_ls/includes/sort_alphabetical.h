@@ -15,5 +15,6 @@
 # include "file_list.h"
 
 void	sort_alphabetical(t_folder **folders);
+void	sort_alphabetical_files(t_files **files);
 
 #endif

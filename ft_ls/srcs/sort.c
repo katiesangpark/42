@@ -27,3 +27,15 @@ void	sort_folders(t_args *args, t_folder **folders)
 	if (args->flags & FLAG_REVERSE)
 		folders_reverse(folders);
 }
+
+void	sort_files(t_args *args, t_files **files)
+{
+	if (args->flags & FLAG_NON_SORT)
+		return ;
+	if (args->flags & FLAG_TIME_SORT)
+		sort_access_time_files(files);
+	else
+		sort_alphabetical_files(files);
+	if (args->flags & FLAG_REVERSE)
+		files_reverse(files);
+}

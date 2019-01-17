@@ -12,6 +12,7 @@
 
 #include "utils.h"
 #include "libft.h"
+#include <sys/stat.h>
 
 char	*build_prefix(char *prev_prefix, char *curr_folder)
 {
@@ -25,4 +26,12 @@ char	*build_prefix(char *prev_prefix, char *curr_folder)
 	if (curr_folder[ft_strlen(curr_folder) - 1] != '/')
 		ft_strcat(tmp, "/");
 	return (tmp);
+}
+
+int		exists(char *path)
+{
+	struct stat	f_stat;
+	struct stat	l_stat;
+
+	return (lstat(path, &f_stat) + stat(path, &l_stat) == 0);
 }

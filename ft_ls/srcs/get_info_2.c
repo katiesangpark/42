@@ -63,15 +63,6 @@ void	get_symlink_target(t_files *file)
 	}
 }
 
-void	err_file_missing(t_files *files)
-{
-	if (files)
-	{
-		ft_printf("ft_ls: %s: No such file or directory\n", files->name);
-		files->exists = 0;
-	}
-}
-
 int		is_readable(t_files *file, struct stat *f_stat, struct stat *l_stat)
 {
 	(void)file;

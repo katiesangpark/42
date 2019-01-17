@@ -18,6 +18,7 @@
 #include "conditions.h"
 #include "printing.h"
 #include "get_info.h"
+#include "get_info_2.h"
 #include "free.h"
 #include "sort.h"
 #include <dirent.h>
@@ -28,9 +29,10 @@ void	list_files(t_args *args, t_folder *curr)
 	struct dirent	*f;
 	t_files			*file;
 	t_folder		*subfolder;
+	t_folder		*next;
 
-	d = (curr == NULL) ? (NULL) : (opendir(curr->fullpath));
-	while (curr && d && (f = readdir(d)) != NULL)
+	d = (curr == NULL || !curr->exists) ? (NULL) : (opendir(curr->fullpath));
+	while (d && (f = readdir(d)) != NULL)
 	{
 		if (is_hidden(f->d_name, args))
 			continue ;
@@ -40,13 +42,44 @@ void	list_files(t_args *args, t_folder *curr)
 			continue ;
 		subfolder = folder_lst_new(f->d_name, ft_strdup(file->prefix));
 		folder_lst_push(&curr->subfolders, subfolder);
-		if (is_recursive(file->name, args))
-			list_files(args, subfolder);
 	}
 	if (d)
+	{
+		sort_files(args, &curr->files);
+		get_folders_info(args, curr);
+		print_folder(args, curr);
+		if (args->flags & FLAG_RECURSIVE)
+		{
+			sort_folders(args, &curr->subfolders);
+			list_files(args, curr->subfolders);
+		}
 		closedir(d);
+	}
 	if (curr)
-		list_files(args, curr->next);
+	{
+		next = curr->next;
+		free_single_folder(&curr);
+		list_files(args, next);
+	}
+}
+
+void	print_invalid_folders(t_folder **folders)
+{
+	t_folder	*curr;
+	t_folder	*prev;
+
+	curr = *folders;
+	prev = 0;
+	while (curr != 0)
+	{
+		if (!exists(curr->fullpath))
+		{
+			ft_printf("ft_ls: %s: No such file or directory\n", curr->name);
+			curr->exists = 0;
+		}
+		prev = curr;
+		curr = curr->next;
+	}
 }
 
 int		main(int ac, char **av)
@@ -58,10 +91,9 @@ int		main(int ac, char **av)
 		return (0);
 	if ((err = validate_arguments(args, ac, av)) == ERR_NO_ERR)
 	{
-		list_files(args, args->search_folder);
 		sort_folders(args, &args->search_folder);
-		get_folders_info(args, args->search_folder);
-		print_folder(args, args->search_folder);
+		print_invalid_folders(&args->search_folder);
+		list_files(args, args->search_folder);
 	}
 	else if (err == ERR_INVALID_ARG)
 		ft_printf("usage: ft_ls [-%s] [file ...]\n", FLAGS);

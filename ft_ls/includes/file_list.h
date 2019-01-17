@@ -22,7 +22,6 @@ typedef struct	s_files
 	int					is_dir;
 	int					is_exec;
 	int					is_link;
-	int					sorted;
 	int					nlinks;
 	unsigned long long	filesize;
 	unsigned long long	access_time;
@@ -42,7 +41,6 @@ typedef struct	s_folder
 	int					is_dir;
 	int					is_exec;
 	int					is_link;
-	int					sorted;
 	int					nlinks;
 	unsigned long long	filesize;
 	unsigned long long	access_time;

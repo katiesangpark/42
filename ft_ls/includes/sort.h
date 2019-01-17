@@ -16,5 +16,6 @@
 # include "file_list.h"
 
 void	sort_folders(t_args *args, t_folder **folders);
+void	sort_files(t_args *args, t_files **files);
 
 #endif

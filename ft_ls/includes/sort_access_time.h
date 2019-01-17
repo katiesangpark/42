@@ -15,5 +15,6 @@
 # include "file_list.h"
 
 void	sort_access_time(t_folder **folders);
+void	sort_access_time_files(t_files **files);
 
 #endif

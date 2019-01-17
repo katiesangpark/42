@@ -42,9 +42,10 @@ void	get_files_info(t_args *args, t_folder *folder, t_files *files)
 	struct stat	f_stat;
 	struct stat	l_stat;
 
-	if (files == 0 || (stat(files->fullpath, &f_stat)
-		&& lstat(files->fullpath, &l_stat)))
-		return ((void)err_file_missing(files));
+	if (files == 0)
+		return ;
+	lstat(files->fullpath, &f_stat);
+	stat(files->fullpath, &l_stat);
 	files->is_link = S_ISLNK(l_stat.st_mode);
 	files->is_dir = S_ISDIR(f_stat.st_mode);
 	files->is_exec = (f_stat.st_mode & (S_IXUSR | S_IXOTH | S_IXGRP)) != 0;
@@ -61,15 +62,14 @@ void	get_folders_info(t_args *args, t_folder *folders)
 	struct stat	f_stat;
 	struct stat	l_stat;
 
-	if (folders == 0 || (lstat(folders->fullpath, &f_stat)
-		&& stat(folders->fullpath, &l_stat)))
-		return ((void)err_file_missing((t_files*)folders));
+	if (folders == 0 || folders->exists == 0)
+		return ;
+	lstat(folders->fullpath, &f_stat);
+	stat(folders->fullpath, &l_stat);
 	folders->is_link = S_ISLNK(f_stat.st_mode);
 	folders->is_dir = S_ISDIR(f_stat.st_mode);
 	folders->is_readable = is_readable((t_files*)folders, &f_stat, &l_stat);
 	if (args->flags & FLAG_LIST)
 		get_list_info((t_files*)folders, &f_stat, &l_stat);
 	get_files_info(args, folders, folders->files);
-	get_folders_info(args, folders->next);
-	get_folders_info(args, folders->subfolders);
 }

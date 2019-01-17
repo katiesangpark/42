@@ -75,19 +75,8 @@ void	remove_unexisting_folders(t_folder **folders)
 
 void	print_folder(t_args *args, t_folder *folders)
 {
-	remove_unexisting_folders(&folders);
 	if (args->flags & FLAG_LIST)
-	{
-		print_folderfiles_list(folders);
-		args->print_foldernames = remove_nonfiles_folders(&folders);
-		args->search_folder = folders;
 		print_folder_list(args, folders);
-	}
 	else
-	{
-		print_folderfiles_inline(folders);
-		args->print_foldernames = remove_nonfiles_folders(&folders);
-		args->search_folder = folders;
 		print_folder_inline(args, folders);
-	}
 }
