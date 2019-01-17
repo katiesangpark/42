@@ -68,7 +68,6 @@ void	get_folders_info(t_args *args, t_folder *folders)
 	stat(folders->fullpath, &l_stat);
 	folders->is_link = S_ISLNK(f_stat.st_mode);
 	folders->is_dir = S_ISDIR(f_stat.st_mode);
-	folders->is_readable = is_readable((t_files*)folders, &f_stat, &l_stat);
 	if (args->flags & FLAG_LIST)
 		get_list_info((t_files*)folders, &f_stat, &l_stat);
 	get_files_info(args, folders, folders->files);

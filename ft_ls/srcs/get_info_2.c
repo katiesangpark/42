@@ -62,10 +62,3 @@ void	get_symlink_target(t_files *file)
 		file->symlink_path = out;
 	}
 }
-
-int		is_readable(t_files *file, struct stat *f_stat, struct stat *l_stat)
-{
-	(void)file;
-	(void)l_stat;
-	return (f_stat->st_mode & (S_IRUSR | S_IROTH | S_IRGRP));
-}

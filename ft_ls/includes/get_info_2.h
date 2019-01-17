@@ -18,6 +18,5 @@
 
 void	build_permission_string(char *str, int st_mode);
 void	get_symlink_target(t_files *file);
-int		is_readable(t_files *file, struct stat *f_stat, struct stat *l_stat);
 
 #endif

@@ -49,7 +49,6 @@ typedef struct	s_folder
 	char				*owner;
 	char				*group;
 	struct s_folder		*next;
-	int					is_readable;
 	int					total;
 	t_files				*files;
 	struct s_folder		*subfolders;

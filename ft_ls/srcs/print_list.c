@@ -57,10 +57,7 @@ void	print_folder_list(t_args *args, t_folder *folders)
 			ft_printf("%s:\n", folders->fullpath);
 		if (folders->files != 0)
 			ft_printf("total %d\n", folders->total);
-		if (folders->is_readable == 0)
-			ft_printf("ft_ls: %s: Permission denied\n", folders->name);
-		else
-			print_files_list(folders->files);
+		print_files_list(folders->files);
 		if ((args->flags & FLAG_RECURSIVE) && folders->subfolders != 0)
 		{
 			ft_putchar('\n');

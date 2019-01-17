@@ -17,6 +17,7 @@
 #include "print_list.h"
 #include "libft.h"
 #include "free.h"
+#include "utils.h"
 
 int		remove_nonfiles_folders(t_folder **folders)
 {
@@ -47,27 +48,22 @@ int		remove_nonfiles_folders(t_folder **folders)
 	return (found);
 }
 
-void	remove_unexisting_folders(t_folder **folders)
+void	print_invalid_folders(t_folder **folders)
 {
 	t_folder	*curr;
 	t_folder	*prev;
-	t_folder	*tmp;
 
 	curr = *folders;
 	prev = 0;
 	while (curr != 0)
 	{
-		if (!curr->exists)
+		if (!exists(curr->fullpath))
 		{
-			if (prev != 0)
-				prev->next = curr->next;
-			else
-				*folders = curr->next;
-			tmp = curr;
-			curr = curr->next;
-			free_single_folder(&tmp);
-			continue ;
+			ft_printf("ft_ls: %s: No such file or directory\n", curr->name);
+			curr->exists = 0;
 		}
+		else if (is_dir(curr->fullpath))
+			curr->is_dir = 1;
 		prev = curr;
 		curr = curr->next;
 	}
