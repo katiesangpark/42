@@ -74,6 +74,8 @@ void	print_invalid_folders(t_args *args, t_folder **folders)
 
 void	print_folder(t_args *args, t_folder *folders)
 {
+	if (!folders->exists)
+		return ;
 	if (args->flags & FLAG_LIST)
 		print_folder_list(args, folders);
 	else

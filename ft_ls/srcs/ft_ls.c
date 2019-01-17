@@ -26,8 +26,6 @@
 
 void	list_files2(DIR *d, t_args *args, t_folder *curr)
 {
-	t_folder		*next;
-
 	if (d)
 	{
 		get_folders_info(args, curr);
@@ -40,17 +38,14 @@ void	list_files2(DIR *d, t_args *args, t_folder *curr)
 		}
 		closedir(d);
 	}
-	else if (curr && curr->exists && curr->is_dir)
+	else if (curr->exists && curr->is_dir)
 	{
-		ft_printf("%s:\nft_ls: %s: Permission denied%s", curr->name,
-			curr->name, curr->next != 0 ? "\n\n" : "\n");
+		ft_printf("%s:\nft_ls: %s: Permission denied\n", curr->name,
+			curr->name);
+		if (curr->next != NULL)
+			ft_putchar('\n');
 	}
-	if (curr)
-	{
-		next = curr->next;
-		free_single_folder(&curr);
-		list_files(args, next);
-	}
+	free_single_folder(&curr);
 }
 
 void	list_files(t_args *args, t_folder *curr)
@@ -58,22 +53,28 @@ void	list_files(t_args *args, t_folder *curr)
 	DIR				*d;
 	struct dirent	*f;
 	t_files			*file;
-	t_folder		*subfolder;
+	t_folder		*next;
 
-	d = (curr == NULL || !curr->exists) ? (NULL) : (opendir(curr->fullpath));
-	while (d && (f = readdir(d)) != NULL)
+	while (curr != NULL)
 	{
-		if (is_hidden(f->d_name, args))
-			continue ;
-		file = file_lst_new(f->d_name, build_prefix(curr->prefix, curr->name));
-		files_lst_push(&curr->files, file);
-		if (!file || f->d_type != DT_DIR || is_dot(file->name)
-			|| (args->flags & FLAG_RECURSIVE) == 0)
-			continue ;
-		subfolder = folder_lst_new(f->d_name, ft_strdup(file->prefix));
-		folder_lst_push(&curr->subfolders, subfolder);
+		d = (!curr->exists) ? (NULL) : (opendir(curr->fullpath));
+		while (d && (f = readdir(d)) != NULL)
+		{
+			if (is_hidden(f->d_name, args))
+				continue ;
+			file = file_lst_new(f->d_name,
+				build_prefix(curr->prefix, curr->name));
+			files_lst_push(&curr->files, file);
+			if (!file || f->d_type != DT_DIR || is_dot(file->name)
+				|| (args->flags & FLAG_RECURSIVE) == 0)
+				continue ;
+			folder_lst_push(&curr->subfolders,
+				folder_lst_new(f->d_name, ft_strdup(file->prefix)));
+		}
+		next = curr->next;
+		list_files2(d, args, curr);
+		curr = next;
 	}
-	list_files2(d, args, curr);
 }
 
 int		main(int ac, char **av)

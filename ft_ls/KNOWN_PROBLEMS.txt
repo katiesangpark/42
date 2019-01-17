@@ -1,0 +1,3 @@
+ft_ls -l /private/etc/:
+	no valid uid on paths.d
+

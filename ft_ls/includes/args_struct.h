@@ -18,7 +18,6 @@ typedef struct	s_args
 {
 	int			flags;
 	t_folder	*search_folder;
-	int			print_foldernames;
 }				t_args;
 
 t_args			*new_args(void);

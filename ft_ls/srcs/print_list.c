@@ -52,20 +52,16 @@ void	print_files_list(t_args *args, t_files *files)
 
 void	print_folder_list(t_args *args, t_folder *folders)
 {
-	if (folders->exists)
+	if (folders->next != NULL || folders != args->search_folder)
+		ft_printf("%s:\n", folders->fullpath);
+	if (folders->files != 0)
+		ft_printf("total %d\n", folders->total);
+	print_files_list(args, folders->files);
+	if ((args->flags & FLAG_RECURSIVE) && folders->subfolders != 0)
 	{
-		if (args->print_foldernames
-			|| (folders->next != NULL || folders != args->search_folder))
-			ft_printf("%s:\n", folders->fullpath);
-		if (folders->files != 0)
-			ft_printf("total %d\n", folders->total);
-		print_files_list(args, folders->files);
-		if ((args->flags & FLAG_RECURSIVE) && folders->subfolders != 0)
-		{
-			ft_putchar('\n');
-			print_folder_list(args, folders->subfolders);
-		}
-		if (folders->next != NULL && folders->next->exists)
-			ft_putchar('\n');
+		ft_putchar('\n');
+		print_folder_list(args, folders->subfolders);
 	}
+	if (folders->next != NULL && folders->next->exists)
+		ft_putchar('\n');
 }
