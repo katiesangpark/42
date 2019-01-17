@@ -15,7 +15,6 @@
 # include "file_list.h"
 # include <string.h>
 
-t_folder	*get_last_folderfile(t_folder *files);
 void		print_group_with_pad(t_files *files, int reset);
 void		print_owner_with_pad(t_files *files, int reset);
 void		print_links_with_pad(t_files *files, int reset);

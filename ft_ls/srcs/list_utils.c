@@ -14,20 +14,6 @@
 #include "conditions.h"
 #include "libft.h"
 
-t_folder	*get_last_folderfile(t_folder *files)
-{
-	t_folder	*end;
-
-	end = 0;
-	while (files != 0)
-	{
-		if (!files->is_dir)
-			end = files;
-		files = files->next;
-	}
-	return (end);
-}
-
 void		print_owner_with_pad(t_files *files, int reset)
 {
 	static size_t	len = 0;

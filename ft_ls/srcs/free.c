@@ -14,24 +14,32 @@
 #include "args.h"
 #include "file_list.h"
 #include "libft.h"
+#include <stdlib.h>
 
-void	free_file(t_files **file)
+void	free_files(t_files **file)
 {
-	if (file == NULL || *file == NULL)
-		return ;
-	free_file(&(*file)->next);
-	ft_strdel(&(*file)->name);
-	ft_strdel(&(*file)->prefix);
-	ft_strdel(&(*file)->fullpath);
-	ft_strdel(&(*file)->symlink_path);
-	ft_strdel(&(*file)->owner);
-	ft_strdel(&(*file)->group);
-	ft_memdel((void**)file);
+	t_files	*curr;
+	t_files *next;
+
+	curr = *file;
+	while (curr != NULL)
+	{
+		free(curr->name);
+		free(curr->prefix);
+		free(curr->fullpath);
+		free(curr->symlink_path);
+		free(curr->owner);
+		free(curr->group);
+		next = curr->next;
+		free(curr);
+		curr = next;
+	}
+	*file = 0;
 }
 
 void	free_single_folder(t_folder **folder)
 {
-	free_file(&((*folder)->files));
+	free_files(&((*folder)->files));
 	ft_strdel(&(*folder)->name);
 	ft_strdel(&(*folder)->prefix);
 	ft_strdel(&(*folder)->fullpath);
@@ -39,20 +47,4 @@ void	free_single_folder(t_folder **folder)
 	ft_strdel(&(*folder)->owner);
 	ft_strdel(&(*folder)->group);
 	ft_memdel((void**)folder);
-}
-
-void	free_folder(t_folder **folder)
-{
-	if (folder == NULL || *folder == NULL)
-		return ;
-	free_folder(&(*folder)->subfolders);
-	free_folder(&(*folder)->next);
-	free_single_folder(folder);
-	ft_memdel((void**)folder);
-}
-
-void	free_args(t_args **args)
-{
-	//free_folder(&(*args)->search_folder);
-	ft_memdel((void*)args);
 }

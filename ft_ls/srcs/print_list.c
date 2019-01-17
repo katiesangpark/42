@@ -27,9 +27,9 @@ void	print_file_name(t_files *files)
 	print_owner_with_pad(files, 0);
 	print_group_with_pad(files, 0);
 	print_size_with_pad(files, 0);
-	print_colors(files);
+	//print_colors(files);
 	ft_putstr(files->name);
-	ft_printf("{RESET}");
+	//ft_printf("{RESET}");
 	if (files->symlink_path != NULL)
 		ft_printf(" -> %s", files->symlink_path);
 	ft_putchar('\n');
@@ -65,7 +65,7 @@ void	print_folder_list(t_args *args, t_folder *folders)
 		{
 			ft_putchar('\n');
 			print_folder_list(args, folders->subfolders);
-		};
+		}
 		if (folders->next != NULL && folders->next->exists)
 			ft_putchar('\n');
 	}

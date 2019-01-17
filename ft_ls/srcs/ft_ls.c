@@ -22,6 +22,7 @@
 #include "free.h"
 #include "sort.h"
 #include <dirent.h>
+#include <stdlib.h>
 
 void	list_files(t_args *args, t_folder *curr)
 {
@@ -96,7 +97,10 @@ int		main(int ac, char **av)
 		list_files(args, args->search_folder);
 	}
 	else if (err == ERR_INVALID_ARG)
+	{
+		free_single_folder(&args->search_folder);
 		ft_printf("usage: ft_ls [-%s] [file ...]\n", FLAGS);
-	free_args(&args);
+	}
+	free(args);
 	return (0);
 }

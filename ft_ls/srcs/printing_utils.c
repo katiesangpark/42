@@ -41,25 +41,6 @@ int		get_files_maxlen(t_files *files)
 	return (maxlen);
 }
 
-int		get_folderfiles_maxlen(t_folder *files)
-{
-	int	maxlen;
-	int	tmp;
-
-	maxlen = 0;
-	while (files != NULL)
-	{
-		if (files->is_dir)
-		{
-			tmp = ft_strlen(files->name);
-			if (tmp > maxlen)
-				maxlen = tmp;
-		}
-		files = files->next;
-	}
-	return (maxlen);
-}
-
 void	print_file_with_pad(t_files *file, int maxlen)
 {
 	int		len;
