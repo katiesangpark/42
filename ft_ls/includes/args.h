@@ -16,14 +16,14 @@
 # include "args_struct.h"
 
 # define ARGS_H
-# define FLAGS ("Ralrtf")
-# define FLAG_ALL			(1)
-# define FLAG_LIST			(2)
-# define FLAG_REVERSE		(4)
-# define FLAG_RECURSIVE		(8)
-# define FLAG_TIME_SORT		(16)
-
-# define FLAG_NON_SORT		(32)
+# define FLAGS ("RalrtfG")
+# define FLAG_ALL			(1 << 0)
+# define FLAG_LIST			(1 << 1)
+# define FLAG_REVERSE		(1 << 2)
+# define FLAG_RECURSIVE		(1 << 3)
+# define FLAG_TIME_SORT		(1 << 4)
+# define FLAG_COLOR			(1 << 5)
+# define FLAG_NON_SORT		(1 << 6)
 
 int			validate_parameters(t_args *args, char *str);
 int			validate_arguments(t_args *args, int ac, char **av);

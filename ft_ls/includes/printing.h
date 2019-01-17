@@ -15,7 +15,8 @@
 # include "file_list.h"
 # include "args.h"
 
-void	print_invalid_folders(t_folder **folders);
+int		remove_nonfiles_folders(t_folder **folders);
+void	print_invalid_folders(t_args *args, t_folder **folders);
 void	print_folder(t_args *args, t_folder *folders);
 
 #endif

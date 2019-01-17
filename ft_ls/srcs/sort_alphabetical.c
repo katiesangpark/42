@@ -15,22 +15,29 @@
 
 void	sort_alphabetical_files(t_files **files)
 {
-	t_files	*curr;
-	t_files *next;
+	t_files		*curr;
+	t_files		*next;
+	t_files		*prev;
 
 	if (files == 0 || (curr = *files) == 0)
 		return ;
+	prev = 0;
 	while ((next = curr->next) != 0)
 	{
 		if (ft_strcmp(curr->name, next->name) > 0)
 		{
-			ft_swap((void**)&curr->name, (void**)&next->name);
-			ft_swap((void**)&curr->fullpath, (void**)&next->fullpath);
-			ft_swap((void**)&curr->prefix, (void**)&next->prefix);
+			curr->next = next->next;
+			next->next = curr;
+			if (prev == 0)
+				*files = next;
+			else
+				prev->next = next;
 			curr = *files;
+			prev = 0;
 			continue ;
 		}
-		curr = curr->next;
+		prev = curr;
+		curr = next;
 	}
 }
 
@@ -38,22 +45,26 @@ void	sort_alphabetical(t_folder **folders)
 {
 	t_folder	*curr;
 	t_folder	*next;
-	t_folder	tmp;
+	t_folder	*prev;
 
 	if (folders == 0 || (curr = *folders) == 0)
 		return ;
+	prev = 0;
 	while ((next = curr->next) != 0)
 	{
 		if (ft_strcmp(curr->name, next->name) > 0)
 		{
-			ft_memcpy(&tmp, curr, 24);
-			ft_memcpy(curr, next, 24);
-			ft_memcpy(next, &tmp, 24);
-			ft_swap((void**)&curr->files, (void**)&next->files);
-			ft_swap((void**)&curr->subfolders, (void**)&next->subfolders);
+			curr->next = next->next;
+			next->next = curr;
+			if (prev == 0)
+				*folders = next;
+			else
+				prev->next = next;
 			curr = *folders;
+			prev = 0;
 			continue ;
 		}
-		curr = curr->next;
+		prev = curr;
+		curr = next;
 	}
 }

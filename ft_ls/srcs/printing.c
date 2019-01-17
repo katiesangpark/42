@@ -18,6 +18,7 @@
 #include "libft.h"
 #include "free.h"
 #include "utils.h"
+#include "get_info.h"
 
 int		remove_nonfiles_folders(t_folder **folders)
 {
@@ -48,7 +49,7 @@ int		remove_nonfiles_folders(t_folder **folders)
 	return (found);
 }
 
-void	print_invalid_folders(t_folder **folders)
+void	print_invalid_folders(t_args *args, t_folder **folders)
 {
 	t_folder	*curr;
 	t_folder	*prev;
@@ -64,6 +65,8 @@ void	print_invalid_folders(t_folder **folders)
 		}
 		else if (is_dir(curr->fullpath))
 			curr->is_dir = 1;
+		else
+			get_folders_info(args, curr);
 		prev = curr;
 		curr = curr->next;
 	}

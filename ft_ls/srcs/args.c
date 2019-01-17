@@ -30,6 +30,8 @@ int		validate_parameters(t_args *args, char *str)
 			args->flags |= FLAG_RECURSIVE;
 		else if (*str == 't')
 			args->flags |= FLAG_TIME_SORT;
+		else if (*str == 'G')
+			args->flags |= FLAG_COLOR;
 		else
 			return (*str);
 	}

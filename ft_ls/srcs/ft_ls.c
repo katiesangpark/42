@@ -46,8 +46,8 @@ void	list_files(t_args *args, t_folder *curr)
 	}
 	if (d)
 	{
-		sort_files(args, &curr->files);
 		get_folders_info(args, curr);
+		sort_files(args, &curr->files);
 		print_folder(args, curr);
 		if (args->flags & FLAG_RECURSIVE)
 		{
@@ -56,7 +56,7 @@ void	list_files(t_args *args, t_folder *curr)
 		}
 		closedir(d);
 	}
-	else if (curr && curr->exists)
+	else if (curr && curr->exists && curr->is_dir)
 		ft_printf("ft_ls: %s: Permission denied\n", curr->name);
 	if (curr)
 	{
@@ -66,7 +66,6 @@ void	list_files(t_args *args, t_folder *curr)
 	}
 }
 
-int		remove_nonfiles_folders(t_folder **folders);
 int		main(int ac, char **av)
 {
 	t_args		*args;
@@ -77,8 +76,8 @@ int		main(int ac, char **av)
 	if ((err = validate_arguments(args, ac, av)) == ERR_NO_ERR)
 	{
 		sort_folders(args, &args->search_folder);
-		print_invalid_folders(&args->search_folder);
-		//remove_nonfiles_folders(&args->search_folder);
+		print_invalid_folders(args, &args->search_folder);
+		remove_nonfiles_folders(&args->search_folder);
 		list_files(args, args->search_folder);
 	}
 	else if (err == ERR_INVALID_ARG)
