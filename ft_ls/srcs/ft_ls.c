@@ -41,7 +41,10 @@ void	list_files2(DIR *d, t_args *args, t_folder *curr)
 		closedir(d);
 	}
 	else if (curr && curr->exists && curr->is_dir)
-		ft_printf("ft_ls: %s: Permission denied\n", curr->name);
+	{
+		ft_printf("%s:\nft_ls: %s: Permission denied%s", curr->name,
+			curr->name, curr->next != 0 ? "\n\n" : "\n");
+	}
 	if (curr)
 	{
 		next = curr->next;
@@ -64,7 +67,8 @@ void	list_files(t_args *args, t_folder *curr)
 			continue ;
 		file = file_lst_new(f->d_name, build_prefix(curr->prefix, curr->name));
 		files_lst_push(&curr->files, file);
-		if (!file || f->d_type != DT_DIR || is_dot(file->name))
+		if (!file || f->d_type != DT_DIR || is_dot(file->name)
+			|| (args->flags & FLAG_RECURSIVE) == 0)
 			continue ;
 		subfolder = folder_lst_new(f->d_name, ft_strdup(file->prefix));
 		folder_lst_push(&curr->subfolders, subfolder);
