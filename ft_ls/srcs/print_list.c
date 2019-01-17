@@ -53,7 +53,7 @@ void	print_files_list(t_args *args, t_files *files)
 void	print_folder_list(t_args *args, t_folder *folders)
 {
 	if (folders->exists)
-	{	
+	{
 		if (args->print_foldernames
 			|| (folders->next != NULL || folders != args->search_folder))
 			ft_printf("%s:\n", folders->fullpath);

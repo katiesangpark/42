@@ -35,7 +35,6 @@ int		validate_parameters(t_args *args, char *str)
 		else
 			return (*str);
 	}
-	ft_putnbrendl(args->flags);
 	return (0);
 }
 

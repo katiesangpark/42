@@ -24,26 +24,10 @@
 #include <dirent.h>
 #include <stdlib.h>
 
-void	list_files(t_args *args, t_folder *curr)
+void	list_files2(DIR *d, t_args *args, t_folder *curr)
 {
-	DIR				*d;
-	struct dirent	*f;
-	t_files			*file;
-	t_folder		*subfolder;
 	t_folder		*next;
 
-	d = (curr == NULL || !curr->exists) ? (NULL) : (opendir(curr->fullpath));
-	while (d && (f = readdir(d)) != NULL)
-	{
-		if (is_hidden(f->d_name, args))
-			continue ;
-		file = file_lst_new(f->d_name, build_prefix(curr->prefix, curr->name));
-		files_lst_push(&curr->files, file);
-		if (!file || f->d_type != DT_DIR || is_dot(file->name))
-			continue ;
-		subfolder = folder_lst_new(f->d_name, ft_strdup(file->prefix));
-		folder_lst_push(&curr->subfolders, subfolder);
-	}
 	if (d)
 	{
 		get_folders_info(args, curr);
@@ -64,6 +48,28 @@ void	list_files(t_args *args, t_folder *curr)
 		free_single_folder(&curr);
 		list_files(args, next);
 	}
+}
+
+void	list_files(t_args *args, t_folder *curr)
+{
+	DIR				*d;
+	struct dirent	*f;
+	t_files			*file;
+	t_folder		*subfolder;
+
+	d = (curr == NULL || !curr->exists) ? (NULL) : (opendir(curr->fullpath));
+	while (d && (f = readdir(d)) != NULL)
+	{
+		if (is_hidden(f->d_name, args))
+			continue ;
+		file = file_lst_new(f->d_name, build_prefix(curr->prefix, curr->name));
+		files_lst_push(&curr->files, file);
+		if (!file || f->d_type != DT_DIR || is_dot(file->name))
+			continue ;
+		subfolder = folder_lst_new(f->d_name, ft_strdup(file->prefix));
+		folder_lst_push(&curr->subfolders, subfolder);
+	}
+	list_files2(d, args, curr);
 }
 
 int		main(int ac, char **av)

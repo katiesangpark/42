@@ -16,4 +16,6 @@
 # define ERR_MALLOC_FAIL	(-1)
 # define ERR_INVALID_ARG	(1)
 
+void	list_files(t_args *args, t_folder *curr);
+
 #endif
