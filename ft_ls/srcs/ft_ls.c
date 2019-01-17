@@ -31,17 +31,19 @@ void	list_files2(DIR *d, t_args *args, t_folder *curr)
 		get_folders_info(args, curr);
 		sort_files(args, &curr->files);
 		print_folder(args, curr);
-		if (args->flags & FLAG_RECURSIVE)
+		if (args->flags & FLAG_RECURSIVE && curr->subfolders)
 		{
 			sort_folders(args, &curr->subfolders);
 			list_files(args, curr->subfolders);
+			if (curr->next != NULL)
+				ft_putchar('\n');
 		}
 		closedir(d);
 	}
-	else if (curr->exists && curr->is_dir)
+	else if (curr->exists)
 	{
-		ft_printf("%s:\nft_ls: %s: Permission denied\n", curr->name,
-			curr->name);
+		ft_printf("%s:\n", curr->fullpath);
+		ft_printf_fd(2, "ft_ls: %s: Permission denied\n", curr->name);
 		if (curr->next != NULL)
 			ft_putchar('\n');
 	}

@@ -58,15 +58,17 @@ void	print_invalid_folders(t_args *args, t_folder **folders)
 	prev = 0;
 	while (curr != 0)
 	{
+		curr->is_dir = 1;
 		if (!exists(curr->fullpath))
 		{
 			ft_printf("ft_ls: %s: No such file or directory\n", curr->name);
 			curr->exists = 0;
 		}
-		else if (is_dir(curr->fullpath))
-			curr->is_dir = 1;
-		else
+		else if (!is_dir(curr->fullpath))
+		{
 			get_folders_info(args, curr);
+			curr->is_dir = 0;
+		}
 		prev = curr;
 		curr = curr->next;
 	}
