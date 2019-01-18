@@ -30,6 +30,7 @@ void	free_files(t_files **file)
 		free(curr->symlink_path);
 		free(curr->owner);
 		free(curr->group);
+		free(curr->date);
 		next = curr->next;
 		free(curr);
 		curr = next;
@@ -46,5 +47,6 @@ void	free_single_folder(t_folder **folder)
 	ft_strdel(&(*folder)->symlink_path);
 	ft_strdel(&(*folder)->owner);
 	ft_strdel(&(*folder)->group);
+	ft_strdel(&(*folder)->date);
 	ft_memdel((void**)folder);
 }

@@ -19,12 +19,35 @@
 #include <unistd.h>
 #include <pwd.h>
 #include <grp.h>
+#include <time.h>
+
+void	build_time_string(t_files *files)
+{
+	time_t			tmptime;
+	char			*tmp;
+	int				len;
+
+	tmptime = (time_t)files->time;
+	if ((tmp = ctime(&tmptime)) == NULL)
+		return ;
+	while (*++tmp && *tmp != ' ')
+		;
+	len = 0;
+	while (tmp[len] && tmp[len] != ':')
+		++len;
+	++len;
+	while (tmp[len] && tmp[len] != ':')
+		++len;
+	if ((files->date = ft_strnew(12)) != NULL)
+		ft_strncpy(files->date, tmp + 1, 12);
+}
 
 void	get_list_info(t_args *args, t_files *files, struct stat *f_stat)
 {
 	struct passwd	*pwuid;
 	struct group	*grgid;
 
+	build_time_string(files);
 	files->nlinks = f_stat->st_nlink;
 	if (files->is_link)
 		get_symlink_target(files);
@@ -51,7 +74,9 @@ void	get_files_info(t_args *args, t_folder *folder, t_files *files)
 	files->is_link = S_ISLNK(f_stat.st_mode);
 	files->is_dir = S_ISDIR(f_stat.st_mode);
 	files->is_exec = (f_stat.st_mode & (S_IXUSR | S_IXOTH | S_IXGRP)) != 0;
-	files->access_time = f_stat.st_mtime;
+	files->time = args->flags & FLAG_ACCESS_SORT ? f_stat.st_atime : f_stat.st_mtime;
+	if (args->flags & FLAG_CREA_SORT)
+		files->time = f_stat.st_ctime;
 	if (args->flags & FLAG_LIST)
 	{
 		folder->total += files->is_link ? l_stat.st_blocks : f_stat.st_blocks;
@@ -68,7 +93,9 @@ void	get_folders_info(t_args *args, t_folder *folders)
 	lstat(folders->fullpath, &f_stat);
 	folders->is_link = S_ISLNK(f_stat.st_mode);
 	folders->is_dir = S_ISDIR(f_stat.st_mode);
-	folders->access_time = f_stat.st_mtime;
+	folders->time = args->flags & FLAG_ACCESS_SORT ? f_stat.st_atime : f_stat.st_mtime;
+	if (args->flags & FLAG_CREA_SORT)
+		folders->time = f_stat.st_ctime;
 	if (args->flags & FLAG_LIST)
 		get_list_info(args, (t_files*)folders, &f_stat);
 }

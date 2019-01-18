@@ -24,11 +24,12 @@ typedef struct	s_files
 	int					is_link;
 	int					nlinks;
 	unsigned long long	filesize;
-	unsigned long long	access_time;
+	unsigned long long	time;
 	char				*symlink_path;
 	char				permission[13];
 	char				*owner;
 	char				*group;
+	char				*date;
 	struct s_files		*next;
 }				t_files;
 
@@ -43,11 +44,12 @@ typedef struct	s_folder
 	int					is_link;
 	int					nlinks;
 	unsigned long long	filesize;
-	unsigned long long	access_time;
+	unsigned long long	time;
 	char				*symlink_path;
 	char				permission[13];
 	char				*owner;
 	char				*group;
+	char				*date;
 	struct s_folder		*next;
 	int					total;
 	t_files				*files;

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_access_time.c                                 :+:      :+:    :+:   */
+/*   sort_time.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sort_access_time.h"
+#include "sort_time.h"
 #include "libft.h"
 
-void	sort_access_time_files(t_files **files)
+void	sort_time_files(t_files **files)
 {
 	t_files	*curr;
 	t_files *next;
@@ -24,8 +24,8 @@ void	sort_access_time_files(t_files **files)
 	prev = 0;
 	while ((next = curr->next) != 0)
 	{
-		if (curr->access_time < next->access_time || (curr->access_time
-			== next->access_time && ft_strcmp(curr->name, next->name) > 0))
+ 		if (curr->time < next->time || (curr->time
+			== next->time && ft_strcmp(curr->name, next->name) > 0))
 		{
 			curr->next = next->next;
 			next->next = curr;
@@ -42,7 +42,7 @@ void	sort_access_time_files(t_files **files)
 	}
 }
 
-void	sort_access_time(t_folder **folders)
+void	sort_time(t_folder **folders)
 {
 	t_folder	*curr;
 	t_folder	*next;
@@ -53,8 +53,8 @@ void	sort_access_time(t_folder **folders)
 	prev = 0;
 	while ((next = curr->next) != 0)
 	{
-		if (curr->access_time < next->access_time || (curr->access_time
-			== next->access_time && ft_strcmp(curr->name, next->name) > 0))
+		if (curr->time < next->time || (curr->time
+			== next->time && ft_strcmp(curr->name, next->name) > 0))
 		{
 			curr->next = next->next;
 			next->next = curr;

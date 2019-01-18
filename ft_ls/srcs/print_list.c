@@ -24,10 +24,13 @@ void	print_file_name(t_args *args, t_files *files)
 {
 	ft_putstr(files->permission);
 	print_links_with_pad(files, 0);
-	print_owner_with_pad(files, 0);
+	if ((args->flags & FLAG_OMIT_UID) == 0)
+		print_owner_with_pad(files, 0);
 	if ((args->flags & FLAG_OMIT_GID) == 0)
 		print_group_with_pad(files, 0);
 	print_size_with_pad(files, 0);
+	ft_putstr(files->date);
+	ft_putchar(' ');
 	if (args->flags & FLAG_COLOR)
 		print_colors(files);
 	ft_putstr(files->name);

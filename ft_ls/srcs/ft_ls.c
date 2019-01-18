@@ -108,7 +108,7 @@ int		main(int ac, char **av)
 	}
 	else if (err == ERR_INVALID_ARG)
 	{
-		ft_putstr("usage: ft_ls ["FLAGS"] [file ...]\n");
+		ft_putstr("usage: ft_ls [-"FLAGS"] [file ...]\n");
 		if (args->search_folder)
 			free_single_folder(&(args->search_folder));
 	}

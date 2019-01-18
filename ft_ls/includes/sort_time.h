@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_access_time.h                                 :+:      :+:    :+:   */
+/*   sort_time.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,7 +14,7 @@
 # define SORT_ACCESS_TIME_H
 # include "file_list.h"
 
-void	sort_access_time(t_folder **folders);
-void	sort_access_time_files(t_files **files);
+void	sort_time(t_folder **folders);
+void	sort_time_files(t_files **files);
 
 #endif
