@@ -24,7 +24,7 @@ void	sort_time_files(t_files **files)
 	prev = 0;
 	while ((next = curr->next) != 0)
 	{
- 		if (curr->time < next->time || (curr->time
+		if (curr->time < next->time || (curr->time
 			== next->time && ft_strcmp(curr->name, next->name) > 0))
 		{
 			curr->next = next->next;

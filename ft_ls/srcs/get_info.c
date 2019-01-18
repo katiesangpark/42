@@ -79,7 +79,8 @@ void	get_files_info(t_args *args, t_folder *folder, t_files *files)
 	files->is_link = S_ISLNK(f_stat.st_mode);
 	files->is_dir = S_ISDIR(f_stat.st_mode);
 	files->is_exec = (f_stat.st_mode & (S_IXUSR | S_IXOTH | S_IXGRP)) != 0;
-	files->time = args->flags & FLAG_ACCESS_SORT ? f_stat.st_atime : f_stat.st_mtime;
+	files->time = args->flags & FLAG_ACCESS_SORT ?
+					f_stat.st_atime : f_stat.st_mtime;
 	if (args->flags & FLAG_CREA_SORT)
 		files->time = f_stat.st_ctime;
 	if (args->flags & FLAG_LIST)
@@ -98,7 +99,8 @@ void	get_folders_info(t_args *args, t_folder *folders)
 	lstat(folders->fullpath, &f_stat);
 	folders->is_link = S_ISLNK(f_stat.st_mode);
 	folders->is_dir = S_ISDIR(f_stat.st_mode);
-	folders->time = args->flags & FLAG_ACCESS_SORT ? f_stat.st_atime : f_stat.st_mtime;
+	folders->time = args->flags & FLAG_ACCESS_SORT ?
+					f_stat.st_atime : f_stat.st_mtime;
 	if (args->flags & FLAG_CREA_SORT)
 		folders->time = f_stat.st_ctime;
 	if (args->flags & FLAG_LIST)

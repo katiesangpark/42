@@ -51,7 +51,6 @@ int		remove_nonfiles_folders(t_folder **folders)
 	return (found);
 }
 
-
 void	print_folderfiles_inline(t_args *args, t_folder *folders)
 {
 	int		n1;

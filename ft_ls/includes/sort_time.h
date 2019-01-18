@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SORT_ACCESS_TIME_H
-# define SORT_ACCESS_TIME_H
+#ifndef SORT_TIME_H
+# define SORT_TIME_H
 # include "file_list.h"
 
 void	sort_time(t_folder **folders);

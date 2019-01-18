@@ -24,40 +24,62 @@
 #include <dirent.h>
 #include <stdlib.h>
 
+void	error_perm_denied(t_folder *curr)
+{
+	ft_printf("%s:\n", curr->fullpath);
+	ft_printf_fd(2, "ft_ls: %s: Permission denied\n", curr->name);
+	if (curr->next != NULL)
+		ft_putchar('\n');
+	free_single_folder(&curr);
+}
+
+void	add_dots(t_args *args, t_folder *curr)
+{
+	t_files *file;
+
+	if (((args->flags & FLAG_ALL) && !(args->flags & FLAG_UPPER_A)) == 0)
+		return ;
+	file = file_lst_new("..", build_prefix(curr->prefix, curr->name));
+	if (file)
+	{
+		file->next = curr->files;
+		curr->files = file;
+		get_files_info(args, curr, file);
+	}
+	file = file_lst_new(".", build_prefix(curr->prefix, curr->name));
+	if (curr->files && file)
+	{
+		file->next = curr->files;
+		curr->files = file;
+		get_files_info(args, curr, file);
+	}
+}
+
 void	list_files2(DIR *d, t_args *args, t_folder *curr)
 {
+	t_folder	*next;
+	int			newline;
+
 	if (d)
 	{
+		add_dots(args, curr);
 		get_folders_info(args, curr);
 		sort_files(args, &curr->files);
 		print_folder(args, curr);
-		if (args->flags & FLAG_RECURSIVE && curr->subfolders)
+		next = curr->subfolders;
+		newline = curr->next != NULL;
+		free_single_folder(&curr);
+		if (args->flags & FLAG_RECURSIVE && next)
 		{
-			sort_folders(args, &curr->subfolders);
-			list_files(args, curr->subfolders);
-			if (curr->next != NULL)
+			sort_folders(args, &next);
+			list_files(args, next);
+			if (newline)
 				ft_putchar('\n');
 		}
 		closedir(d);
 	}
 	else if (curr->exists)
-	{
-		ft_printf("%s:\n", curr->fullpath);
-		ft_printf_fd(2, "ft_ls: %s: Permission denied\n", curr->name);
-		if (curr->next != NULL)
-			ft_putchar('\n');
-	}
-	free_single_folder(&curr);
-}
-
-void	add_dots(int dotdot, t_folder *curr)
-{
-	if (!dotdot)
-		return ;
-	files_lst_push(&curr->files, file_lst_new(".", build_prefix(curr->prefix,
-					curr->name)));
-	files_lst_push(&curr->files, file_lst_new("..", build_prefix(curr->prefix,
-		curr->name)));
+		error_perm_denied(curr);
 }
 
 void	list_files(t_args *args, t_folder *curr)
@@ -67,10 +89,9 @@ void	list_files(t_args *args, t_folder *curr)
 	t_files			*file;
 	t_folder		*next;
 
-	while (curr != NULL)
+	while (curr != NULL && (next = curr->next) != curr)
 	{
 		d = (!curr->exists) ? (NULL) : (opendir(curr->fullpath));
-		add_dots((args->flags & FLAG_ALL) && !(args->flags & FLAG_UPPER_A), curr);
 		while (d && (f = readdir(d)) != NULL)
 		{
 			if (is_hidden(f->d_name, args) || is_dot(f->d_name))
@@ -85,7 +106,6 @@ void	list_files(t_args *args, t_folder *curr)
 			folder_lst_push(&curr->subfolders,
 				folder_lst_new(f->d_name, ft_strdup(file->prefix)));
 		}
-		next = curr->next;
 		list_files2(d, args, curr);
 		curr = next;
 	}
