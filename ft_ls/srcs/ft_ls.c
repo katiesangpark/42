@@ -50,7 +50,7 @@ void	list_files2(DIR *d, t_args *args, t_folder *curr)
 	free_single_folder(&curr);
 }
 
-void aaa(int dotdot, t_folder *curr)
+void	add_dots(int dotdot, t_folder *curr)
 {
 	if (!dotdot)
 		return ;
@@ -70,7 +70,7 @@ void	list_files(t_args *args, t_folder *curr)
 	while (curr != NULL)
 	{
 		d = (!curr->exists) ? (NULL) : (opendir(curr->fullpath));
-		aaa((args->flags & FLAG_ALL) && !(args->flags & FLAG_UPPER_A), curr);
+		add_dots((args->flags & FLAG_ALL) && !(args->flags & FLAG_UPPER_A), curr);
 		while (d && (f = readdir(d)) != NULL)
 		{
 			if (is_hidden(f->d_name, args) || is_dot(f->d_name))
