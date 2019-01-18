@@ -17,12 +17,12 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-void	build_permission_string(char *str, int st_mode)
+void	build_permission_string(char *str, int st_mode, int is_link)
 {
 	ft_strcpy(str, "----------  ");
 	if (S_ISDIR(st_mode))
 		str[0] = 'd';
-	if (S_ISLNK(st_mode))
+	if (is_link)
 		str[0] = 'l';
 	if (st_mode & S_IRUSR)
 		str[1] = 'r';

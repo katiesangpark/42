@@ -20,7 +20,7 @@
 #include <pwd.h>
 #include <grp.h>
 
-void	get_list_info(t_files *files, struct stat *f_stat, struct stat *l_stat)
+void	get_list_info(t_args *args, t_files *files, struct stat *f_stat)
 {
 	struct passwd	*pwuid;
 	struct group	*grgid;
@@ -28,17 +28,15 @@ void	get_list_info(t_files *files, struct stat *f_stat, struct stat *l_stat)
 	files->nlinks = f_stat->st_nlink;
 	if (files->is_link)
 		get_symlink_target(files);
-	build_permission_string(files->permission,
-		files->is_link ? l_stat->st_mode : f_stat->st_mode);
+	build_permission_string(files->permission, f_stat->st_mode,
+		files->is_link);
 	files->filesize = f_stat->st_size;
-	if ((pwuid = getpwuid(f_stat->st_uid)) == 0)
-		pwuid = getpwuid(l_stat->st_uid);
-	files->owner = pwuid == 0 ? ft_itoa(f_stat->st_uid)
-		: ft_strdup(pwuid->pw_name);
-	if ((grgid = getgrgid(f_stat->st_gid)) == 0)
-		grgid = getgrgid(l_stat->st_gid);
-	files->group = grgid == 0 ? ft_itoa(f_stat->st_gid)
-		: ft_strdup(grgid->gr_name);
+	pwuid = getpwuid(f_stat->st_uid);
+	files->owner = (args->flags & FLAG_NUMERIC_ID) || pwuid == 0
+		? ft_itoa(f_stat->st_uid) : ft_strdup(pwuid->pw_name);
+	grgid = getgrgid(f_stat->st_gid);
+	files->group = (args->flags & FLAG_NUMERIC_ID) || grgid == 0 ?
+		ft_itoa(f_stat->st_gid) : ft_strdup(grgid->gr_name);
 }
 
 void	get_files_info(t_args *args, t_folder *folder, t_files *files)
@@ -57,24 +55,20 @@ void	get_files_info(t_args *args, t_folder *folder, t_files *files)
 	if (args->flags & FLAG_LIST)
 	{
 		folder->total += files->is_link ? l_stat.st_blocks : f_stat.st_blocks;
-		get_list_info(files, &f_stat, &l_stat);
+		get_list_info(args, files, &f_stat);
 	}
-	get_files_info(args, folder, files->next);
 }
 
 void	get_folders_info(t_args *args, t_folder *folders)
 {
 	struct stat	f_stat;
-	struct stat	l_stat;
 
 	if (folders == 0 || folders->exists == 0)
 		return ;
 	lstat(folders->fullpath, &f_stat);
-	stat(folders->fullpath, &l_stat);
 	folders->is_link = S_ISLNK(f_stat.st_mode);
 	folders->is_dir = S_ISDIR(f_stat.st_mode);
 	folders->access_time = f_stat.st_mtime;
 	if (args->flags & FLAG_LIST)
-		get_list_info((t_files*)folders, &f_stat, &l_stat);
-	get_files_info(args, folders, folders->files);
+		get_list_info(args, (t_files*)folders, &f_stat);
 }

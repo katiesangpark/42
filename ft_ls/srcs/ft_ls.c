@@ -67,6 +67,7 @@ void	list_files(t_args *args, t_folder *curr)
 			file = file_lst_new(f->d_name,
 				build_prefix(curr->prefix, curr->name));
 			files_lst_push(&curr->files, file);
+			get_files_info(args, curr, file);
 			if (!file || f->d_type != DT_DIR || is_dot(file->name)
 				|| (args->flags & FLAG_RECURSIVE) == 0)
 				continue ;
@@ -95,8 +96,9 @@ int		main(int ac, char **av)
 	}
 	else if (err == ERR_INVALID_ARG)
 	{
-		free_single_folder(&args->search_folder);
 		ft_printf("usage: ft_ls [-%s] [file ...]\n", FLAGS);
+		if (args->search_folder)
+			free_single_folder(&(args->search_folder));
 	}
 	free(args);
 	return (0);

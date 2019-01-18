@@ -16,5 +16,6 @@
 # include "file_list.h"
 
 void	get_folders_info(t_args *args, t_folder *folders);
+void	get_files_info(t_args *args, t_folder *folder, t_files *files);
 
 #endif

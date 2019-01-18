@@ -16,7 +16,7 @@
 # include "file_list.h"
 # include <sys/stat.h>
 
-void	build_permission_string(char *str, int st_mode);
+void	build_permission_string(char *str, int st_mode, int is_link);
 void	get_symlink_target(t_files *file);
 
 #endif

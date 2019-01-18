@@ -16,26 +16,21 @@
 
 int		validate_parameters(t_args *args, char *str)
 {
-	while (*str++)
+	int		i;
+
+	if (str == 0 || *str == '\0')
+		return (0);
+	i = 0;
+	while (FLAGS[i] != '\0')
 	{
-		if (*str == 'a')
-			args->flags |= FLAG_ALL;
-		else if (*str == 'f')
-			args->flags |= FLAG_ALL | FLAG_NON_SORT;
-		else if (*str == 'l')
-			args->flags |= FLAG_LIST;
-		else if (*str == 'r')
-			args->flags |= FLAG_REVERSE;
-		else if (*str == 'R')
-			args->flags |= FLAG_RECURSIVE;
-		else if (*str == 't')
-			args->flags |= FLAG_TIME_SORT;
-		else if (*str == 'G')
-			args->flags |= FLAG_COLOR;
-		else
-			return (*str);
+		if (*str == FLAGS[i])
+		{
+			args->flags |= (1 << i);
+			return (validate_parameters(args, str + 1));
+		}
+		i++;
 	}
-	return (0);
+	return (*str);
 }
 
 int		validate_arguments(t_args *args, int ac, char **av)
@@ -51,7 +46,7 @@ int		validate_arguments(t_args *args, int ac, char **av)
 	{
 		if (nonargs == 0 && av[i][0] == '-' && av[i][1] != '\0')
 		{
-			if ((tmp = validate_parameters(args, av[i])) == 0)
+			if ((tmp = validate_parameters(args, av[i] + 1)) == 0)
 				continue ;
 			ft_printf("ft_ls: illegal option -- %c\n", tmp);
 			return (ERR_INVALID_ARG);
