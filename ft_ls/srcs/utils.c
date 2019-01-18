@@ -39,9 +39,7 @@ int		exists(char *path)
 int		is_dir(char *path)
 {
 	struct stat	f_stat;
-	struct stat	l_stat;
 
-	stat(path, &f_stat);
-	lstat(path, &l_stat);
-	return (S_ISDIR(f_stat.st_mode) || S_ISDIR(l_stat.st_mode));
+	lstat(path, &f_stat);
+	return (S_ISDIR(f_stat.st_mode));
 }

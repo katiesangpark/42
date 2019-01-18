@@ -23,8 +23,14 @@ void		print_owner_with_pad(t_files *files, int reset)
 		len = 0;
 		while (files != 0)
 		{
-			if (ft_strlen(files->owner) > len)
-				len = ft_strlen(files->owner);
+			if (reset == 1 && !files->folderfile)
+			{
+				if (ft_strlen(files->owner) > len)
+					len = ft_strlen(files->owner);
+			}
+			else if (reset == 2 && files->folderfile)
+				if (ft_strlen(files->owner) > len)
+					len = ft_strlen(files->owner);
 			files = files->next;
 		}
 	}
@@ -44,8 +50,14 @@ void		print_group_with_pad(t_files *files, int reset)
 		len = 0;
 		while (files != 0)
 		{
-			if (ft_strlen(files->group) > len)
-				len = ft_strlen(files->group);
+			if (reset == 1 && !files->folderfile)
+			{
+				if (ft_strlen(files->group) > len)
+					len = ft_strlen(files->group);
+			}
+			else if (reset == 2 && files->folderfile)
+				if (ft_strlen(files->group) > len)
+					len = ft_strlen(files->group);
 			files = files->next;
 		}
 	}
@@ -65,8 +77,14 @@ void		print_links_with_pad(t_files *files, int reset)
 		len = 0;
 		while (files != 0)
 		{
-			if (nbrlen(files->nlinks) > len)
-				len = nbrlen(files->nlinks);
+			if (reset == 1 && !files->folderfile)
+			{
+				if (nbrlen(files->nlinks) > len)
+					len = nbrlen(files->nlinks);
+			}
+			else if (reset == 2 && files->folderfile)
+				if (nbrlen(files->nlinks) > len)
+					len = nbrlen(files->nlinks);
 			files = files->next;
 		}
 	}
@@ -87,8 +105,14 @@ void		print_size_with_pad(t_files *files, int reset)
 		len = 0;
 		while (files != 0)
 		{
-			if (unbrlen(files->filesize) > len)
-				len = unbrlen(files->filesize);
+			if (reset == 1 && !files->folderfile)
+			{
+				if (unbrlen(files->filesize) > len)
+					len = unbrlen(files->filesize);
+			}
+			else if (reset == 2 && files->folderfile)
+				if (unbrlen(files->filesize) > len)
+					len = unbrlen(files->filesize);
 			files = files->next;
 		}
 	}

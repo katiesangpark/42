@@ -102,7 +102,7 @@ int		main(int ac, char **av)
 	{
 		complete_arguments(args);
 		sort_folders(args, &args->search_folder);
-		print_invalid_folders(args, &args->search_folder);
+		print_invalid_folders(args, args->search_folder);
 		remove_nonfiles_folders(&args->search_folder);
 		list_files(args, args->search_folder);
 	}

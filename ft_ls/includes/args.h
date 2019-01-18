@@ -16,7 +16,7 @@
 # include "args_struct.h"
 
 # define ARGS_H
-# define FLAGS 				"AGRUafglnortu"
+# define FLAGS 				"AGRUafglnortu1"
 # define FLAG_UPPER_A		(1 << 0)
 # define FLAG_COLOR			(1 << 1)
 # define FLAG_RECURSIVE		(1 << 2)
@@ -30,6 +30,7 @@
 # define FLAG_REVERSE		(1 << 10)
 # define FLAG_TIME_SORT		(1 << 11)
 # define FLAG_ACCESS_SORT	(1 << 12)
+# define FLAG_ONE_LINE		(1 << 13)
 
 int			validate_parameters(t_args *args, char *str);
 void		complete_arguments(t_args *args);

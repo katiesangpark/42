@@ -15,6 +15,7 @@
 # include "args.h"
 # include "file_list.h"
 
+void	print_file_name(t_args *args, t_files *files);
 void	print_folder_list(t_args *args, t_folder *folders);
 
 #endif

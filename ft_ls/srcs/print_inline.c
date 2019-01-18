@@ -28,10 +28,12 @@ void	print_files_inline(t_args *args, t_files *files)
 	{
 		if (args->flags & FLAG_COLOR)
 			print_colors(files);
-		print_file_with_pad(files, files->next != NULL ? maxlen : 0);
+		ft_putstr(files->name);
+		//print_file_with_pad(files, files->next != NULL ? maxlen : 0);
 		if (args->flags & FLAG_COLOR)
 			ft_printf("{RESET}");
-		ft_putchar(files->next != NULL ? ' ' : '\n');
+		//ft_putchar(files->next != NULL ? ' ' : '\n');
+		ft_putchar('\n');
 		files = files->next;
 	}
 }

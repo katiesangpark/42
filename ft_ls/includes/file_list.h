@@ -23,6 +23,7 @@ typedef struct	s_files
 	int					is_exec;
 	int					is_link;
 	int					nlinks;
+	int					folderfile;
 	unsigned long long	filesize;
 	unsigned long long	time;
 	char				*symlink_path;
@@ -43,6 +44,7 @@ typedef struct	s_folder
 	int					is_exec;
 	int					is_link;
 	int					nlinks;
+	int					folderfile;
 	unsigned long long	filesize;
 	unsigned long long	time;
 	char				*symlink_path;
