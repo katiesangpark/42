@@ -50,6 +50,16 @@ void	list_files2(DIR *d, t_args *args, t_folder *curr)
 	free_single_folder(&curr);
 }
 
+void aaa(int dotdot, t_folder *curr)
+{
+	if (!dotdot)
+		return ;
+	files_lst_push(&curr->files, file_lst_new(".", build_prefix(curr->prefix,
+					curr->name)));
+	files_lst_push(&curr->files, file_lst_new("..", build_prefix(curr->prefix,
+		curr->name)));
+}
+
 void	list_files(t_args *args, t_folder *curr)
 {
 	DIR				*d;
@@ -60,15 +70,16 @@ void	list_files(t_args *args, t_folder *curr)
 	while (curr != NULL)
 	{
 		d = (!curr->exists) ? (NULL) : (opendir(curr->fullpath));
+		aaa((args->flags & FLAG_ALL) && !(args->flags & FLAG_UPPER_A), curr);
 		while (d && (f = readdir(d)) != NULL)
 		{
-			if (is_hidden(f->d_name, args))
+			if (is_hidden(f->d_name, args) || is_dot(f->d_name))
 				continue ;
 			file = file_lst_new(f->d_name,
 				build_prefix(curr->prefix, curr->name));
 			files_lst_push(&curr->files, file);
 			get_files_info(args, curr, file);
-			if (!file || f->d_type != DT_DIR || is_dot(file->name)
+			if (!file || f->d_type != DT_DIR
 				|| (args->flags & FLAG_RECURSIVE) == 0)
 				continue ;
 			folder_lst_push(&curr->subfolders,

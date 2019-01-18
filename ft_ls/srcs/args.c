@@ -37,7 +37,7 @@ void	complete_arguments(t_args *args)
 {
 	if (args->flags & FLAG_NUMERIC_ID || args->flags & FLAG_OMIT_GID)
 		args->flags |= FLAG_LIST;
-	if (args->flags & FLAG_NON_SORT)
+	if (args->flags & FLAG_NON_SORT || args->flags & FLAG_UPPER_A)
 		args->flags |= FLAG_ALL;
 }
 
