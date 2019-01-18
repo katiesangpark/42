@@ -38,10 +38,10 @@ void	print_files_inline(t_args *args, t_files *files)
 
 void	print_folder_inline(t_args *args, t_folder *folders)
 {
-	if (folders != args->search_folder)
+	if (folders->next != NULL || folders != args->search_folder)
 		ft_printf("%s:\n", folders->fullpath);
 	if (folders->files != 0)
 		print_files_inline(args, folders->files);
-	if (folders->next != NULL)
+	if (folders->next != NULL || folders->subfolders != NULL)
 		ft_putchar('\n');
 }

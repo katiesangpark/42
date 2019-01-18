@@ -33,6 +33,14 @@ int		validate_parameters(t_args *args, char *str)
 	return (*str);
 }
 
+void	complete_arguments(t_args *args)
+{
+	if (args->flags & FLAG_NUMERIC_ID || args->flags & FLAG_OMIT_GID)
+		args->flags |= FLAG_LIST;
+	if (args->flags & FLAG_NON_SORT)
+		args->flags |= FLAG_ALL;
+}
+
 int		validate_arguments(t_args *args, int ac, char **av)
 {
 	int			i;

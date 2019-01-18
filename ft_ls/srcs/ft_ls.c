@@ -89,6 +89,7 @@ int		main(int ac, char **av)
 		return (0);
 	if ((err = validate_arguments(args, ac, av)) == ERR_NO_ERR)
 	{
+		complete_arguments(args);
 		sort_folders(args, &args->search_folder);
 		print_invalid_folders(args, &args->search_folder);
 		remove_nonfiles_folders(&args->search_folder);
@@ -96,7 +97,7 @@ int		main(int ac, char **av)
 	}
 	else if (err == ERR_INVALID_ARG)
 	{
-		ft_printf("usage: ft_ls [-%s] [file ...]\n", FLAGS);
+		ft_putstr("usage: ft_ls ["FLAGS"] [file ...]\n");
 		if (args->search_folder)
 			free_single_folder(&(args->search_folder));
 	}

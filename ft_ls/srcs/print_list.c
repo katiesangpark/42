@@ -25,7 +25,8 @@ void	print_file_name(t_args *args, t_files *files)
 	ft_putstr(files->permission);
 	print_links_with_pad(files, 0);
 	print_owner_with_pad(files, 0);
-	print_group_with_pad(files, 0);
+	if ((args->flags & FLAG_OMIT_GID) == 0)
+		print_group_with_pad(files, 0);
 	print_size_with_pad(files, 0);
 	if (args->flags & FLAG_COLOR)
 		print_colors(files);
@@ -59,6 +60,6 @@ void	print_folder_list(t_args *args, t_folder *folders)
 		ft_printf("total %d\n", folders->total);
 		print_files_list(args, folders->files);
 	}
-	if (folders->next != NULL)
+	if (folders->next != NULL || folders->subfolders != NULL)
 		ft_putchar('\n');
 }
