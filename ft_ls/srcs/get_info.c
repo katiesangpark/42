@@ -58,8 +58,7 @@ void	get_list_info(t_args *args, t_files *files, struct stat *f_stat)
 	files->nlinks = f_stat->st_nlink;
 	if (files->is_link)
 		get_symlink_target(files);
-	build_permission_string(files->permission, f_stat->st_mode,
-		files->is_link);
+	build_permission_string(files->permission, f_stat->st_mode);
 	files->filesize = f_stat->st_size;
 	pwuid = getpwuid(f_stat->st_uid);
 	files->owner = (args->flags & FLAG_NUMERIC_ID) || pwuid == 0

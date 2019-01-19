@@ -17,13 +17,27 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-void	build_permission_string(char *str, int st_mode, int is_link)
+char	get_entry_type(int st_mode)
+{
+	if (S_ISBLK(st_mode))
+		return ('b');
+	if (S_ISCHR(st_mode))
+		return ('c');
+	if (S_ISDIR(st_mode))
+		return ('d');
+	if (S_ISLNK(st_mode))
+		return ('l');
+	if (S_ISSOCK(st_mode))
+		return ('s');
+	if (S_ISFIFO(st_mode))
+		return ('p');
+	return ('-');
+}
+
+void	build_permission_string(char *str, int st_mode)
 {
 	ft_strcpy(str, "----------  ");
-	if (S_ISDIR(st_mode))
-		str[0] = 'd';
-	if (is_link)
-		str[0] = 'l';
+	str[0] = get_entry_type(st_mode);
 	if (st_mode & S_IRUSR)
 		str[1] = 'r';
 	if (st_mode & S_IWUSR)
