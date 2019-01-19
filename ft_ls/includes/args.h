@@ -31,6 +31,7 @@
 # define FLAG_TIME_SORT		(1 << 11)
 # define FLAG_ACCESS_SORT	(1 << 12)
 # define FLAG_ONE_LINE		(1 << 13)
+# define NOTFLAG_FIRST		(1 << 31)
 
 int			validate_parameters(t_args *args, char *str);
 void		complete_arguments(t_args *args);

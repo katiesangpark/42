@@ -79,7 +79,7 @@ int		validate_arguments(t_args *args, int ac, char **av)
 			ft_printf("ft_ls: illegal option -- %c\n", tmp);
 			return (ERR_INVALID_ARG);
 		}
-		folder_lst_push(&args->search_folder,
+		folder_lst_push(args->flags, &args->search_folder,
 			(newfolder = folder_lst_new(av[i], ft_strdup(""))));
 		nonargs = 1;
 	}

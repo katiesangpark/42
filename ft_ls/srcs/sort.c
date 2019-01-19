@@ -13,7 +13,6 @@
 #include "sort.h"
 #include "libft.h"
 #include "sort_reverse.h"
-#include "sort_alphabetical.h"
 #include "sort_time.h"
 
 void	sort_folders(t_args *args, t_folder **folders)
@@ -22,8 +21,6 @@ void	sort_folders(t_args *args, t_folder **folders)
 		return ;
 	if (args->flags & FLAG_TIME_SORT)
 		sort_time(folders);
-	else
-		sort_alphabetical(folders);
 	if (args->flags & FLAG_REVERSE)
 		folders_reverse(folders);
 }
@@ -34,8 +31,6 @@ void	sort_files(t_args *args, t_files **files)
 		return ;
 	if (args->flags & FLAG_TIME_SORT)
 		sort_time_files(files);
-	else
-		sort_alphabetical_files(files);
 	if (args->flags & FLAG_REVERSE)
 		files_reverse(files);
 }

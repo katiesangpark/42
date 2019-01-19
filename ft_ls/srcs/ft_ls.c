@@ -40,18 +40,15 @@ void	add_dots(t_args *args, t_folder *curr)
 
 	if (((args->flags & FLAG_ALL) && !(args->flags & FLAG_UPPER_A)) == 0)
 		return ;
-	file = file_lst_new("..", build_prefix(curr->prefix, curr->name));
-	if (file)
+	if ((file = file_lst_new("..", build_prefix(curr->prefix, curr->name))))
 	{
-		file->next = curr->files;
-		curr->files = file;
+		files_lst_push(args->flags | NOTFLAG_FIRST, &curr->files, file);
 		get_files_info(args, curr, file);
 	}
 	file = file_lst_new(".", build_prefix(curr->prefix, curr->name));
 	if (curr->files && file)
 	{
-		file->next = curr->files;
-		curr->files = file;
+		files_lst_push(args->flags | NOTFLAG_FIRST, &curr->files, file);
 		get_files_info(args, curr, file);
 	}
 }
@@ -99,12 +96,12 @@ void	list_files(t_args *args, t_folder *curr)
 				continue ;
 			file = file_lst_new(f->d_name,
 				build_prefix(curr->prefix, curr->name));
-			files_lst_push(&curr->files, file);
+			files_lst_push(args->flags, &curr->files, file);
 			get_files_info(args, curr, file);
 			if (!file || f->d_type != DT_DIR
 				|| (args->flags & FLAG_RECURSIVE) == 0)
 				continue ;
-			folder_lst_push(&curr->subfolders,
+			folder_lst_push(args->flags, &curr->subfolders,
 				folder_lst_new(f->d_name, ft_strdup(file->prefix)));
 		}
 		list_files2(d, args, curr);

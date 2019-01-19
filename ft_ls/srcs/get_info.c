@@ -57,6 +57,7 @@ void	get_list_info(t_args *args, t_files *files, struct stat *f_stat)
 	if (files->is_link)
 		get_symlink_target(files);
 	build_permission_string(files->permission, f_stat->st_mode);
+	files->mode = f_stat->st_mode;
 	files->filetype = files->permission[0];
 	files->filesize = f_stat->st_size;
 	pwuid = getpwuid(f_stat->st_uid);

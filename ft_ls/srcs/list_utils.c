@@ -96,7 +96,8 @@ void		print_links_with_pad(t_files *files, int reset)
 	}
 }
 
-void		get_biggest_size_field(t_files *files, int *len, int *tmp, int reset)
+void		get_biggest_size_field(t_files *files, int *len,
+									int *tmp, int reset)
 {
 	ft_bzero(len, sizeof(int) * 3);
 	while (files != 0)

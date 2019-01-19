@@ -25,6 +25,7 @@ typedef struct	s_files
 	int					is_link;
 	int					nlinks;
 	int					folderfile;
+	unsigned int		mode;
 	unsigned int		major;
 	unsigned int		minor;
 	unsigned long long	filesize;
@@ -49,6 +50,7 @@ typedef struct	s_folder
 	int					is_link;
 	int					nlinks;
 	int					folderfile;
+	unsigned int		mode;
 	unsigned int		major;
 	unsigned int		minor;
 	unsigned long long	filesize;
@@ -65,10 +67,10 @@ typedef struct	s_folder
 }				t_folder;
 
 t_files			*file_lst_new(char *name, char *prefix);
-void			files_lst_push(t_files **begin, t_files *file);
+void			files_lst_push(int flags, t_files **begin, t_files *file);
 int				folder_lst_size(t_folder *folder);
 
 t_folder		*folder_lst_new(char *name, char *prefix);
-void			folder_lst_push(t_folder **begin, t_folder *file);
+void			folder_lst_push(int flags, t_folder **begin, t_folder *file);
 
 #endif
