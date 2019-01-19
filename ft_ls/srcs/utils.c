@@ -36,10 +36,20 @@ int		exists(char *path)
 	return (lstat(path, &f_stat) + stat(path, &l_stat) == 0);
 }
 
-int		is_dir(char *path)
+char	get_last_char(char *str)
+{
+	while (str[0] && str[1])
+		str++;
+	return (*str);
+}
+
+int		is_dir(t_args *args, char *path)
 {
 	struct stat	f_stat;
 
-	lstat(path, &f_stat);
+	if (get_last_char(path) == '/' || (args->flags & FLAG_LIST) == 0)
+		stat(path, &f_stat);
+	else
+		lstat(path, &f_stat);
 	return (S_ISDIR(f_stat.st_mode));
 }

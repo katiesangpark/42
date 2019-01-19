@@ -42,27 +42,35 @@ void	complete_arguments(t_args *args)
 		args->flags |= FLAG_ALL;
 }
 
+void	init_variables(int *i, int *nonargs, int *endargs)
+{
+	*i = 0;
+	*endargs = 0;
+	*nonargs = 0;
+}
+
 int		validate_arguments(t_args *args, int ac, char **av)
 {
 	int			i;
 	char		tmp;
+	int			endargs;
 	int			nonargs;
 	t_folder	*newfolder;
 
-	i = 0;
-	nonargs = 0;
+	init_variables(&i, &nonargs, &endargs);
 	while (++i < ac)
 	{
-		if (nonargs == 0 && av[i][0] == '-' && av[i][1] != '\0')
+		if (ft_strcmp("--", av[i]) == 0 && (endargs = 1))
+			continue ;
+		if (!endargs && !nonargs && av[i][0] == '-' && av[i][1] != '\0')
 		{
 			if ((tmp = validate_parameters(args, av[i] + 1)) == 0)
 				continue ;
 			ft_printf("ft_ls: illegal option -- %c\n", tmp);
 			return (ERR_INVALID_ARG);
 		}
-		if ((newfolder = folder_lst_new(av[i], ft_strdup(""))) == NULL)
-			return (ERR_MALLOC_FAIL);
-		folder_lst_push(&args->search_folder, newfolder);
+		folder_lst_push(&args->search_folder,
+			(newfolder = folder_lst_new(av[i], ft_strdup(""))));
 		nonargs = 1;
 	}
 	if (args->search_folder == NULL)

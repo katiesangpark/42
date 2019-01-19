@@ -12,9 +12,10 @@
 
 #ifndef UTILS_H
 # define UTILS_H
+# include "args.h"
 
 char	*build_prefix(char *prev_prefix, char *curr_folder);
 int		exists(char *path);
-int		is_dir(char *path);
+int		is_dir(t_args *args, char *path);
 
 #endif

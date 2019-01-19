@@ -44,7 +44,7 @@ void	build_time_string(t_files *files)
 	if ((files->date = ft_strnew(12)) != NULL)
 	{
 		ft_strncpy(files->date, tmp + 1, 12);
-		if (currtime - tmptime > 15552000)
+		if (currtime - tmptime > 15552000 || currtime - tmptime < 0)
 			ft_strncpy(files->date + 7, tmp + 16, 5);
 	}
 }
