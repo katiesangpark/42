@@ -45,7 +45,7 @@ void	build_permission_string(char *str, int st_mode)
 	if (st_mode & S_IXUSR)
 		str[3] = 'x';
 	if (st_mode & S_ISUID)
-		str[3] = str[3] == 'w' ? 's' : 'S';
+		str[3] = str[3] == 'x' ? 's' : 'S';
 	if (st_mode & S_IRGRP)
 		str[4] = 'r';
 	if (st_mode & S_IWGRP)
@@ -53,7 +53,7 @@ void	build_permission_string(char *str, int st_mode)
 	if (st_mode & S_IXGRP)
 		str[6] = 'x';
 	if (st_mode & S_ISGID)
-		str[6] = str[5] == 'w' ? 's' : 'S';
+		str[6] = str[6] == 'x' ? 's' : 'S';
 	if (st_mode & S_IROTH)
 		str[7] = 'r';
 	if (st_mode & S_IWOTH)
