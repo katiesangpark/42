@@ -43,11 +43,30 @@ char	get_last_char(char *str)
 	return (*str);
 }
 
+char	*is_dir2(char *path)
+{
+	struct stat	f_stat;
+	int			i;
+
+	i = 0;
+	while (path[i] && path[i] != '/')
+		i++;
+	if (path[i] == '/')
+	{
+		path[i] = '\0';
+		if (!lstat(path, &f_stat) && !S_ISDIR(f_stat.st_mode))
+			return ("Not a directory");
+		path[i] = '\\';
+	}
+	return ("No such file or directory");
+}
+
 int		is_dir(t_args *args, char *path)
 {
 	struct stat	f_stat;
 
-	if (get_last_char(path) == '/' || (args->flags & FLAG_LIST) == 0)
+	if (args
+		&& (get_last_char(path) == '/' || (args->flags & FLAG_LIST) == 0))
 		stat(path, &f_stat);
 	else
 		lstat(path, &f_stat);
