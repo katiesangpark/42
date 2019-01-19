@@ -27,12 +27,12 @@ void	build_time_string(t_files *files)
 	time_t			tmptime;
 	char			*tmp;
 	int				len;
-	static time_t	currtime;
+	time_t			currtime;
 
-	if (!currtime)
-		time(&currtime);
+	time(&currtime);
 	tmptime = (time_t)files->time;
-	if ((tmp = ctime(&tmptime)) == NULL)
+	if ((tmp = ctime(&tmptime)) == NULL
+		|| (files->date = ft_strnew(12)) == NULL)
 		return ;
 	while (*++tmp && *tmp != ' ')
 		;
@@ -42,12 +42,9 @@ void	build_time_string(t_files *files)
 	++len;
 	while (tmp[len] && tmp[len] != ':')
 		++len;
-	if ((files->date = ft_strnew(12)) != NULL)
-	{
-		ft_strncpy(files->date, tmp + 1, 12);
-		if (currtime - tmptime > 15552000 || currtime - tmptime < 0)
-			ft_strncpy(files->date + 7, tmp + 16, 5);
-	}
+	ft_strncpy(files->date, tmp + 1, 12);
+	if (currtime - tmptime > 15552000 || currtime - tmptime < 0)
+		ft_strncpy(files->date + 7, tmp + 16, 5);
 }
 
 void	get_list_info(t_args *args, t_files *files, struct stat *f_stat)

@@ -96,38 +96,51 @@ void		print_links_with_pad(t_files *files, int reset)
 	}
 }
 
+void		get_biggest_size_field(t_files *files, int *len, int *tmp, int reset)
+{
+	ft_bzero(len, sizeof(int) * 3);
+	while (files != 0)
+	{
+		tmp[0] = unbrlen(files->filesize);
+		tmp[1] = unbrlen(files->major);
+		tmp[2] = unbrlen(files->minor);
+		if (files->filetype == 'b' || files->filetype == 'c')
+			tmp[0] = tmp[1] + tmp[2] + 4;
+		if ((reset == 1 && !files->folderfile)
+			|| (reset == 2 && files->folderfile))
+		{
+			if (tmp[0] > len[0])
+				len[0] = tmp[0];
+			if (tmp[1] > len[1])
+				len[1] = tmp[1];
+			if (tmp[2] > len[2])
+				len[2] = tmp[2];
+		}
+		files = files->next;
+	}
+}
+
 void		print_size_with_pad(t_files *files, int reset)
 {
-	static int	len = 0;
-	int			tmplen;
+	static int	len[3] = {0, 0, 0};
+	int			tmp[3];
 
 	if (reset != 0)
-	{
-		len = 0;
-		while (files != 0)
-		{
-			tmplen = unbrlen(files->major);
-			if (files->filetype == 'b' || files->filetype == 'c')
-				tmplen = unbrlen(files->major) + unbrlen(files->minor) + 2;
-			if ((reset == 1 && !files->folderfile)
-				|| (reset == 2 && files->folderfile))
-			{
-				if (tmplen > len)
-					len = tmplen;
-			}
-			files = files->next;
-		}
-	}
+		get_biggest_size_field(files, len, tmp, reset);
 	else if (files != 0)
 	{
 		if (files->filetype == 'b' || files->filetype == 'c')
 		{
-			ft_print_char(' ', len - unbrlen(files->major) - unbrlen(files->minor) - 2);
-			ft_printf("%d, %d", files->major, files->minor);
+			ft_putchar(' ');
+			ft_print_char(' ', len[1] - unbrlen(files->major));
+			ft_putnbr(files->major);
+			ft_putstr(", ");
+			ft_print_char(' ', len[2] - unbrlen(files->minor));
+			ft_putnbr(files->minor);
 		}
 		else
 		{
-			ft_print_char(' ', len - unbrlen(files->filesize));
+			ft_print_char(' ', len[0] - unbrlen(files->filesize));
 			ft_putnbr(files->filesize);
 		}
 		ft_putchar(' ');
