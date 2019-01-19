@@ -17,8 +17,9 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-char	get_entry_type(int st_mode)
+char	get_entry_type(char *str, int st_mode)
 {
+	ft_strcpy(str, "----------  ");
 	if (S_ISBLK(st_mode))
 		return ('b');
 	if (S_ISCHR(st_mode))
@@ -36,26 +37,31 @@ char	get_entry_type(int st_mode)
 
 void	build_permission_string(char *str, int st_mode)
 {
-	ft_strcpy(str, "----------  ");
-	str[0] = get_entry_type(st_mode);
+	str[0] = get_entry_type(str, st_mode);
 	if (st_mode & S_IRUSR)
 		str[1] = 'r';
 	if (st_mode & S_IWUSR)
 		str[2] = 'w';
 	if (st_mode & S_IXUSR)
 		str[3] = 'x';
+	if (st_mode & S_ISUID)
+		str[3] = str[3] == 'w' ? 's' : 'S';
 	if (st_mode & S_IRGRP)
 		str[4] = 'r';
 	if (st_mode & S_IWGRP)
 		str[5] = 'w';
 	if (st_mode & S_IXGRP)
 		str[6] = 'x';
+	if (st_mode & S_ISGID)
+		str[6] = str[5] == 'w' ? 's' : 'S';
 	if (st_mode & S_IROTH)
 		str[7] = 'r';
 	if (st_mode & S_IWOTH)
 		str[8] = 'w';
 	if (st_mode & S_IXOTH)
 		str[9] = 'x';
+	if (st_mode & S_ISVTX)
+		str[9] = (str[7] == 'r' || str[9] == 'x') ? 't' : 'T';
 }
 
 void	get_symlink_target(t_files *file)

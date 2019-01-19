@@ -47,7 +47,7 @@ void		files_lst_push(int flags, t_files **begin, t_files *file)
 	t_files	*prev;
 
 	curr = *begin;
-	prev = 0;
+	prev = NULL;
 	if (flags & FLAG_NON_SORT && (flags & NOTFLAG_FIRST) == 0)
 		while (curr)
 		{
@@ -95,7 +95,7 @@ void		folder_lst_push(int flags, t_folder **begin, t_folder *folder)
 	t_folder	*prev;
 
 	curr = *begin;
-	prev = 0;
+	prev = NULL;
 	if (flags & FLAG_NON_SORT && (flags & NOTFLAG_FIRST) == 0)
 		while (curr)
 		{
