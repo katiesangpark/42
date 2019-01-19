@@ -1,2 +1,3 @@
 slow on /sgoinfre/goinfre/Perso
 wrong date if difference between date and current date is greater than 6 months
+file/ != file

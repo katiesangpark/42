@@ -16,6 +16,8 @@ char	*ft_strncpy(char *destination, const char *source, size_t num)
 {
 	unsigned int i;
 
+	if (!destination || !source)
+		return (destination);
 	i = 0;
 	while (source[i] != '\0' && i < num)
 	{
