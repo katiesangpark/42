@@ -24,9 +24,10 @@
 #include <dirent.h>
 #include <stdlib.h>
 
-void	error_perm_denied(t_folder *curr)
+void	error_perm_denied(t_args *args, t_folder *curr)
 {
-	ft_printf("%s:\n", curr->fullpath);
+	if (args->search_folder != curr || curr->next != NULL)
+		ft_printf("%s:\n", curr->fullpath);
 	ft_printf_fd(2, "ft_ls: %s: Permission denied\n", curr->name);
 	if (curr->next != NULL)
 		ft_putchar('\n');
@@ -79,7 +80,7 @@ void	list_files2(DIR *d, t_args *args, t_folder *curr)
 		closedir(d);
 	}
 	else if (curr->exists)
-		error_perm_denied(curr);
+		error_perm_denied(args, curr);
 }
 
 void	list_files(t_args *args, t_folder *curr)
