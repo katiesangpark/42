@@ -49,6 +49,16 @@ void	init_variables(int *i, int *nonargs, int *endargs)
 	*nonargs = 0;
 }
 
+int		double_dash_arg(int *nonargs, int *endargs, char *s)
+{
+	if (!(*nonargs) && ft_strcmp("--", s) == 0 && (*endargs = 1))
+	{
+		*nonargs = 1;
+		return (1);
+	}
+	return (0);
+}
+
 int		validate_arguments(t_args *args, int ac, char **av)
 {
 	int			i;
@@ -60,7 +70,7 @@ int		validate_arguments(t_args *args, int ac, char **av)
 	init_variables(&i, &nonargs, &endargs);
 	while (++i < ac)
 	{
-		if (ft_strcmp("--", av[i]) == 0 && (endargs = 1))
+		if (double_dash_arg(&nonargs, &endargs, av[i]))
 			continue ;
 		if (!endargs && !nonargs && av[i][0] == '-' && av[i][1] != '\0')
 		{
