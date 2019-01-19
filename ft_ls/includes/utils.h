@@ -17,6 +17,6 @@
 char	*build_prefix(char *prev_prefix, char *curr_folder);
 int		exists(char *path);
 int		is_dir(t_args *args, char *path);
-char*	is_dir2(char *path);
+char	*is_dir2(char *path);
 
 #endif
