@@ -99,27 +99,37 @@ void		print_links_with_pad(t_files *files, int reset)
 void		print_size_with_pad(t_files *files, int reset)
 {
 	static int	len = 0;
+	int			tmplen;
 
 	if (reset != 0)
 	{
 		len = 0;
 		while (files != 0)
 		{
-			if (reset == 1 && !files->folderfile)
+			tmplen = unbrlen(files->major);
+			if (files->filetype == 'b' || files->filetype == 'c')
+				tmplen = unbrlen(files->major) + unbrlen(files->minor) + 2;
+			if ((reset == 1 && !files->folderfile)
+				|| (reset == 2 && files->folderfile))
 			{
-				if (unbrlen(files->filesize) > len)
-					len = unbrlen(files->filesize);
+				if (tmplen > len)
+					len = tmplen;
 			}
-			else if (reset == 2 && files->folderfile)
-				if (unbrlen(files->filesize) > len)
-					len = unbrlen(files->filesize);
 			files = files->next;
 		}
 	}
 	else if (files != 0)
 	{
-		ft_print_char(' ', len - unbrlen(files->filesize));
-		ft_putnbr(files->filesize);
+		if (files->filetype == 'b' || files->filetype == 'c')
+		{
+			ft_print_char(' ', len - unbrlen(files->major) - unbrlen(files->minor) - 2);
+			ft_printf("%d, %d", files->major, files->minor);
+		}
+		else
+		{
+			ft_print_char(' ', len - unbrlen(files->filesize));
+			ft_putnbr(files->filesize);
+		}
 		ft_putchar(' ');
 	}
 }

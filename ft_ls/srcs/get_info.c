@@ -16,6 +16,7 @@
 #include "file_list.h"
 #include "libft.h"
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 #include <pwd.h>
 #include <grp.h>
@@ -59,6 +60,7 @@ void	get_list_info(t_args *args, t_files *files, struct stat *f_stat)
 	if (files->is_link)
 		get_symlink_target(files);
 	build_permission_string(files->permission, f_stat->st_mode);
+	files->filetype = files->permission[0];
 	files->filesize = f_stat->st_size;
 	pwuid = getpwuid(f_stat->st_uid);
 	files->owner = (args->flags & FLAG_NUMERIC_ID) || pwuid == 0
@@ -66,6 +68,8 @@ void	get_list_info(t_args *args, t_files *files, struct stat *f_stat)
 	grgid = getgrgid(f_stat->st_gid);
 	files->group = (args->flags & FLAG_NUMERIC_ID) || grgid == 0 ?
 		ft_itoa(f_stat->st_gid) : ft_strdup(grgid->gr_name);
+	files->major = major(f_stat->st_rdev);
+	files->minor = minor(f_stat->st_rdev);
 }
 
 void	get_files_info(t_args *args, t_folder *folder, t_files *files)
