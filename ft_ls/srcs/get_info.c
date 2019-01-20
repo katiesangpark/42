@@ -45,6 +45,8 @@ void	build_time_string(t_files *files)
 	ft_strncpy(files->date, tmp + 1, 12);
 	if (currtime - tmptime > 15552000 || currtime - tmptime < 0)
 		ft_strncpy(files->date + 7, tmp + 16, 5);
+	if (tmp[21] != 10)
+		ft_strncpy(files->date + 7, tmp + 21, 5);
 }
 
 void	get_list_info(t_args *args, t_files *files, struct stat *f_stat)
@@ -68,7 +70,6 @@ void	get_list_info(t_args *args, t_files *files, struct stat *f_stat)
 		ft_itoa(f_stat->st_gid) : ft_strdup(grgid->gr_name);
 	files->major = major(f_stat->st_rdev);
 	files->minor = minor(f_stat->st_rdev);
-	ft_printf("%s %d %d\n", files->name, files->minor, files->major);
 }
 
 void	get_files_info(t_args *args, t_folder *folder, t_files *files)

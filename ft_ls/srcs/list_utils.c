@@ -106,7 +106,7 @@ void		get_biggest_size_field(t_files *files, int *len,
 		tmp[1] = unbrlen(files->major);
 		tmp[2] = unbrlen(files->minor);
 		if (files->filetype == 'b' || files->filetype == 'c')
-			tmp[0] = tmp[1] + tmp[2] + 4;
+			tmp[0] = tmp[1] + tmp[2] + 3;
 		if ((reset == 1 && !files->folderfile)
 			|| (reset == 2 && files->folderfile))
 		{
