@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   constants.h                                        :+:      :+:    :+:   */
+/*   builtin_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 21:18:47 by kicausse          #+#    #+#             */
-/*   Updated: 2019/01/23 21:18:48 by kicausse         ###   ########.fr       */
+/*   Created: 2019/01/23 23:12:15 by kicausse          #+#    #+#             */
+/*   Updated: 2019/01/23 23:12:15 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONSTANTS_H
-# define CONSTANTS_H
+#include <unistd.h>
+#include <stdlib.h>
+#include "libft.h"
+#include "commands.h"
 
-# define SHELL_NAME				"kiloshell"
-# define SHELL_VERSION			"0.1"
-# define PROMPT 				SHELL_NAME"-"SHELL_VERSION"$> "
-# define PROMPT_LENGTH 			(16)
+void	b_exit(t_shell *shell, char **args)
+{
+	(void)shell;
+	(void)args;
+	exit(0);
+}
 
-# define CONST_PROCESS_CHILDREN (0)
-
-# define BUILTINS_AMOUNT		(2)
-
-#endif
+void	b_cd(t_shell *shell, char **args)
+{
+	if (args[1] == NULL)
+	{
+		shell->pwd = "/";
+		chdir("/");
+	}
+	else
+	{
+		shell->pwd = args[1];
+		chdir(args[1]);
+	}
+}

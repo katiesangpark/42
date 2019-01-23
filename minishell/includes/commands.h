@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   constants.h                                        :+:      :+:    :+:   */
+/*   commands.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 21:18:47 by kicausse          #+#    #+#             */
-/*   Updated: 2019/01/23 21:18:48 by kicausse         ###   ########.fr       */
+/*   Created: 2019/01/23 23:17:44 by kicausse          #+#    #+#             */
+/*   Updated: 2019/01/23 23:17:44 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONSTANTS_H
-# define CONSTANTS_H
+#ifndef COMMANDS_H
+# define COMMANDS_H
+# include "shell.h"
 
-# define SHELL_NAME				"kiloshell"
-# define SHELL_VERSION			"0.1"
-# define PROMPT 				SHELL_NAME"-"SHELL_VERSION"$> "
-# define PROMPT_LENGTH 			(16)
+typedef struct	s_builtin
+{
+	char	*command;
+	void	(*func)(t_shell *shell, char **args);
+}				t_builtin;
 
-# define CONST_PROCESS_CHILDREN (0)
+void			b_exit(t_shell *shell, char **args);
+void			b_cd(t_shell *shell, char **args);
 
-# define BUILTINS_AMOUNT		(2)
+int				exec_builtin(char *command, char **args, t_shell *shell);
+void			exec_command(t_shell *shell, char **args, char **env);
 
 #endif

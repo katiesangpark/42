@@ -12,9 +12,11 @@
 
 NAME 	= 	minishell
 
-SRC 	= 	srcs/main.c srcs/parser.c srcs/builtins.c
+SRC 	= 	srcs/builtin_functions.c srcs/builtins.c srcs/command.c srcs/main.c  \
+			srcs/parser.c srcs/utils.c
 
-INC 	= 	includes/parsing.h includes/constants.h
+INC 	= 	includes/commands.h includes/constants.h includes/parsing.h  \
+			includes/shell.h includes/utils.h
 
 CC		=	gcc
 

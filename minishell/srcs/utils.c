@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 21:29:42 by kicausse          #+#    #+#             */
-/*   Updated: 2019/01/23 21:29:43 by kicausse         ###   ########.fr       */
+/*   Created: 2019/01/23 23:20:23 by kicausse          #+#    #+#             */
+/*   Updated: 2019/01/23 23:20:24 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include <sys/stat.h>
 
-typedef struct	s_builtin
+int		exists(char *path)
 {
-	char	*command;
-	void	(*func)(char **args);
-}				t_builtin;
+	struct stat	f_stat;
 
-int				exec_builtin(char *command, char **args);
-
-#endif
+	if (stat(path, &f_stat) != 0)
+		return (0);
+	return (S_ISREG(f_stat.st_mode));
+}

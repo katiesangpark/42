@@ -11,22 +11,16 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "builtins.h"
+#include "commands.h"
 #include "constants.h"
 #include "libft.h"
-#include <stdlib.h>
 
-void	b_exit(char **args)
-{
-	(void)args;
-	exit(0);
-}
-
-const s_builtin g_builtins[BUILTINS_AMOUNT] = {
-	{"exit", &b_exit}
+const t_builtin g_builtins[BUILTINS_AMOUNT] = {
+	{"exit", &b_exit},
+	{"cd", &b_cd}
 };
 
-int		exec_builtin(char *command, char **args)
+int		exec_builtin(char *command, char **args, t_shell *shell)
 {
 	unsigned int i;
 
@@ -35,10 +29,10 @@ int		exec_builtin(char *command, char **args)
 	{
 		if (ft_strcmp(command, g_builtins[i].command) == 0)
 		{
-			g_builtins[i].func(args);
+			g_builtins[i].func(shell, args);
 			return (i);
 		}
-		i++;
+		++i;
 	}
 	return (0);
 }

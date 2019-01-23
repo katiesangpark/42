@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   constants.h                                        :+:      :+:    :+:   */
+/*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 21:18:47 by kicausse          #+#    #+#             */
-/*   Updated: 2019/01/23 21:18:48 by kicausse         ###   ########.fr       */
+/*   Created: 2019/01/23 22:59:08 by kicausse          #+#    #+#             */
+/*   Updated: 2019/01/23 22:59:09 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONSTANTS_H
-# define CONSTANTS_H
+#ifndef SHELL_H
+# define SHELL_H
 
-# define SHELL_NAME				"kiloshell"
-# define SHELL_VERSION			"0.1"
-# define PROMPT 				SHELL_NAME"-"SHELL_VERSION"$> "
-# define PROMPT_LENGTH 			(16)
-
-# define CONST_PROCESS_CHILDREN (0)
-
-# define BUILTINS_AMOUNT		(2)
+typedef struct	s_shell
+{
+	char	*path;
+	char	*pwd;
+	char	**env;
+}				t_shell;
 
 #endif
