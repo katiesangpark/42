@@ -36,7 +36,6 @@ char	*find_command(char *command, char *path)
 	unsigned int	cmdlen;
 	char			*final_command;
 
-	path += 5;
 	cmdlen = ft_strlen(command);
 	while (*path != '\0')
 	{

@@ -16,6 +16,7 @@
 #include "commands.h"
 #include "libft.h"
 #include "shell.h"
+#include "utils.h"
 
 void	get_env_vars(t_shell *shell, char **env)
 {
@@ -40,6 +41,7 @@ int		main(int ac, char **av, char **env)
 	(void)av;
 	(void)ac;
 	get_env_vars(&shell, env);
+	ft_putendl(shell.path);
 	while (1)
 	{
 		write(1, PROMPT, PROMPT_LENGTH);

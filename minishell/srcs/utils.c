@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <sys/stat.h>
+#include "libft.h"
 
 int		exists(char *path)
 {
@@ -19,4 +20,18 @@ int		exists(char *path)
 	if (stat(path, &f_stat) != 0)
 		return (0);
 	return (S_ISREG(f_stat.st_mode));
+}
+
+char	*get_env_var(char *name, char **env)
+{
+	unsigned int tmp;
+
+	while (*env)
+	{
+		tmp = ft_strlcmp(*env, name);
+		if (tmp != 0 && (*env)[tmp] == '=')
+			return (*env + tmp + 1);
+		++env;
+	}
+	return (0);
 }
