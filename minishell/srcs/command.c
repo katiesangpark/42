@@ -36,6 +36,8 @@ char	*find_command(char *command, char *path)
 	unsigned int	cmdlen;
 	char			*final_command;
 
+	if (ft_cfind(command, '/') != -1 && exists(command))
+		return (command);
 	cmdlen = ft_strlen(command);
 	while (*path != '\0')
 	{
@@ -51,7 +53,7 @@ char	*find_command(char *command, char *path)
 			break ;
 		path += i + 1;
 	}
-	return (command);
+	return ("");
 }
 
 void	exec_command(t_shell *shell, char **args, char **env)
@@ -63,9 +65,9 @@ void	exec_command(t_shell *shell, char **args, char **env)
 		return ;
 	if ((command = find_command(args[0], shell->path)) == NULL)
 		return ;
-	if (command == args[0])
+	if (command[0] == '\0')
 	{
-		ft_printf(SHELL_NAME": command not found: %s\n", command);
+		ft_printf(SHELL_NAME": command not found: %s\n", args[0]);
 		return ;
 	}
 	process_id = fork();

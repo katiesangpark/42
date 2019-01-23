@@ -20,14 +20,9 @@
 
 void	get_env_vars(t_shell *shell, char **env)
 {
-	while (*env)
-	{
-		if (ft_strncmp(*env, "PATH=", 5) == 0)
-			shell->path = *env + 5;
-		else if (ft_strncmp(*env, "PWD=", 4) == 0)
-			shell->pwd = *env + 4;
-		++env;
-	}
+	ft_bzero(shell, sizeof(t_shell));
+	shell->path = get_env_var("PATH", env);
+	shell->pwd = get_env_var("PWD", env);
 	shell->env = env;
 }
 
@@ -41,7 +36,6 @@ int		main(int ac, char **av, char **env)
 	(void)av;
 	(void)ac;
 	get_env_vars(&shell, env);
-	ft_putendl(shell.path);
 	while (1)
 	{
 		write(1, PROMPT, PROMPT_LENGTH);
