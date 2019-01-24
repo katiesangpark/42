@@ -24,6 +24,6 @@ void			b_exit(t_shell *shell, char **args);
 void			b_cd(t_shell *shell, char **args);
 
 int				exec_builtin(char *command, char **args, t_shell *shell);
-void			exec_command(t_shell *shell, char **args, char **env);
+void			exec_command(t_shell *shell, char **args);
 
 #endif

@@ -56,7 +56,7 @@ char	*find_command(char *command, char *path)
 	return ("");
 }
 
-void	exec_command(t_shell *shell, char **args, char **env)
+void	exec_command(t_shell *shell, char **args)
 {
 	pid_t	process_id;
 	char	*command;
@@ -72,7 +72,7 @@ void	exec_command(t_shell *shell, char **args, char **env)
 	}
 	process_id = fork();
 	if (process_id == CONST_PROCESS_CHILDREN)
-		execve(command, args, env);
+		execve(command, args, shell->env);
 	else
 	{
 		if (command != args[0])

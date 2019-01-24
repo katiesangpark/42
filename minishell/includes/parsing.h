@@ -13,6 +13,8 @@
 #ifndef PARSING_H
 # define PARSING_H
 
+void	read_input(char *buf);
+
 char	**parse_input(char *input);
 
 #endif

@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 21:29:42 by kicausse          #+#    #+#             */
-/*   Updated: 2019/01/23 21:29:43 by kicausse         ###   ########.fr       */
+/*   Created: 2019/01/24 02:17:46 by kicausse          #+#    #+#             */
+/*   Updated: 2019/01/24 02:17:47 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "constants.h"
+#include <unistd.h>
 
-typedef struct	s_builtin
+void	read_input(char *buf)
 {
-	char	*command;
-	void	(*func)(char **args);
-}				t_builtin;
+	int		offset;
 
-void			b_exit(char **args);
-void			b_cd(char **args);
-
-int				exec_builtin(char *command, char **args);
-void			exec_command(char *path, char **args, char **env);
-
-#endif
+	offset = 0;
+	read(0, buf, 1);
+	while (buf[offset++] != '\n' && offset < BUF_SIZE)
+		read(0, buf + offset, 1);
+	buf[offset - 1] = '\0';
+}

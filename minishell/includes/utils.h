@@ -12,8 +12,9 @@
 
 #ifndef UTILS_H
 # define UTILS_H
+# include "shell.h"
 
 int		exists(char *path);
-char	*get_env_var(char *name, char **env);
+char	*build_string_with_num(char *str, int n);
 
 #endif

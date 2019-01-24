@@ -14,10 +14,12 @@
 #include <stdlib.h>
 #include "libft.h"
 #include "commands.h"
+#include "utils.h"
 
 void	b_exit(t_shell *shell, char **args)
 {
-	(void)shell;
+	free_env(shell->env);
+	free(shell->buf);
 	(void)args;
 	exit(0);
 }
