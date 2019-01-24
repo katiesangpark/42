@@ -37,3 +37,16 @@ void	b_cd(t_shell *shell, char **args)
 		chdir(args[1]);
 	}
 }
+
+void	b_env(t_shell *shell, char **args)
+{
+	unsigned int i;
+
+	(void)args;
+	i = 0;
+	while (shell->env[i])
+	{
+		ft_putendl(shell->env[i]);
+		++i;
+	}
+}

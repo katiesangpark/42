@@ -21,7 +21,7 @@
 
 # define CONST_PROCESS_CHILDREN (0)
 
-# define BUILTINS_AMOUNT		(2)
+# define BUILTINS_AMOUNT		(3)
 
 # define BUF_SIZE				(256)
 

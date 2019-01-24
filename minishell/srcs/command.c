@@ -67,7 +67,7 @@ void	exec_command(t_shell *shell, char **args)
 		return ;
 	if (command[0] == '\0')
 	{
-		ft_printf(SHELL_NAME": command not found: %s\n", args[0]);
+		ft_printf_fd(2, SHELL_NAME": command not found: %s\n", args[0]);
 		return ;
 	}
 	process_id = fork();

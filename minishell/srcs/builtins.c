@@ -17,7 +17,8 @@
 
 const t_builtin g_builtins[BUILTINS_AMOUNT] = {
 	{"exit", &b_exit},
-	{"cd", &b_cd}
+	{"cd", &b_cd},
+	{"env", &b_env}
 };
 
 int		exec_builtin(char *command, char **args, t_shell *shell)

@@ -22,9 +22,9 @@ typedef struct	s_shell
 	char	*buf;
 }				t_shell;
 
-void	free_env(char **env);
-char	**copy_env(char **env);
-char	*get_env_var(char *name, char **env);
-void	set_env_var(char *name, char *value, char **env);
+void			free_env(char **env);
+char			**copy_env(char **env);
+char			*get_env_var(char *name, char **env);
+void			set_env_var(char *name, char *value, char **env);
 
 #endif
