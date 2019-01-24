@@ -16,28 +16,6 @@
 #include "commands.h"
 #include "utils.h"
 
-void	b_exit(t_shell *shell, char **args)
-{
-	free_env(shell->env);
-	free(shell->buf);
-	(void)args;
-	exit(0);
-}
-
-void	b_cd(t_shell *shell, char **args)
-{
-	if (args[1] == NULL)
-	{
-		shell->pwd = "/";
-		chdir("/");
-	}
-	else
-	{
-		shell->pwd = args[1];
-		chdir(args[1]);
-	}
-}
-
 void	b_env(t_shell *shell, char **args)
 {
 	unsigned int i;
@@ -49,4 +27,16 @@ void	b_env(t_shell *shell, char **args)
 		ft_putendl(shell->env[i]);
 		++i;
 	}
+}
+
+void	b_setenv(t_shell *shell, char **args)
+{
+	(void)shell;
+	(void)args;
+}
+
+void	b_unsetenv(t_shell *shell, char **args)
+{
+	(void)shell;
+	(void)args;
 }

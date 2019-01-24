@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdlib.h>
 #include "commands.h"
 #include "constants.h"
 #include "libft.h"
@@ -18,7 +19,10 @@
 const t_builtin g_builtins[BUILTINS_AMOUNT] = {
 	{"exit", &b_exit},
 	{"cd", &b_cd},
-	{"env", &b_env}
+	{"env", &b_env},
+	{"echo", &b_echo},
+	{"setenv", &b_setenv},
+	{"unsetenv", &b_unsetenv}
 };
 
 int		exec_builtin(char *command, char **args, t_shell *shell)
@@ -36,4 +40,38 @@ int		exec_builtin(char *command, char **args, t_shell *shell)
 		++i;
 	}
 	return (0);
+}
+
+void	b_echo(t_shell *shell, char **args)
+{
+	(void)shell;
+	while (*(++args))
+	{
+		ft_putstr(*args);
+		if (*(args + 1))
+			ft_putchar(' ');
+	}
+	ft_putchar('\n');
+}
+
+void	b_exit(t_shell *shell, char **args)
+{
+	free_env(shell->env);
+	free(shell->buf);
+	(void)args;
+	exit(0);
+}
+
+void	b_cd(t_shell *shell, char **args)
+{
+	if (args[1] == NULL)
+	{
+		shell->pwd = "/";
+		chdir("/");
+	}
+	else
+	{
+		shell->pwd = args[1];
+		chdir(args[1]);
+	}
 }
