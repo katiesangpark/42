@@ -17,10 +17,11 @@
 #include "libft.h"
 
 const t_builtin g_builtins[BUILTINS_AMOUNT] = {
-	{"exit", &b_exit},
+	{"help", &b_help},
 	{"cd", &b_cd},
 	{"env", &b_env},
 	{"echo", &b_echo},
+	{"exit", &b_exit},
 	{"setenv", &b_setenv},
 	{"unsetenv", &b_unsetenv}
 };
@@ -73,5 +74,20 @@ void	b_cd(t_shell *shell, char **args)
 	{
 		shell->pwd = args[1];
 		chdir(args[1]);
+	}
+}
+
+void	b_help(t_shell *shell, char **args)
+{
+	unsigned int	i;
+
+	(void)shell;
+	(void)args;
+	i = 0;
+	ft_putstr("--- "SHELL_NAME" help: ---\n");
+	while (i < BUILTINS_AMOUNT)
+	{
+		ft_putendl(g_builtins[i].command);
+		++i;
 	}
 }

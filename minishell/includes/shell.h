@@ -23,8 +23,9 @@ typedef struct	s_shell
 }				t_shell;
 
 void			free_env(char **env);
-char			**copy_env(char **env);
+char			**copy_env(char **env, char *newelem);
 char			*get_env_var(char *name, char **env);
-void			set_env_var(char *name, char *value, char **env);
+void			set_env_var(char *name, char *value, t_shell *env);
+void			remove_env_var(char *name, char **env);
 
 #endif

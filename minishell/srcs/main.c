@@ -23,14 +23,15 @@ int		get_env_vars(t_shell *shell, char **env)
 	char	*tmp;
 
 	ft_bzero(shell, sizeof(t_shell));
-	if ((shell->env = copy_env(env)) == NULL)
+	if ((shell->env = copy_env(env, NULL)) == NULL)
 		return (-1);
 	shell->path = get_env_var("PATH", env);
 	shell->pwd = get_env_var("PWD", env);
 	shell->shlvl = ft_atoi(get_env_var("SHLVL", env)) + 1;
-	if ((tmp = build_string_with_num("SHLVL=", shell->shlvl)) == NULL)
+	if ((tmp = ft_itoa(shell->shlvl)) == NULL)
 		return (-1);
-	set_env_var("SHLVL", tmp, shell->env);
+	set_env_var("SHLVL", tmp, shell);
+	ft_strdel(&tmp);
 	return (1);
 }
 
@@ -62,7 +63,10 @@ int		main(int ac, char **av, char **env)
 		write_prompt(&shell);
 		read_input(buf);
 		args = parse_input(buf);
-		exec_command(&shell, args);
+		if (exec_command(&shell, args) == -1)
+			break ;
 	}
+	ft_strdel(&buf);
+	free_env(shell.env);
 	return (0);
 }

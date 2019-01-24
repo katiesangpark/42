@@ -26,8 +26,9 @@ void			b_env(t_shell *shell, char **args);
 void			b_setenv(t_shell *shell, char **args);
 void			b_unsetenv(t_shell *shell, char **args);
 void			b_echo(t_shell *shell, char **args);
+void			b_help(t_shell *shell, char **args);
 
 int				exec_builtin(char *command, char **args, t_shell *shell);
-void			exec_command(t_shell *shell, char **args);
+int				exec_command(t_shell *shell, char **args);
 
 #endif

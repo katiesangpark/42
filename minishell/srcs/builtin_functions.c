@@ -31,12 +31,16 @@ void	b_env(t_shell *shell, char **args)
 
 void	b_setenv(t_shell *shell, char **args)
 {
-	(void)shell;
-	(void)args;
+	if (args[1] != NULL && args[2] != NULL)
+		set_env_var(args[1], args[2], shell);
+	else
+		ft_putstr_fd("usage: setenv [name] [value]\n", 2);
 }
 
 void	b_unsetenv(t_shell *shell, char **args)
 {
-	(void)shell;
-	(void)args;
+	if (args[1] != NULL)
+		remove_env_var(args[1], shell->env);
+	else
+		ft_putstr_fd("usage: unsetenv [name]\n", 2);
 }

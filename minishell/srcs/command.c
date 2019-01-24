@@ -56,27 +56,28 @@ char	*find_command(char *command, char *path)
 	return ("");
 }
 
-void	exec_command(t_shell *shell, char **args)
+int		exec_command(t_shell *shell, char **args)
 {
 	pid_t	process_id;
 	char	*command;
 
 	if (exec_builtin(args[0], args, shell) != 0)
-		return ;
+		return (0);
 	if ((command = find_command(args[0], shell->path)) == NULL)
-		return ;
+		return (0);
 	if (command[0] == '\0')
 	{
 		ft_printf_fd(2, SHELL_NAME": command not found: %s\n", args[0]);
-		return ;
+		return (0);
 	}
 	process_id = fork();
-	if (process_id == CONST_PROCESS_CHILDREN)
-		execve(command, args, shell->env);
+	if (process_id == 0)
+		return (execve(command, args, shell->env));
 	else
 	{
 		if (command != args[0])
 			ft_strdel(&command);
 		wait(0);
 	}
+	return (0);
 }

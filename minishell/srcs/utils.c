@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/stat.h>
 #include "libft.h"
 #include "shell.h"
 #include <stdlib.h>
+#include <sys/stat.h>
 
 char	*build_string_with_num(char *str, int n)
 {
@@ -38,6 +38,20 @@ char	*build_string_with_num(char *str, int n)
 	return (output);
 }
 
+char	*concat_env_string(char *name, char *value)
+{
+	unsigned int	len;
+	char			*output;
+
+	len = ft_strlen(name);
+	if ((output = ft_strnew(len + 1 + ft_strlen(value))) == NULL)
+		return (NULL);
+	ft_memcpy(output, name, len);
+	output[len] = '=';
+	ft_strcpy(output + len + 1, value);
+	return (output);
+}
+
 int		exists(char *path)
 {
 	struct stat	f_stat;
@@ -45,4 +59,12 @@ int		exists(char *path)
 	if (stat(path, &f_stat) != 0)
 		return (0);
 	return (S_ISREG(f_stat.st_mode));
+}
+
+char	**reverse_free_tab(char **tab, int size)
+{
+	while (size >= 0)
+		free(tab[--size]);
+	free(tab);
+	return (NULL);
 }

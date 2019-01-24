@@ -19,9 +19,7 @@
 # define PROMPT_LENGTH 			(16)
 # define PROMPT_SHLVL			SHELL_NAME"-"SHELL_VERSION"-%d$> "
 
-# define CONST_PROCESS_CHILDREN (0)
-
-# define BUILTINS_AMOUNT		(6)
+# define BUILTINS_AMOUNT		(7)
 
 # define BUF_SIZE				(256)
 
