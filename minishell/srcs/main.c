@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include "arguments.h"
 #include "parsing.h"
 #include "constants.h"
 #include "commands.h"
@@ -49,8 +50,7 @@ int		main(int ac, char **av, char **env)
 	char	*buf;
 	t_shell	shell;
 
-	(void)av;
-	(void)ac;
+	shell.args = parse_arguments(ac, av);
 	if (get_env_vars(&shell, env) == -1
 		|| (buf = ft_strnew(BUF_SIZE)) == 0)
 	{
@@ -65,7 +65,9 @@ int		main(int ac, char **av, char **env)
 		args = parse_input(buf);
 		if (exec_command(&shell, args) == -1)
 			break ;
+		ft_free_tab(args);
 	}
+	ft_free_tab(args);
 	ft_strdel(&buf);
 	free_env(shell.env);
 	return (0);

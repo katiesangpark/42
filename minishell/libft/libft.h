@@ -107,7 +107,8 @@ void					ft_striteri(char *s, void (*f)(unsigned int, char *));
 char					*ft_strtolower(char *string);
 char					*ft_strtoupper(char *string);
 char					*ft_strcut(char *str, int start, int end);
-
+void					ft_free_tab(char **tab);
+char					**reverse_free_tab(char **tab, int size);
 /*
 ** Printing functions
 */

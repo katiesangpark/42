@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 22:59:08 by kicausse          #+#    #+#             */
-/*   Updated: 2019/01/23 22:59:09 by kicausse         ###   ########.fr       */
+/*   Created: 2019/01/24 03:39:07 by kicausse          #+#    #+#             */
+/*   Updated: 2019/01/24 03:39:07 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include <stdlib.h>
+#include "libft.h"
 
-typedef struct	s_shell
+void	ft_free_tab(char **tab)
 {
-	char	*path;
-	char	*pwd;
-	int		shlvl;
-	char	**env;
-	char	*buf;
-	int		args;
-}				t_shell;
+	if (tab == 0)
+		return ;
+	while (*tab)
+	{
+		ft_strdel(tab);
+		++tab;
+	}
+}
 
-void			free_env(char **env);
-char			**copy_env(char **env, char *newelem);
-char			*get_env_var(char *name, char **env);
-void			set_env_var(char *name, char *value, t_shell *env);
-void			remove_env_var(char *name, char **env);
-
-#endif
+char	**reverse_free_tab(char **tab, int size)
+{
+	if (tab == 0)
+		return (NULL);
+	while (size >= 0)
+		free(tab[--size]);
+	free(tab);
+	return (NULL);
+}

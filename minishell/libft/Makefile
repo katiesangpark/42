@@ -30,7 +30,7 @@ SRC		=	ft_abs.c ft_adv_memcmp.c ft_atoi.c ft_atoi_base.c ft_bzero.c ft_ceil.c  \
 			ft_strnew.c ft_strnstr.c ft_strrchr.c ft_strsplit.c ft_strstr.c  \
 			ft_strsub.c ft_strtolower.c ft_strtoupper.c ft_strtrim.c ft_swap.c  \
 			ft_tolower.c ft_toupper.c read_memory_int.c read_memory_unsigned_int.c  \
-			unicode.c unicode_2.c nbrlen.c ft_cfind.c \
+			unicode.c unicode_2.c nbrlen.c ft_cfind.c ft_free_tab.c \
 			print_srcs/colors.c print_srcs/flags.c print_srcs/flags_utils.c  \
 			print_srcs/ft_printf.c print_srcs/function_pointers.c  \
 			print_srcs/get_nbr_len.c print_srcs/list.c print_srcs/nbr_utils.c  \

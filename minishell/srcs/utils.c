@@ -60,11 +60,3 @@ int		exists(char *path)
 		return (0);
 	return (S_ISREG(f_stat.st_mode));
 }
-
-char	**reverse_free_tab(char **tab, int size)
-{
-	while (size >= 0)
-		free(tab[--size]);
-	free(tab);
-	return (NULL);
-}

@@ -57,6 +57,7 @@ void	b_echo(t_shell *shell, char **args)
 
 void	b_exit(t_shell *shell, char **args)
 {
+	ft_free_tab(args);
 	free_env(shell->env);
 	free(shell->buf);
 	(void)args;

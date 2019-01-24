@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
+/*   arguments.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 22:59:08 by kicausse          #+#    #+#             */
-/*   Updated: 2019/01/23 22:59:09 by kicausse         ###   ########.fr       */
+/*   Created: 2019/01/24 03:45:51 by kicausse          #+#    #+#             */
+/*   Updated: 2019/01/24 03:45:51 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
-
-typedef struct	s_shell
+int		parse_arguments(int ac, char **av)
 {
-	char	*path;
-	char	*pwd;
-	int		shlvl;
-	char	**env;
-	char	*buf;
 	int		args;
-}				t_shell;
 
-void			free_env(char **env);
-char			**copy_env(char **env, char *newelem);
-char			*get_env_var(char *name, char **env);
-void			set_env_var(char *name, char *value, t_shell *env);
-void			remove_env_var(char *name, char **env);
-
-#endif
+	args = 0;
+	return (args);
+}
