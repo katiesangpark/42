@@ -16,6 +16,6 @@ char	**parse_input(char *input)
 {
 	char	**args;
 
-	args = ft_strsplit(input, ' ');
+	args = ft_split(input, " \t");
 	return (args);
 }

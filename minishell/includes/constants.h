@@ -13,7 +13,7 @@
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 
-# define SHELL_NAME				"kiloshell"
+# define SHELL_NAME				"kil0shell"
 # define SHELL_VERSION			"0.1"
 # define PROMPT 				SHELL_NAME"-"SHELL_VERSION"$> "
 # define PROMPT_LENGTH 			(16)

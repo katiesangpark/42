@@ -87,6 +87,7 @@ char					*ft_strjoin_if(char *source, char *concat,
 						int (*f)(int));
 char					*ft_strtrim(char const *s);
 char					**ft_strsplit(char const *s, char c);
+char					**ft_split(char const *s, char *c);
 char					*ft_strins(char *dest, const char *src,
 						unsigned int pos);
 char					*ft_strins_malloc(char *dest, const char *src,
