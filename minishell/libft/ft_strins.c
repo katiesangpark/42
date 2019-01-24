@@ -44,8 +44,10 @@ char	*ft_strins_malloc(char *dest, const char *src, unsigned int pos)
 	unsigned int	srclen;
 	char			*tmp;
 
-	if (dest == NULL || src == NULL)
+	if (dest == NULL)
 		return (NULL);
+	if (src == NULL)
+		src = "";
 	destlen = ft_strlen(dest);
 	srclen = ft_strlen(src);
 	tmp = ft_memalloc(destlen + srclen + 1);

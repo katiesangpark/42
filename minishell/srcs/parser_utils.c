@@ -12,18 +12,39 @@
 
 #include "libft.h"
 
-void	ignore_chars(char **dest, char *charset)
-{
-	while (**dest && ft_cfind(charset, **dest) >= 0)
-		++(*dest);
-}
-
-int		look_for_chars(char *dest, char *charset)
+int		look_for_char(char *dest, char c)
 {
 	unsigned int	i;
 
 	i = 0;
-	while (dest[i] && ft_cfind(charset, dest[i]) == -1)
+	while (dest[i] != '\0' && dest[i] != c)
 		++i;
 	return (i);
+}
+
+void	ignore_chars(char **dest, char *charset)
+{
+	while (**dest != '\0' && ft_cfind(charset, **dest) >= 0)
+		++(*dest);
+}
+
+int		quote_match(char *input, unsigned int *e, unsigned int *quote)
+{
+	if (input[*e] == '"')
+	{
+		*quote = 1;
+		*e += look_for_char(input + *e + 1, '"');
+		if (input[*e] != '\0')
+			*e += 1;
+		return (1);
+	}
+	if (input[*e] == '\'')
+	{
+		*quote = 1;
+		*e += look_for_char(input + *e + 1, '\'');
+		if (input[*e] != '\0')
+			*e += 1;
+		return (1);
+	}
+	return (0);
 }

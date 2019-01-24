@@ -36,8 +36,8 @@ char	*find_command(char *command, char *path)
 	unsigned int	cmdlen;
 	char			*final_command;
 
-	if (ft_cfind(command, '/') != -1 && exists(command))
-		return (command);
+	if (ft_cfind(command, '/') != -1)
+		return (exists(command) ? command : "");
 	cmdlen = ft_strlen(command);
 	while (*path != '\0')
 	{

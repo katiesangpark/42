@@ -19,7 +19,10 @@ void	read_input(char *buf)
 
 	offset = 0;
 	read(0, buf, 1);
-	while (buf[offset++] != '\n' && offset < BUF_SIZE)
+	while (buf[offset] != '\n' && offset < BUF_SIZE)
+	{
+		offset++;
 		read(0, buf + offset, 1);
-	buf[offset - 1] = '\0';
+	}
+	buf[offset] = '\0';
 }

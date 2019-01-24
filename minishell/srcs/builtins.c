@@ -78,8 +78,8 @@ void	b_cd(t_shell *shell, char **args)
 					"dir.\n", tmp);
 	else
 	{
-		shell->pwd = args[1];
-		chdir(args[1]);
+		shell->pwd = tmp;
+		chdir(tmp);
 	}
 }
 

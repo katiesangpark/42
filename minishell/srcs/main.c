@@ -62,7 +62,7 @@ int		main(int ac, char **av, char **env)
 	{
 		write_prompt(&shell);
 		read_input(buf);
-		args = parse_input(buf);
+		args = parse_input(buf, &shell);
 		if (exec_command(&shell, args) == -1)
 			break ;
 		ft_free_tab(args);
