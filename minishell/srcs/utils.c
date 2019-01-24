@@ -60,3 +60,12 @@ int		exists(char *path)
 		return (0);
 	return (S_ISREG(f_stat.st_mode));
 }
+
+int		is_dir(char *path)
+{
+	struct stat	f_stat;
+
+	if (stat(path, &f_stat) != 0)
+		return (0);
+	return (S_ISDIR(f_stat.st_mode));
+}

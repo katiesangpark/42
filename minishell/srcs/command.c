@@ -61,7 +61,8 @@ int		exec_command(t_shell *shell, char **args)
 	pid_t	process_id;
 	char	*command;
 
-	if (exec_builtin(args[0], args, shell) != 0)
+	if (args == NULL || *args == NULL || **args == '\0'
+		|| exec_builtin(args[0], args, shell) != -1)
 		return (0);
 	if ((command = find_command(args[0], shell->path)) == NULL)
 		return (0);

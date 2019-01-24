@@ -15,6 +15,7 @@
 #include "commands.h"
 #include "constants.h"
 #include "libft.h"
+#include "utils.h"
 
 const t_builtin g_builtins[BUILTINS_AMOUNT] = {
 	{"help", &b_help},
@@ -40,7 +41,7 @@ int		exec_builtin(char *command, char **args, t_shell *shell)
 		}
 		++i;
 	}
-	return (0);
+	return (-1);
 }
 
 void	b_echo(t_shell *shell, char **args)
@@ -66,11 +67,15 @@ void	b_exit(t_shell *shell, char **args)
 
 void	b_cd(t_shell *shell, char **args)
 {
-	if (args[1] == NULL)
-	{
-		shell->pwd = "/";
-		chdir("/");
-	}
+	char *tmp;
+
+	if (args[1] == NULL && !(tmp = get_env_var("HOME", shell->env)))
+		ft_putstr_fd(SHELL_NAME": error: HOME variable not set\n", 2);
+	else if (args[1] != NULL)
+		tmp = args[1];
+	if (!is_dir(tmp))
+		ft_printf_fd(2, SHELL_NAME": error: \"%s\" not available or not a "
+					"dir.\n", tmp);
 	else
 	{
 		shell->pwd = args[1];
