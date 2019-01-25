@@ -20,12 +20,12 @@ void	log_input(t_shell *shell)
 {
 	int	fd;
 
-	if (shell->log == 0)
+	if (shell->no_log)
 		return ;
 	fd = open(LOG_FILE, O_RDWR | O_CREAT | O_APPEND, 448);
 	if (fd < 0)
 	{
-		shell->log = 0;
+		shell->no_log = 1;
 		ft_putstr_fd(SHELL_NAME": error: could not write logs to file "LOG_FILE
 		". Disabling logs.\n", 2);
 		return ;

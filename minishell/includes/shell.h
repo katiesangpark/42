@@ -21,7 +21,8 @@ typedef struct	s_shell
 	char	*pwd;
 	char	*buf;
 	int		shlvl;
-	int		log;
+	int		show_shlvl;
+	int		no_log;
 	int		color;
 	int		showdir;
 	int		running_command;

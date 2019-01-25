@@ -44,7 +44,7 @@ void	write_prompt(t_shell *shell)
 	if (shell->showdir == 2)
 		shell->color ? ft_printf(DIR_COLOR"%s/\033[0m ", get_cwd(shell->pwd))
 			: ft_printf("%s/ ", get_cwd(shell->pwd));
-	if (shell->shlvl == 1)
+	if (shell->shlvl == 1 || shell->show_shlvl == 0)
 		ft_putstr(shell->color ? PROMPT_COLOR : PROMPT);
 	else
 		ft_printf(shell->color ? PROMPT_SHLVL_COLOR : PROMPT_SHLVL,
@@ -57,19 +57,27 @@ void	write_prompt(t_shell *shell)
 int		config_shell(t_shell *shell, int ac, char **av, char **env)
 {
 	ft_bzero(shell, sizeof(t_shell));
+	if (get_arg("--help", ac, av) || get_arg_letter('h', ac, av))
+	{
+		show_help();
+		return (0);
+	}
 	if (get_env_vars(shell, env) == -1
 		|| (shell->buf = ft_strnew(BUF_SIZE)) == 0)
 	{
 		free_env(shell->env);
 		return (0);
 	}
-	shell->log = !get_arg("--no-log", ac, av);
-	shell->no_shrc = !get_arg("--no-shrc", ac, av);
+	shell->show_shlvl = get_arg("--shlvl", ac, av)
+			|| get_arg_letter('l', ac, av);
+	shell->no_log = get_arg("--no-log", ac, av) || get_arg_letter('s', ac, av);
+	shell->no_shrc = get_arg("--no-shrc", ac, av)
+			|| get_arg_letter('d', ac, av);
 	shell->color = get_arg("--color", ac, av)
-					|| get_arg_letter('G', ac, av);
+			|| get_arg_letter('G', ac, av);
 	shell->showdir = (get_arg("--show-dir", ac, av)
-					|| get_arg_letter('s', ac, av));
-	if (get_arg("--show-dir-first", ac, av) || get_arg_letter('S', ac, av))
+			|| get_arg_letter('i', ac, av));
+	if (get_arg("--show-dir-first", ac, av) || get_arg_letter('I', ac, av))
 		shell->showdir = 2;
 	return (1);
 }

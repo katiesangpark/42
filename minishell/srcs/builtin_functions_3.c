@@ -18,6 +18,7 @@
 #include "arguments.h"
 #include "commands.h"
 #include "constants.h"
+#include "shell.h"
 
 void	b_unalias(t_shell *shell, char **args)
 {
@@ -27,4 +28,11 @@ void	b_unalias(t_shell *shell, char **args)
 		return ;
 	}
 	remove_env_var(args[1], shell->alias);
+}
+
+void	b_unalias_all(t_shell *shell, char **args)
+{
+	(void)args;
+	free_env(shell->alias);
+	shell->alias = 0;
 }

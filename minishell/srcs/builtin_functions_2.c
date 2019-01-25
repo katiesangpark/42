@@ -50,11 +50,11 @@ void	b_doc(t_shell *shell, char **args)
 {
 	(void)shell;
 	(void)args;
-	ft_putendl("--- "SHELL_NAME" "SHELL_VERSION" Documentation: ---\n\n"
-		"- Command List: -\nalias NAME; alias NAME=VALUE\nalias-list\nc"
-		"d; cd DIRECTORY\ndoc\ndocumentation\necho TEXT\nenv\nexport; e"
-		"xport NAME;export NAME=VALUE\nexit\nhelp\nhistory; history -c"
-		"\nlog [on/off/-c]\nsetenv NAME VALUE\nunsetenv NAME");
+	ft_putendl("--- "SHELL_NAME" "SHELL_VERSION" Documentation: ---\n"
+		"Command List:\n  alias (NAME)(=VALUE)\n  alias-list\n  "
+		"cd (DIRECTORY)\n  doc(umentation)\n  echo (TEXT)\n  env\n  "
+		"export (NAME)(=VALUE)\n  exit\n  help\n  history (-c)\n  log"
+		"[on/off/-c]\n  setenv [NAME] [VALUE]\n  unsetenv [NAME]");
 }
 
 void	b_log(t_shell *shell, char **args)
@@ -63,11 +63,11 @@ void	b_log(t_shell *shell, char **args)
 
 	if (ft_strcmp(ft_strtolower(args[1]), "on") == 0)
 	{
-		shell->log = 1;
+		shell->no_log = 0;
 		log_input(shell);
 	}
 	else if (ft_strcmp(ft_strtolower(args[1]), "off") == 0)
-		shell->log = 0;
+		shell->no_log = 1;
 	else if (ft_strcmp(args[1], "-c") == 0 || ft_strcmp(args[1], "clear") == 0)
 	{
 		if ((fd = open(LOG_FILE, O_RDWR | O_TRUNC | O_CREAT, 448)) < 0)
@@ -118,17 +118,22 @@ void	b_args(t_shell *shell, char **args)
 	}
 	if (ft_strcmp(args[1], "reset") == 0)
 	{
-		shell->log = 0;
+		shell->no_log = 0;
+		shell->no_shrc = 0;
 		shell->color = 0;
 		shell->showdir = 0;
 		return ;
 	}
-	shell->log = !get_arg("--no-log", 0, args);
-	shell->no_shrc = !get_arg("--no-shrc", 0, args);
+	shell->show_shlvl = get_arg("--shlvl", 0, args)
+			|| get_arg_letter('l', 0, args);
+	shell->no_log = get_arg("--no-log", 0, args)
+			|| get_arg_letter('s', 0, args);
+	shell->no_shrc = get_arg("--no-shrc", 0, args)
+			|| get_arg_letter('d', 0, args);
 	shell->color = get_arg("--color", 0, args)
-					|| get_arg_letter('G', 0, args);
+			|| get_arg_letter('G', 0, args);
 	shell->showdir = (get_arg("--show-dir", 0, args)
-					|| get_arg_letter('s', 0, args));
-	if (get_arg("--show-dir-first", 0, args) || get_arg_letter('S', 0, args))
+			|| get_arg_letter('i', 0, args));
+	if (get_arg("--show-dir-first", 0, args) || get_arg_letter('I', 0, args))
 		shell->showdir = 2;
 }

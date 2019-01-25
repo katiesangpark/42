@@ -15,5 +15,6 @@
 
 int		get_arg_letter(char c, int ac, char **av);
 int		get_arg(char *arg, int ac, char **av);
+void	show_help(void);
 
 #endif

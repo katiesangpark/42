@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "constants.h"
 
 int		get_arg_letter(char c, int ac, char **av)
 {
@@ -47,4 +48,16 @@ int		get_arg(char *arg, int ac, char **av)
 		++i;
 	}
 	return (0);
+}
+
+void	show_help(void)
+{
+	ft_putendl("--- "SHELL_NAME" "SHELL_VERSION" ---");
+	ft_putendl("Startup options:");
+	ft_putendl("  -s, --no-log");
+	ft_putendl("  -d, --no-shrc");
+	ft_putendl("  -l, --shlvl");
+	ft_putendl("  -F, --color");
+	ft_putendl("  -i, --show-dir");
+	ft_putendl("  -I, --show-dir-first");
 }

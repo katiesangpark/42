@@ -34,7 +34,7 @@ void	exec_shrc(t_shell *shell)
 	int		fd;
 	char	*buf;
 
-	if (shell->no_shrc == 0)
+	if (shell->no_shrc)
 		return ;
 	fd = open(SHRC_FILE, O_RDWR | O_CREAT | O_APPEND, 448);
 	if (fd < 0)

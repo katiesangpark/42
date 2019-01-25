@@ -33,6 +33,7 @@ const t_builtin g_builtins[BUILTINS_AMOUNT] = {
 	{"log", &b_log},
 	{"setenv", &b_setenv},
 	{"unalias", &b_unalias},
+	{"unalias-all", &b_unalias_all},
 	{"unsetenv", &b_unsetenv}
 };
 
@@ -110,6 +111,7 @@ void	b_help(t_shell *shell, char **args)
 	ft_putstr("--- "SHELL_NAME" help: ---\n");
 	while (i < BUILTINS_AMOUNT)
 	{
+		ft_putstr("  ");
 		ft_putendl(g_builtins[i].command);
 		++i;
 	}
