@@ -69,6 +69,7 @@ int		count_arguments(char *input)
 	unsigned int	count;
 	unsigned int	quote;
 	unsigned int	e;
+	unsigned int	escape;
 
 	count = 0;
 	while (++count && *input && !(quote = 0))
@@ -76,15 +77,20 @@ int		count_arguments(char *input)
 		ignore_chars(&input, "\t ");
 		if (*input == '\0' || (e = 0))
 			break ;
-		while (input[e] && input[e] != '\t' && input[e] != ' ')
+		while (input[e])
 		{
-			if (quote_match(input, &e, NULL))
+			if (escape && ++e && !(escape = 0))
+				continue ;
+			if (input[e] == '\t' || input[e] == ' ')
+				break ;
+			if ((input[e] == '\\' && ++e && (escape = 1))
+				|| (quote_match(input, &e, NULL)))
 				continue ;
 			++e;
 		}
 		input += e;
 	}
-	return (count + 3);
+	return (count);
 }
 
 void	fill_args(char **args, char *input, t_shell *shell)
@@ -92,6 +98,7 @@ void	fill_args(char **args, char *input, t_shell *shell)
 	unsigned int	count;
 	unsigned int	quote;
 	unsigned int	e;
+	unsigned int	escape;
 
 	count = 0;
 	while (*input && !(quote = 0))
@@ -99,14 +106,19 @@ void	fill_args(char **args, char *input, t_shell *shell)
 		ignore_chars(&input, "\t ");
 		if (*input == '\0' || (e = 0))
 			break ;
-		while (input[e] != '\t' && input[e] != ' ' && input[e] != '\0')
+		escape = 0;
+		while (input[e])
 		{
-			if (quote_match(input, &e, &quote))
+			if (escape && ++e && !(escape = 0))
+				continue ;
+			if (input[e] == '\t' || input[e] == ' ')
+				break ;
+			if ((input[e] == '\\' && ++e && (escape = 1))
+				|| (quote_match(input, &e, &quote)))
 				continue ;
 			++e;
 		}
-		if ((args[count++] = expand_argument(input,
-			e, quote, shell)) == NULL)
+		if ((args[count++] = expand_argument(input, e, quote, shell)) == NULL)
 			break ;
 		input += e;
 	}
