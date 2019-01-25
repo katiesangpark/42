@@ -59,6 +59,11 @@ char	*find_command(char *command, char *path)
 
 int		start_child_process(t_shell *shell, char **args, char *command)
 {
+	if (!(is_executable(command)))
+	{
+		ft_printf_fd(2, SHELL_NAME": permission denied: %s\n", command);
+		return (0);
+	}
 	if (fork() == 0)
 		return (execve(command, args, shell->env));
 	else

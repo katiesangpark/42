@@ -15,29 +15,6 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 
-char	*build_string_with_num(char *str, int n)
-{
-	unsigned int	i;
-	unsigned int	len;
-	char			*output;
-
-	len = nbrlen(n);
-	if ((output = ft_strnew(ft_strlen(str) + len)) == NULL)
-		return (NULL);
-	ft_strcpy(output, str);
-	i = 0;
-	while (output[i] != '\0')
-		++i;
-	i += len;
-	output[i] = '\0';
-	while (n != 0)
-	{
-		output[--i] = '0' + n % 10;
-		n /= 10;
-	}
-	return (output);
-}
-
 char	*concat_env_string(char *name, char *value)
 {
 	unsigned int	len;
@@ -58,7 +35,16 @@ int		exists(char *path)
 
 	if (stat(path, &f_stat) != 0)
 		return (0);
-	return (S_ISREG(f_stat.st_mode));
+	return (!S_ISDIR(f_stat.st_mode));
+}
+
+int		is_executable(char *path)
+{
+	struct stat	f_stat;
+
+	if (stat(path, &f_stat) != 0)
+		return (0);
+	return (!S_ISDIR(f_stat.st_mode) && (f_stat.st_mode & S_IXUSR));
 }
 
 int		is_dir(char *path)
