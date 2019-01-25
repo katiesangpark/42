@@ -16,13 +16,15 @@
 
 void	read_input(t_shell *shell);
 
-int		get_var_end(char *var);
 int		look_for_char(char *dest, char c);
 void	ignore_chars(char **dest, char *charset);
-char	*insert_variable_value(char *input, int i, t_shell *shell);
 int		quote_match(char *input, unsigned int *e, unsigned int *quote);
-char	*replace_aliases(char *input, char **alias);
+
+int		get_var_end(char *var);
+char	*insert_variable_value(char *input, int i, t_shell *shell);
 char	*expand_argument(char *input, int len, int quote_type, t_shell *shell);
+
+char	*replace_aliases(char *input, char **alias);
 
 char	**parse_input(char *input, t_shell *shell);
 

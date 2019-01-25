@@ -124,6 +124,7 @@ void	b_args(t_shell *shell, char **args)
 		return ;
 	}
 	shell->log = !get_arg("--no-log", 0, args);
+	shell->no_shrc = !get_arg("--no-shrc", 0, args);
 	shell->color = get_arg("--color", 0, args)
 					|| get_arg_letter('G', 0, args);
 	shell->showdir = (get_arg("--show-dir", 0, args)

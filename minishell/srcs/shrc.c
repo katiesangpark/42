@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   logs.c                                             :+:      :+:    :+:   */
+/*   shrc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/25 02:47:07 by kicausse          #+#    #+#             */
-/*   Updated: 2019/01/25 02:47:08 by kicausse         ###   ########.fr       */
+/*   Created: 2019/01/25 07:55:25 by kicausse          #+#    #+#             */
+/*   Updated: 2019/01/25 07:55:25 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,38 @@
 #include <fcntl.h>
 #include "shell.h"
 #include "libft.h"
+#include "commands.h"
 #include "constants.h"
+#include "parsing.h"
 
-void	log_input(t_shell *shell)
+void	exec_shrc_command(t_shell *shell, char *cmd)
 {
-	int	fd;
+	char	**args;
 
-	if (shell->log == 0)
+	ft_strcpy(shell->buf, cmd);
+	if ((args = parse_input(shell->buf, shell)) == NULL)
 		return ;
-	fd = open(LOG_FILE, O_RDWR | O_CREAT | O_APPEND, 448);
+	exec_command(shell, args);
+	ft_free_tab(args);
+}
+
+void	exec_shrc(t_shell *shell)
+{
+	int		fd;
+	char	*buf;
+
+	if (shell->no_shrc == 0)
+		return ;
+	fd = open(SHRC_FILE, O_RDWR | O_CREAT | O_APPEND, 448);
 	if (fd < 0)
 	{
-		shell->log = 0;
-		ft_putstr_fd(SHELL_NAME": error: could not write logs to file "LOG_FILE
-		". Disabling logs.\n", 2);
+		ft_putstr_fd(SHELL_NAME": error: could not read shrc file "SHRC_FILE
+		"\n", 2);
 		return ;
 	}
-	write(fd, shell->buf, ft_strlen(shell->buf));
-	write(fd, "\n", 1);
+	while (get_next_line(fd, &buf) == 1)
+	{
+		exec_shrc_command(shell, buf);
+	}
 	close(fd);
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "parsing.h"
 
 char	*replace_word(char *input, char **alias, int x)
 {
@@ -44,14 +45,20 @@ char	*replace_aliases(char *input, char **alias)
 {
 	int		x;
 	char	*output;
+	int		escape;
 
 	if ((output = ft_strdup(input)) == NULL)
 		return (NULL);
-	x = 0;
-	while (output[x])
+	x = -1;
+	escape = 0;
+	while (output[++x])
 	{
+		if (escape && !(escape = 0))
+			continue;
+		if (input[x] == '\\' && (escape = 1))
+			continue ;
+		quote_match(output, (unsigned int*)&x, NULL);
 		output = replace_word(output, alias, x);
-		++x;
 	}
 	return (output);
 }

@@ -64,6 +64,7 @@ int		config_shell(t_shell *shell, int ac, char **av, char **env)
 		return (0);
 	}
 	shell->log = !get_arg("--no-log", ac, av);
+	shell->no_shrc = !get_arg("--no-shrc", ac, av);
 	shell->color = get_arg("--color", ac, av)
 					|| get_arg_letter('G', ac, av);
 	shell->showdir = (get_arg("--show-dir", ac, av)
@@ -93,6 +94,7 @@ int		main(int ac, char **av, char **env)
 	signal(SIGINT, catch_signal);
 	if (config_shell(&shell, ac, av, env) == 0)
 		return (0);
+	exec_shrc(&shell);
 	while (1)
 	{
 		write_prompt(&shell);

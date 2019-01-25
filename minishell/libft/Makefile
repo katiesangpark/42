@@ -37,7 +37,7 @@ SRC		=	ft_abs.c ft_adv_memcmp.c ft_atoi.c ft_atoi_base.c ft_bzero.c ft_ceil.c  \
 			print_srcs/print_base.c print_srcs/print_floats.c  \
 			print_srcs/print_numbers.c print_srcs/print_numbers2.c  \
 			print_srcs/print_strings.c print_srcs/print_unicode_strings.c  \
-			print_srcs/specifiers.c print_srcs/utils.c
+			print_srcs/specifiers.c print_srcs/utils.c get_next_line.c
 
 OBJ 	= 	$(SRC:.c=.o)
 

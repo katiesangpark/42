@@ -31,4 +31,6 @@
 
 # define LOG_FILE				"/Users/kicausse/.kil0shell_history"
 
+# define SHRC_FILE				"/Users/kicausse/.kil0shellrc"
+
 #endif
