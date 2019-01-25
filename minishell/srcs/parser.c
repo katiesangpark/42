@@ -27,11 +27,16 @@ char	*expand_variables(char *input, t_shell *shell)
 		if (escape && !(escape = 0))
 			continue ;
 		if (input[i] == '\\')
+		{
 			escape = 1;
+			ft_strcpy(input + i, input + i + 1);
+			--i;
+		}
 		else if (input[i] == '$')
 		{
 			if ((input = insert_variable_value(input, i, shell)) == NULL)
 				return (NULL);
+			return (input);
 		}
 	}
 	return (input);
@@ -71,16 +76,15 @@ int		count_arguments(char *input)
 		ignore_chars(&input, "\t ");
 		if (*input == '\0' || (e = 0))
 			break ;
-		e = 0;
 		while (input[e] && input[e] != '\t' && input[e] != ' ')
 		{
-			if (quote_match(input, &e, &quote))
-				break ;
+			if (quote_match(input, &e, NULL))
+				continue ;
 			++e;
 		}
-		input += *(input + e) == '\0' ? e : e + 1 + !!quote;
+		input += e;
 	}
-	return (count);
+	return (count + 3);
 }
 
 void	fill_args(char **args, char *input, t_shell *shell)
@@ -93,19 +97,18 @@ void	fill_args(char **args, char *input, t_shell *shell)
 	while (*input && !(quote = 0))
 	{
 		ignore_chars(&input, "\t ");
-		if (*input == '\0')
+		if (*input == '\0' || (e = 0))
 			break ;
-		e = 0;
 		while (input[e] != '\t' && input[e] != ' ' && input[e] != '\0')
 		{
 			if (quote_match(input, &e, &quote))
-				break ;
+				continue ;
 			++e;
 		}
-		if ((args[count++] = expand_argument(input + !!quote,
-			e - !!quote, quote, shell)) == NULL)
+		if ((args[count++] = expand_argument(input,
+			e, quote, shell)) == NULL)
 			break ;
-		input += *(input + e) == '\0' ? e : e + 1 + !!quote;
+		input += e;
 	}
 	args[count] = NULL;
 }

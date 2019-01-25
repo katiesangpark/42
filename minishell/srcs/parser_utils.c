@@ -35,7 +35,7 @@ char	*insert_variable_value(char *input, int i, t_shell *shell)
 	input[i + 1 + var_end] = '\0';
 	var_value = get_env_var(input + i + 1, shell->env);
 	input[i + 1 + var_end] = memory;
-	ft_strcut(input, i, var_end + 1);
+	ft_strcut(input, i, i + var_end + 1);
 	tmp = input;
 	input = ft_strins_malloc(input, var_value, i);
 	ft_strdel(&tmp);
@@ -62,18 +62,24 @@ int		quote_match(char *input, unsigned int *e, unsigned int *quote)
 {
 	if (input[*e] == '"')
 	{
-		*quote = 1;
-		*e += look_for_char(input + *e + 1, '"');
-		if (input[*e] != '\0')
-			*e += 1;
+		if (quote != NULL && (*quote = 1))
+			ft_strcut(input, *e, *e + 1);
+		*e += look_for_char(input + *e + (quote == NULL), '"');
+		if (input[*e] != '\0' && quote != NULL)
+			ft_strcut(input, *e, *e + 1);
+		if (quote == NULL)
+			*e += (input[*e] == '\0' ? 1 : 2);
 		return (1);
 	}
 	if (input[*e] == '\'')
 	{
-		*quote = 2;
-		*e += look_for_char(input + *e + 1, '\'');
-		if (input[*e] != '\0')
-			*e += 1;
+		if (quote != NULL && (*quote = 2))
+			ft_strcut(input, *e, *e + 1);
+		*e += look_for_char(input + *e + (quote == NULL), '\'');
+		if (input[*e] != '\0' && quote != NULL)
+			ft_strcut(input, *e, *e + 1);
+		if (quote == NULL)
+			*e += (input[*e] == '\0' ? 1 : 2);
 		return (1);
 	}
 	return (0);
