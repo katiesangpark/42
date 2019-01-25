@@ -13,35 +13,6 @@
 #include "libft.h"
 #include "shell.h"
 
-int		get_var_end(char *var)
-{
-	int i;
-
-	i = 0;
-	while (var[i] && (ft_isalnum(var[i]) || var[i] == '-' || var[i] == '_'))
-		++i;
-	return (i);
-}
-
-char	*insert_variable_value(char *input, int i, t_shell *shell)
-{
-	int		var_end;
-	char	*tmp;
-	char	*var_value;
-	char	memory;
-
-	var_end = get_var_end(input + i + 1);
-	memory = input[i + 1 + var_end];
-	input[i + 1 + var_end] = '\0';
-	var_value = get_env_var(input + i + 1, shell->env);
-	input[i + 1 + var_end] = memory;
-	ft_strcut(input, i, i + var_end + 1);
-	tmp = input;
-	input = ft_strins_malloc(input, var_value, i);
-	ft_strdel(&tmp);
-	return (input);
-}
-
 int		look_for_char(char *dest, char c)
 {
 	unsigned int	i;

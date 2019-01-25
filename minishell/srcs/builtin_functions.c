@@ -66,10 +66,7 @@ void	b_alias(t_shell *shell, char **args)
 	if (i == 0)
 		return ;
 	args[1][i] = '\0';
-	if (args[1][i + 1] != '\0')
-		set_env_var(args[1], args[1] + i + 1, (t_shell*)&shell->alias);
-	else
-		remove_env_var(args[1], shell->alias);
+	set_env_var(args[1], args[1] + i + 1, (t_shell*)&shell->alias);
 }
 
 void	b_setenv(t_shell *shell, char **args)

@@ -88,6 +88,11 @@ char	**parse_input(char *input, t_shell *shell)
 	char			**args;
 	unsigned int	count;
 
+	if ((input = replace_aliases(input, shell->alias)) == NULL)
+	{
+		ft_putstr_fd(SHELL_NAME": Parse error\n", 2);
+		return (NULL);
+	}
 	count = count_arguments(input);
 	if (count == 0 || !(args = ft_memalloc(sizeof(char*) * count)))
 	{
@@ -95,5 +100,6 @@ char	**parse_input(char *input, t_shell *shell)
 		return (NULL);
 	}
 	fill_args(args, input, shell);
+	ft_strdel(&input);
 	return (args);
 }
