@@ -57,7 +57,7 @@ void	show_help(void)
 	ft_putendl("  -s, --no-log");
 	ft_putendl("  -d, --no-shrc");
 	ft_putendl("  -l, --shlvl");
-	ft_putendl("  -F, --color");
+	ft_putendl("  -G, --color");
 	ft_putendl("  -i, --show-dir");
 	ft_putendl("  -I, --show-dir-first");
 }
