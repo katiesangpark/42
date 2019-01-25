@@ -12,7 +12,7 @@
 
 int		ft_cfind(char *str, char c)
 {
-	unsigned int i;
+	int i;
 
 	i = 0;
 	while (str[i] && str[i] != c)
