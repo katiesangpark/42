@@ -23,7 +23,7 @@ void	log_input(t_shell *shell)
 	if (shell->log == 0)
 		return ;
 	(void)shell;
-	fd = open(LOG_FILE, O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
+	fd = open(LOG_FILE, O_RDWR | O_CREAT | O_APPEND, 448);
 	if (fd < 0)
 	{
 		shell->log = 0;
@@ -32,5 +32,6 @@ void	log_input(t_shell *shell)
 		return ;
 	}
 	write(fd, shell->buf, ft_strlen(shell->buf));
+	write(fd, "\n", 1);
 	close(fd);
 }

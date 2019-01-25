@@ -67,8 +67,7 @@ int		main(int ac, char **av, char **env)
 	while (1)
 	{
 		write_prompt(&shell);
-		read_input(shell.buf);
-		log_input(&shell);
+		read_input(&shell);
 		if ((args = parse_input(shell.buf, &shell)) == NULL)
 			continue ;
 		if (exec_command(&shell, args) == -1)
