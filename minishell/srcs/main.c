@@ -95,6 +95,7 @@ int		main(int ac, char **av, char **env)
 	if (config_shell(&shell, ac, av, env) == 0)
 		return (0);
 	exec_shrc(&shell);
+	args = 0;
 	while (1)
 	{
 		write_prompt(&shell);

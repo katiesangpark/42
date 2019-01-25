@@ -15,13 +15,17 @@
 
 void	ft_free_tab(char **tab)
 {
+	unsigned int	i;
+
 	if (tab == 0)
 		return ;
-	while (*tab)
+	i = 0;
+	while (tab[i])
 	{
-		ft_strdel(tab);
-		++tab;
+		ft_strdel(&tab[i]);
+		++i;
 	}
+	free(tab);
 }
 
 char	**reverse_free_tab(char **tab, int size)

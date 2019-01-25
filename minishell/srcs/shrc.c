@@ -46,6 +46,7 @@ void	exec_shrc(t_shell *shell)
 	while (get_next_line(fd, &buf) == 1)
 	{
 		exec_shrc_command(shell, buf);
+		ft_strdel(&buf);
 	}
 	close(fd);
 }
