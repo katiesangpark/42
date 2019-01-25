@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/wait.h>
 #include "utils.h"
 #include "libft.h"
 #include "commands.h"
