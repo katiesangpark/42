@@ -21,7 +21,12 @@ void	b_env(t_shell *shell, char **args)
 {
 	unsigned int i;
 
-	(void)args;
+	if (args[1] != NULL)
+	{
+		args[2] = NULL;
+		b_export(shell, args);
+		return ;
+	}
 	i = 0;
 	while (shell->env[i])
 	{
