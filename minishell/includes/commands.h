@@ -22,6 +22,7 @@ typedef struct	s_builtin
 
 void			b_alias(t_shell *shell, char **args);
 void			b_alias_list(t_shell *shell, char **args);
+void			b_args(t_shell *shell, char **args);
 void			b_cd(t_shell *shell, char **args);
 void			b_doc(t_shell *shell, char **args);
 void			b_echo(t_shell *shell, char **args);

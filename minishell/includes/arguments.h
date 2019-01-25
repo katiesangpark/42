@@ -14,5 +14,7 @@
 # define ARGUMENTS_H
 
 int		parse_arguments(int ac, char **av);
+int		get_arg_letter(char c, int ac, char **av);
+int		get_arg(char *arg, int ac, char **av);
 
 #endif

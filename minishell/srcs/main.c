@@ -37,10 +37,17 @@ int		get_env_vars(t_shell *shell, char **env)
 
 void	write_prompt(t_shell *shell)
 {
+	if (shell->showdir == 2)
+		shell->color ? ft_printf(DIR_COLOR"%s/\033[0m ", get_cwd(shell->pwd))
+			: ft_printf("%s/ ", get_cwd(shell->pwd));
 	if (shell->shlvl == 1)
-		write(1, PROMPT, PROMPT_LENGTH);
+		ft_putstr(shell->color ? PROMPT_COLOR : PROMPT);
 	else
-		ft_printf(PROMPT_SHLVL, shell->shlvl);
+		ft_printf(shell->color ? PROMPT_SHLVL_COLOR : PROMPT_SHLVL,
+			shell->shlvl);
+	if (shell->showdir == 1)
+		shell->color ? ft_printf(DIR_COLOR"%s/\033[0m ", get_cwd(shell->pwd))
+			: ft_printf("%s/ ", get_cwd(shell->pwd));
 }
 
 int		config_shell(t_shell *shell, int ac, char **av, char **env)
@@ -53,7 +60,12 @@ int		config_shell(t_shell *shell, int ac, char **av, char **env)
 		free_env(shell->env);
 		return (0);
 	}
-	shell->log = LOG_INPUT;
+	shell->log = !get_arg("--no-log", ac, av);
+	shell->color = get_arg("--color", ac, av)
+					|| get_arg_letter('G', ac, av);
+	shell->showdir = (get_arg("--show-dir", ac, av)
+					|| get_arg_letter('l', ac, av))
+					+ (get_arg("--show-dir-first", ac, av) * 2);
 	return (1);
 }
 

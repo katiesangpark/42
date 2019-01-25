@@ -18,5 +18,6 @@ int		exists(char *path);
 int		is_dir(char *path);
 char	*build_string_with_num(char *str, int n);
 char	*concat_env_string(char *name, char *value);
+char	*get_cwd(char *path);
 
 #endif

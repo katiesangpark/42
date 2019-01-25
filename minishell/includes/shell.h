@@ -23,6 +23,8 @@ typedef struct	s_shell
 	int		shlvl;
 	int		log;
 	int		args;
+	int		color;
+	int		showdir;
 }				t_shell;
 
 void			free_env(char **env);

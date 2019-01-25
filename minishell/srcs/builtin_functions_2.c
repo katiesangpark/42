@@ -15,6 +15,7 @@
 #include <fcntl.h>
 #include "libft.h"
 #include "utils.h"
+#include "arguments.h"
 #include "commands.h"
 #include "constants.h"
 
@@ -49,12 +50,11 @@ void	b_doc(t_shell *shell, char **args)
 {
 	(void)shell;
 	(void)args;
-	ft_putendl(SHELL_NAME" "SHELL_VERSION" Documentation:\n\nCommand Li"
-		"st:\nalias NAME; alias NAME=VALUE\nalias-list\ncd; cd DIRECTORY"
-		"\ndoc\ndocumentation\necho TEXT\nenv\nexport; export NAME;expo"
-		"rt NAME=VALUE\nexit\nhelp\nhistory; history -c\nlog [on/off/-c]"
-		"\nsetenv NAME VAL"
-		"UE\nunsetenv NAME");
+	ft_putendl("--- "SHELL_NAME" "SHELL_VERSION" Documentation: ---\n\n"
+		"- Command List: -\nalias NAME; alias NAME=VALUE\nalias-list\nc"
+		"d; cd DIRECTORY\ndoc\ndocumentation\necho TEXT\nenv\nexport; e"
+		"xport NAME;export NAME=VALUE\nexit\nhelp\nhistory; history -c"
+		"\nlog [on/off/-c]\nsetenv NAME VALUE\nunsetenv NAME");
 }
 
 void	b_log(t_shell *shell, char **args)
@@ -107,4 +107,19 @@ void	b_history(t_shell *shell, char **args)
 	}
 	else
 		ft_putstr_fd("Usage: history [-clear/clear]\n", 2);
+}
+
+void	b_args(t_shell *shell, char **args)
+{
+	if (args[1] == NULL)
+	{
+		ft_putendl("Usage: args --no-log --color --show-dir --show-dir-first");
+		return ;
+	}
+	shell->log = !get_arg("--no-log", 0, args);
+	shell->color = get_arg("--color", 0, args)
+					|| get_arg_letter('G', 0, args);
+	shell->showdir = (get_arg("--show-dir", 0, args)
+					|| get_arg_letter('l', 0, args))
+					+ (get_arg("--show-dir-first", 0, args) * 2);
 }

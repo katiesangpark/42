@@ -69,3 +69,20 @@ int		is_dir(char *path)
 		return (0);
 	return (S_ISDIR(f_stat.st_mode));
 }
+
+char	*get_cwd(char *path)
+{
+	int	i;
+	int	last;
+
+	if (path == NULL)
+		return ("");
+	i = 0;
+	while (path[i])
+	{
+		if (path[i] == '/')
+			last = i;
+		++i;
+	}
+	return (path + last + 1);
+}
