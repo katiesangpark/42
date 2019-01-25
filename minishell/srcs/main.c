@@ -42,16 +42,18 @@ int		get_env_vars(t_shell *shell, char **env)
 void	write_prompt(t_shell *shell)
 {
 	if (shell->showdir == 2)
-		shell->color ? ft_printf(DIR_COLOR"%s/\033[0m ", get_cwd(shell->pwd))
-			: ft_printf("%s/ ", get_cwd(shell->pwd));
+		shell->color ? ft_printf(DIR_COLOR"%s/\033[0m ",
+			get_cwd(shell, shell->pwd)) : ft_printf("%s/ ",
+			get_cwd(shell, shell->pwd));
 	if (shell->shlvl == 1 || shell->show_shlvl == 0)
 		ft_putstr(shell->color ? PROMPT_COLOR : PROMPT);
 	else
 		ft_printf(shell->color ? PROMPT_SHLVL_COLOR : PROMPT_SHLVL,
 			shell->shlvl);
 	if (shell->showdir == 1)
-		shell->color ? ft_printf(DIR_COLOR"%s/\033[0m ", get_cwd(shell->pwd))
-			: ft_printf("%s/ ", get_cwd(shell->pwd));
+		shell->color ? ft_printf(DIR_COLOR"%s/\033[0m ",
+			get_cwd(shell, shell->pwd)) : ft_printf("%s/ ",
+			get_cwd(shell, shell->pwd));
 }
 
 int		config_shell(t_shell *shell, int ac, char **av, char **env)

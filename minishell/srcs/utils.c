@@ -56,13 +56,15 @@ int		is_dir(char *path)
 	return (S_ISDIR(f_stat.st_mode));
 }
 
-char	*get_cwd(char *path)
+char	*get_cwd(t_shell *shell, char *path)
 {
 	int	i;
 	int	last;
 
 	if (path == NULL)
 		return ("");
+	if (ft_strcmp(path, get_env_var("HOME", shell->env)) == 0)
+		return ("~");
 	i = 0;
 	while (path[i])
 	{

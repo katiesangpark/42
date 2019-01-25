@@ -18,6 +18,6 @@ int		exists(char *path);
 int		is_dir(char *path);
 int		is_executable(char *path);
 char	*concat_env_string(char *name, char *value);
-char	*get_cwd(char *path);
+char	*get_cwd(t_shell *shell, char *path);
 
 #endif
