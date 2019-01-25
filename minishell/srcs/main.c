@@ -47,28 +47,27 @@ void	write_prompt(t_shell *shell)
 int		main(int ac, char **av, char **env)
 {
 	char	**args;
-	char	*buf;
 	t_shell	shell;
 
 	shell.args = parse_arguments(ac, av);
 	if (get_env_vars(&shell, env) == -1
-		|| (buf = ft_strnew(BUF_SIZE)) == 0)
+		|| (shell.buf = ft_strnew(BUF_SIZE)) == 0)
 	{
 		free_env(shell.env);
 		return (0);
 	}
-	shell.buf = buf;
 	while (1)
 	{
 		write_prompt(&shell);
-		read_input(buf);
-		args = parse_input(buf, &shell);
+		read_input(shell.buf);
+		if ((args = parse_input(shell.buf, &shell)) == NULL)
+			continue ;
 		if (exec_command(&shell, args) == -1)
 			break ;
 		ft_free_tab(args);
 	}
 	ft_free_tab(args);
-	ft_strdel(&buf);
+	ft_strdel(&(shell.buf));
 	free_env(shell.env);
 	return (0);
 }

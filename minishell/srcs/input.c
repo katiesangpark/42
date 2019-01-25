@@ -11,12 +11,14 @@
 /* ************************************************************************** */
 
 #include "constants.h"
+#include "libft.h"
 #include <unistd.h>
 
 void	read_input(char *buf)
 {
 	int		offset;
 
+	ft_bzero(buf, BUF_SIZE + 1);
 	offset = 0;
 	read(0, buf, 1);
 	while (buf[offset] != '\n' && offset < BUF_SIZE)

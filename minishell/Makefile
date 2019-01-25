@@ -14,7 +14,7 @@ NAME 	= 	minishell
 
 SRC 	= 	srcs/builtin_functions.c srcs/builtins.c srcs/command.c srcs/main.c  \
 			srcs/parser.c srcs/utils.c srcs/environment.c srcs/input.c \
-			srcs/arguments.c srcs/parser_utils.c
+			srcs/parser_utils.c srcs/arguments.c
 
 INC 	= 	includes/commands.h includes/constants.h includes/parsing.h  \
 			includes/shell.h includes/utils.h
