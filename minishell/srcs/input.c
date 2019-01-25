@@ -17,18 +17,22 @@
 
 void	read_input(t_shell *shell)
 {
-	int		offset;
-	char	*buf;
+	unsigned int	offset;
+	unsigned int	bufsize;
 
-	buf = shell->buf;
-	ft_bzero(buf, BUF_SIZE + 1);
+	bufsize = BUF_SIZE;
+	ft_bzero(shell->buf, bufsize + 1);
 	offset = 0;
-	read(0, buf, 1);
-	while (buf[offset] != '\n' && offset < BUF_SIZE)
+	read(0, shell->buf, 1);
+	while (shell->buf[offset] != '\n' && offset < bufsize)
 	{
-		offset++;
-		read(0, buf + offset, 1);
+		if (++offset >= bufsize)
+		{
+			shell->buf[offset] = '\0';
+			shell->buf = ft_realloc(shell->buf, bufsize *= 2);
+		}
+		read(0, shell->buf + offset, 1);
 	}
-	buf[offset] = '\0';
+	shell->buf[offset] = '\0';
 	log_input(shell);
 }

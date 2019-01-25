@@ -27,7 +27,7 @@
 
 # define BUILTINS_AMOUNT		(17)
 
-# define BUF_SIZE				(1024)
+# define BUF_SIZE				(5)
 
 # define LOG_FILE				"/Users/kicausse/.kil0shell_history"
 

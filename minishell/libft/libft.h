@@ -76,6 +76,7 @@ int						ft_ishex(int c);
 ** String manipulation / creation
 */
 
+char					*ft_realloc(char *str, int newsize);
 char					*ft_strnew(size_t size);
 void					ft_strdel(char **as);
 void					ft_strclr(char *s);

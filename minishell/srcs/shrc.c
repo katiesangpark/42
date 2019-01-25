@@ -22,7 +22,9 @@ void	exec_shrc_command(t_shell *shell, char *cmd)
 {
 	char	**args;
 
-	ft_strlcpy(shell->buf, cmd, BUF_SIZE);
+	if (ft_strlen(cmd) >= BUF_SIZE)
+		shell->buf = ft_realloc(shell->buf, ft_strlen(cmd));
+	ft_strcpy(shell->buf, cmd);
 	if ((args = parse_input(shell->buf, shell)) == NULL)
 		return ;
 	exec_command(shell, args);
