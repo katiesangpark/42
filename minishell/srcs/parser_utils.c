@@ -45,10 +45,27 @@ char	*insert_variable_value(char *input, int i, t_shell *shell)
 int		look_for_char(char *dest, char c)
 {
 	unsigned int	i;
+	unsigned int	escape;
 
 	i = 0;
-	while (dest[i] != '\0' && dest[i] != c)
+	escape = 0;
+	while (dest[i] != '\0')
+	{
+		if (escape && !(escape = 0))
+		{
+			++i;
+			continue ;
+		}
+		if (dest[i] == '\\')
+		{
+			escape = 1;
+			++i;
+			continue ;
+		}
+		if (dest[i] == c)
+			return (i);
 		++i;
+	}
 	return (i);
 }
 

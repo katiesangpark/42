@@ -22,6 +22,8 @@ void	ignore_chars(char **dest, char *charset);
 char	*insert_variable_value(char *input, int i, t_shell *shell);
 int		quote_match(char *input, unsigned int *e, unsigned int *quote);
 
+char	*expand_argument(char *input, int len, int quote_type, t_shell *shell);
+
 char	**parse_input(char *input, t_shell *shell);
 
 #endif

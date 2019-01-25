@@ -15,64 +15,14 @@
 #include "shell.h"
 #include "constants.h"
 
-char	*expand_variables(char *input, t_shell *shell)
-{
-	int		i;
-	int		escape;
-
-	i = -1;
-	escape = 0;
-	while (input[++i])
-	{
-		if (escape && !(escape = 0))
-			continue ;
-		if (input[i] == '\\')
-		{
-			escape = 1;
-			ft_strcpy(input + i, input + i + 1);
-			--i;
-		}
-		else if (input[i] == '$')
-		{
-			if ((input = insert_variable_value(input, i, shell)) == NULL)
-				return (NULL);
-			return (input);
-		}
-	}
-	return (input);
-}
-
-char	*expand_argument(char *input, int len, int quote_type, t_shell *shell)
-{
-	char			*tmp;
-
-	if ((input = ft_strsub(input, 0, len)) == NULL)
-		return (NULL);
-	if (quote_type == 0 || quote_type == 1)
-	{
-		if (input[0] == '~' && quote_type == 0)
-		{
-			tmp = input;
-			input = ft_strins_malloc(tmp + 1,
-								get_env_var("HOME", shell->env), 0);
-			ft_strdel(&tmp);
-			if (input == NULL)
-				return (NULL);
-		}
-		input = expand_variables(input, shell);
-	}
-	return (input);
-}
-
 int		count_arguments(char *input)
 {
 	unsigned int	count;
-	unsigned int	quote;
 	unsigned int	e;
 	unsigned int	escape;
 
 	count = 0;
-	while (++count && *input && !(quote = 0))
+	while (++count && *input && !(escape = 0))
 	{
 		ignore_chars(&input, "\t ");
 		if (*input == '\0' || (e = 0))
@@ -93,31 +43,39 @@ int		count_arguments(char *input)
 	return (count);
 }
 
+void	get_arg_end(char *input, unsigned int *quote, unsigned int *e)
+{
+	unsigned int	escape;
+
+	escape = 0;
+	*e = 0;
+	while (input[*e])
+	{
+		if (escape && ++(*e) && !(escape = 0))
+			continue ;
+		if (input[*e] == '\t' || input[*e] == ' ')
+			break ;
+		if (input[*e] == '\\' && ++(*e) && (escape = 1))
+			continue ;
+		if (quote_match(input, e, quote))
+			continue ;
+		++(*e);
+	}
+}
+
 void	fill_args(char **args, char *input, t_shell *shell)
 {
 	unsigned int	count;
 	unsigned int	quote;
 	unsigned int	e;
-	unsigned int	escape;
 
 	count = 0;
 	while (*input && !(quote = 0))
 	{
 		ignore_chars(&input, "\t ");
-		if (*input == '\0' || (e = 0))
+		if (*input == '\0')
 			break ;
-		escape = 0;
-		while (input[e])
-		{
-			if (escape && ++e && !(escape = 0))
-				continue ;
-			if (input[e] == '\t' || input[e] == ' ')
-				break ;
-			if ((input[e] == '\\' && ++e && (escape = 1))
-				|| (quote_match(input, &e, &quote)))
-				continue ;
-			++e;
-		}
+		get_arg_end(input, &quote, &e);
 		if ((args[count++] = expand_argument(input, e, quote, shell)) == NULL)
 			break ;
 		input += e;
