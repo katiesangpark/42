@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,22 +12,18 @@
 
 #include "libft.h"
 
-char	*ft_strncpy(char *destination, const char *source, size_t num)
+char	*ft_strlcpy(char *destination, const char *source, size_t size)
 {
 	unsigned int i;
 
 	if (!destination || !source)
 		return (destination);
 	i = 0;
-	while (source[i] != '\0' && i < num)
+	while (source[i] != '\0' && i < size - 1)
 	{
 		destination[i] = source[i];
 		i++;
 	}
-	while (i < num)
-	{
-		destination[i] = '\0';
-		i++;
-	}
+	destination[i] = '\0';
 	return (destination);
 }

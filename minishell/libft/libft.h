@@ -59,7 +59,6 @@ size_t					ft_strlen_if(const char *s, int (*f)(int));
 int						charset_match(char *charset, char *str);
 int						charset_unmatch(char *charset, char *str);
 
-
 /*
 ** Character comparisons
 */
@@ -100,6 +99,8 @@ char					*ft_strdup_if(const char *s, int (*f)(int));
 char					*ft_strcpy(char *destination, const char *source);
 char					*ft_strncpy(char *destination, const char *source,
 						size_t num);
+char					*ft_strlcpy(char *destination, const char *source,
+						size_t size);
 char					*ft_strcat(char *destination, const char *source);
 char					*ft_strncat(char *destination, const char *source,
 						size_t num);
