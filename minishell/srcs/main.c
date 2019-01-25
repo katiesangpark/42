@@ -18,6 +18,10 @@
 #include "libft.h"
 #include "shell.h"
 #include "utils.h"
+#include <stdio.h>
+#include <signal.h>
+
+t_shell	*g_shell;
 
 int		get_env_vars(t_shell *shell, char **env)
 {
@@ -63,9 +67,21 @@ int		config_shell(t_shell *shell, int ac, char **av, char **env)
 	shell->color = get_arg("--color", ac, av)
 					|| get_arg_letter('G', ac, av);
 	shell->showdir = (get_arg("--show-dir", ac, av)
-					|| get_arg_letter('l', ac, av))
-					+ (get_arg("--show-dir-first", ac, av) * 2);
+					|| get_arg_letter('s', ac, av));
+	if (get_arg("--show-dir-first", ac, av) || get_arg_letter('S', ac, av))
+		shell->showdir = 2;
 	return (1);
+}
+
+void	catch_signal(int signal_id)
+{
+	if (signal_id == 2)
+	{
+		fflush(0);
+		ft_putstr("\b\b  \b\b\n");
+		if (!g_shell->running_command)
+			write_prompt(g_shell);
+	}
 }
 
 int		main(int ac, char **av, char **env)
@@ -73,6 +89,8 @@ int		main(int ac, char **av, char **env)
 	char	**args;
 	t_shell	shell;
 
+	g_shell = &shell;
+	signal(SIGINT, catch_signal);
 	if (config_shell(&shell, ac, av, env) == 0)
 		return (0);
 	while (1)

@@ -116,10 +116,18 @@ void	b_args(t_shell *shell, char **args)
 		ft_putendl("Usage: args --no-log --color --show-dir --show-dir-first");
 		return ;
 	}
+	if (ft_strcmp(args[1], "reset") == 0)
+	{
+		shell->log = 0;
+		shell->color = 0;
+		shell->showdir = 0;
+		return ;
+	}
 	shell->log = !get_arg("--no-log", 0, args);
 	shell->color = get_arg("--color", 0, args)
 					|| get_arg_letter('G', 0, args);
 	shell->showdir = (get_arg("--show-dir", 0, args)
-					|| get_arg_letter('l', 0, args))
-					+ (get_arg("--show-dir-first", 0, args) * 2);
+					|| get_arg_letter('s', 0, args));
+	if (get_arg("--show-dir-first", 0, args) || get_arg_letter('S', 0, args))
+		shell->showdir = 2;
 }

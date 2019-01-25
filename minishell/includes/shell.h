@@ -24,6 +24,7 @@ typedef struct	s_shell
 	int		log;
 	int		color;
 	int		showdir;
+	int		running_command;
 }				t_shell;
 
 void			free_env(char **env);

@@ -78,7 +78,9 @@ int		exec_command(t_shell *shell, char **args)
 	{
 		if (command != args[0])
 			ft_strdel(&command);
+		shell->running_command = 1;
 		wait(0);
+		shell->running_command = 0;
 	}
 	return (0);
 }
