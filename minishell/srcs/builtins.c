@@ -32,6 +32,7 @@ const t_builtin g_builtins[BUILTINS_AMOUNT] = {
 	{"history", &b_history},
 	{"log", &b_log},
 	{"setenv", &b_setenv},
+	{"source", &b_source},
 	{"unalias", &b_unalias},
 	{"unalias-all", &b_unalias_all},
 	{"unsetenv", &b_unsetenv}

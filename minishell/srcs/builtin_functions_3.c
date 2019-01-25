@@ -36,3 +36,13 @@ void	b_unalias_all(t_shell *shell, char **args)
 	free_env(shell->alias);
 	shell->alias = 0;
 }
+
+void	b_source(t_shell *shell, char **args)
+{
+	if (args[1] == NULL)
+	{
+		ft_putstr_fd("source: not enough arguments\n", 2);
+		return ;
+	}
+	exec_file(shell, args[1]);
+}
