@@ -23,7 +23,8 @@ void	exec_shrc_command(t_shell *shell, char *cmd)
 	char	**args;
 
 	if (ft_strlen(cmd) >= BUF_SIZE)
-		shell->buf = ft_realloc(shell->buf, ft_strlen(cmd));
+		if ((shell->buf = ft_realloc(shell->buf, ft_strlen(cmd))) == NULL)
+			return ;
 	ft_strcpy(shell->buf, cmd);
 	if ((args = parse_input(shell->buf, shell)) == NULL)
 		return ;
@@ -50,5 +51,6 @@ void	exec_shrc(t_shell *shell)
 		exec_shrc_command(shell, buf);
 		ft_strdel(&buf);
 	}
+	ft_strdel(&buf);
 	close(fd);
 }

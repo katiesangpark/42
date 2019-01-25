@@ -15,7 +15,7 @@
 #include "constants.h"
 #include "utils.h"
 
-void	read_input(t_shell *shell)
+int		read_input(t_shell *shell)
 {
 	unsigned int	offset;
 	unsigned int	bufsize;
@@ -29,10 +29,12 @@ void	read_input(t_shell *shell)
 		if (++offset >= bufsize)
 		{
 			shell->buf[offset] = '\0';
-			shell->buf = ft_realloc(shell->buf, bufsize *= 2);
+			if ((shell->buf = ft_realloc(shell->buf, bufsize *= 2)) == NULL)
+				return (0);
 		}
 		read(0, shell->buf + offset, 1);
 	}
 	shell->buf[offset] = '\0';
 	log_input(shell);
+	return (1);
 }

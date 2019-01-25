@@ -107,7 +107,8 @@ int		main(int ac, char **av, char **env)
 	while (1)
 	{
 		write_prompt(&shell);
-		read_input(&shell);
+		if (read_input(&shell) == 0)
+			continue ;
 		if ((args = parse_input(shell.buf, &shell)) == NULL)
 			continue ;
 		if (exec_command(&shell, args) == -1)

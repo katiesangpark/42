@@ -17,7 +17,8 @@ char	*ft_realloc(char *str, int newsize)
 	char *output;
 
 	output = ft_strnew(newsize);
-	ft_strlcpy(output, str, newsize + 1);
+	if (output)
+		ft_strlcpy(output, str, newsize + 1);
 	ft_strdel(&str);
 	return (output);
 }

@@ -77,7 +77,7 @@ void	fill_args(char **args, char *input, t_shell *shell)
 			break ;
 		get_arg_end(input, &quote, &e);
 		if ((args[count++] = expand_argument(input, e, quote, shell)) == NULL)
-			break ;
+			return ;
 		input += e;
 	}
 	args[count] = NULL;
@@ -88,7 +88,7 @@ char	**parse_input(char *input, t_shell *shell)
 	char			**args;
 	unsigned int	count;
 
-	if ((input = replace_aliases(input, shell->alias)) == NULL)
+	if (!input || (input = replace_aliases(input, shell->alias)) == NULL)
 	{
 		ft_putstr_fd(SHELL_NAME": Parse error\n", 2);
 		return (NULL);
