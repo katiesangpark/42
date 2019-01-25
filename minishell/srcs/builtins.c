@@ -93,8 +93,8 @@ void	b_cd(t_shell *shell, char **args)
 	{
 		if (chdir(tmp) == 0)
 		{
-			getcwd(buf, 511);
-			buf[511] = '\0';
+			if (getcwd(buf, 512) == NULL)
+				return ;
 			set_env_var("PWD", buf, shell);
 			shell->pwd = get_env_var("PWD", shell->env);
 		}
