@@ -22,7 +22,6 @@ typedef struct	s_shell
 	char	*buf;
 	int		shlvl;
 	int		log;
-	int		args;
 	int		color;
 	int		showdir;
 }				t_shell;

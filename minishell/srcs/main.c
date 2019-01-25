@@ -53,7 +53,6 @@ void	write_prompt(t_shell *shell)
 int		config_shell(t_shell *shell, int ac, char **av, char **env)
 {
 	ft_bzero(shell, sizeof(t_shell));
-	shell->args = parse_arguments(ac, av);
 	if (get_env_vars(shell, env) == -1
 		|| (shell->buf = ft_strnew(BUF_SIZE)) == 0)
 	{

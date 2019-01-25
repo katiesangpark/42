@@ -29,7 +29,6 @@
 
 # define BUF_SIZE				(1024)
 
-# define LOG_INPUT				(1)
 # define LOG_FILE				"/Users/kicausse/.kil0shell_history"
 
 #endif

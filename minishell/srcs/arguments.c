@@ -12,16 +12,6 @@
 
 #include "libft.h"
 
-int		parse_arguments(int ac, char **av)
-{
-	int	args;
-
-	(void)ac;
-	(void)av;
-	args = 0;
-	return (args);
-}
-
 int		get_arg_letter(char c, int ac, char **av)
 {
 	int		i;
@@ -32,7 +22,7 @@ int		get_arg_letter(char c, int ac, char **av)
 	{
 		if (av[i][0] != '-')
 			continue ;
-		x = 0;
+		x = 1;
 		while (av[i][x])
 		{
 			if (av[i][x] == c)
