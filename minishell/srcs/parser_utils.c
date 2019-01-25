@@ -70,7 +70,7 @@ int		quote_match(char *input, unsigned int *e, unsigned int *quote)
 	}
 	if (input[*e] == '\'')
 	{
-		*quote = 1;
+		*quote = 2;
 		*e += look_for_char(input + *e + 1, '\'');
 		if (input[*e] != '\0')
 			*e += 1;

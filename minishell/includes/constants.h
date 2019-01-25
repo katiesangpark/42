@@ -19,8 +19,11 @@
 # define PROMPT_LENGTH 			(16)
 # define PROMPT_SHLVL			SHELL_NAME"-"SHELL_VERSION"-%d$> "
 
-# define BUILTINS_AMOUNT		(7)
+# define BUILTINS_AMOUNT		(12)
 
 # define BUF_SIZE				(256)
+
+# define LOG_INPUT				(1)
+# define LOG_FILE				"/Users/kicausse/.kil0shell_history"
 
 #endif

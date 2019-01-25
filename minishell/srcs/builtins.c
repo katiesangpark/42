@@ -18,11 +18,16 @@
 #include "utils.h"
 
 const t_builtin g_builtins[BUILTINS_AMOUNT] = {
-	{"help", &b_help},
+	{"alias", &b_alias},
+	{"alias-list", &b_alias_list},
 	{"cd", &b_cd},
-	{"env", &b_env},
+	{"doc", &b_doc},
+	{"documentation", &b_doc},
 	{"echo", &b_echo},
+	{"env", &b_env},
+	{"export", &b_export},
 	{"exit", &b_exit},
+	{"help", &b_help},
 	{"setenv", &b_setenv},
 	{"unsetenv", &b_unsetenv}
 };
@@ -60,6 +65,7 @@ void	b_exit(t_shell *shell, char **args)
 {
 	ft_free_tab(args);
 	free_env(shell->env);
+	free_env(shell->alias);
 	free(shell->buf);
 	(void)args;
 	exit(0);

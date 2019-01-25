@@ -18,6 +18,8 @@ char	*get_env_var(char *name, char **env)
 {
 	unsigned int tmp;
 
+	if (env == NULL)
+		return (NULL);
 	while (*env)
 	{
 		tmp = ft_strlcmp(*env, name);
@@ -36,14 +38,14 @@ char	**copy_env(char **env, char *newelem)
 
 	i = -1;
 	len = (newelem != NULL);
-	while (env[++i])
+	while (env && env[++i])
 		if (env[i][0] != '\0')
 			len++;
 	if ((output = ft_memalloc(sizeof(char**) * (len + 1))) == NULL)
 		return (NULL);
 	i = 0;
 	len = 0;
-	while (env[i])
+	while (env && env[i])
 	{
 		if (env[i][0] != '\0'
 			&& (output[len++] = ft_strdup(env[i])) == NULL)
@@ -93,6 +95,11 @@ void	set_env_var(char *name, char *value, t_shell *shell)
 	unsigned int	i;
 	char			**tmpenv;
 
+	if (shell->env == NULL)
+	{
+		shell->env = copy_env(NULL, concat_env_string(name, value));
+		return ;
+	}
 	i = 0;
 	while (shell->env[i])
 	{

@@ -13,6 +13,7 @@
 #include "libft.h"
 #include "parsing.h"
 #include "shell.h"
+#include "constants.h"
 
 char	*expand_variables(char *input, t_shell *shell)
 {
@@ -89,7 +90,6 @@ void	fill_args(char **args, char *input, t_shell *shell)
 	unsigned int	e;
 
 	count = 0;
-	ft_putendl("Filling.");
 	while (*input && !(quote = 0))
 	{
 		ignore_chars(&input, "\t ");
@@ -118,7 +118,7 @@ char	**parse_input(char *input, t_shell *shell)
 	count = count_arguments(input);
 	if (count == 0 || !(args = ft_memalloc(sizeof(char*) * count)))
 	{
-		ft_putstr_fd("Parse error\n", 2);
+		ft_putstr_fd(SHELL_NAME": Parse error\n", 2);
 		return (NULL);
 	}
 	fill_args(args, input, shell);
