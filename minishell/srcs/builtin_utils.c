@@ -62,6 +62,7 @@ void	cd(t_shell *shell, char *folder)
 	{
 		if (getcwd(buf, 512) == NULL)
 			return ;
+		set_env_var("OLDPWD", get_env_var("PWD", shell->env), shell);
 		set_env_var("PWD", buf, shell);
 		shell->pwd = get_env_var("PWD", shell->env);
 	}

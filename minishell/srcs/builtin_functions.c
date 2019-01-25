@@ -69,7 +69,7 @@ void	b_alias(t_shell *shell, char **args)
 		return ;
 	}
 	args[1][i] = '\0';
-	if (charset_unmatch("-()\\'\";><|&[]-+/", args[1]))
+	if (charset_unmatch(FORBIDDEN_ALIAS_CHARS, args[1]))
 		set_env_var(args[1], args[1] + i + 1, (t_shell*)&shell->alias);
 	else
 		ft_putstr_fd("Error: Alias name contains forbidden characters.\n", 2);

@@ -45,6 +45,7 @@ char					*ft_strmapi(
 int						ft_strequ(char const *s1, char const *s2);
 int						ft_strnequ(char const *s1, char const *s2, size_t n);
 int						ft_cfind(char *str, char c);
+int						ft_rcfind(char *str, char c);
 char					*ft_strchr(const char *str, int character);
 char					*ft_strrchr(const char *str, int character);
 char					*ft_strstr(const char *str1, const char *str2);

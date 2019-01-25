@@ -33,4 +33,6 @@
 
 # define SHRC_FILE				"/Users/kicausse/.kil0shellrc"
 
+# define FORBIDDEN_ALIAS_CHARS 	"()\\'\";><|&[]+/"
+
 #endif
