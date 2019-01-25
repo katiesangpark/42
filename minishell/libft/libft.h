@@ -56,6 +56,9 @@ int						ft_strncmp(const char *str1, const char *str2,
 						size_t num);
 size_t					ft_strlen(const char *s);
 size_t					ft_strlen_if(const char *s, int (*f)(int));
+int						charset_match(char *charset, char *str);
+int						charset_unmatch(char *charset, char *str);
+
 
 /*
 ** Character comparisons

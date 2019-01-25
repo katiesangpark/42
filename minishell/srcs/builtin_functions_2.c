@@ -40,6 +40,7 @@ void	b_export(t_shell *shell, char **args)
 	if (i == 0)
 		return ;
 	args[1][i] = '\0';
+	ft_putnbr(charset_unmatch(args[1] + i + 1, "-\\();><\"'"));
 	if (args[1][i + 1] != '\0')
 		set_env_var(args[1], args[1] + i + 1, shell);
 	else

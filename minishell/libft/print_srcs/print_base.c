@@ -30,11 +30,11 @@ t_nbrbase_func g_base_func[BASE_SPECIFIER_COUNT] = {
 int		get_base_nbr_len(t_spec *spec, int nbrlen, unsigned long long nbr)
 {
 	if ((spec->option == 'p' || (flag(spec->flag, FLAG_HEX) && nbr > 0
-		&& charset_match("xX", spec->option))) && spec->maxlen == NULL)
+		&& charset_match_c("xX", spec->option))) && spec->maxlen == NULL)
 	{
 		nbrlen += 2;
 	}
-	else if (charset_match("oO", spec->option) && nbr != 0
+	else if (charset_match_c("oO", spec->option) && nbr != 0
 		&& spec->flag & FLAG_HEX)
 		nbrlen++;
 	if (nbr == 0 && spec->maxlen != NULL && ft_atoi(spec->maxlen) == 0
@@ -61,7 +61,7 @@ void	get_hexnbr_padding(t_spec *spec, int nbrlen, unsigned long long nbr)
 	if (spec->minlen != NULL && (minlen -= maxlen) > 0)
 	{
 		if ((spec->option == 'p' || (flag(spec->flag, FLAG_HEX) && nbr > 0
-		&& charset_match("xX", spec->option))) && spec->maxlen != NULL)
+		&& charset_match_c("xX", spec->option))) && spec->maxlen != NULL)
 			minlen -= 2;
 		if (flag(spec->flag, FLAG_MINUS))
 			spec->pad_right = minlen;
@@ -83,12 +83,12 @@ int		print_hex_prefix(t_spec *spec, unsigned long long nbr)
 		ft_putstr_fd("0x", spec->fd);
 	}
 	else if (spec->flag & FLAG_HEX && nbr > 0
-		&& charset_match("xX", spec->option))
+		&& charset_match_c("xX", spec->option))
 	{
 		ft_putstr_fd(spec->option == 'x' ? "0x" : "0X", spec->fd);
 		prnt_cnt += 2;
 	}
-	else if (charset_match("oO", spec->option) && spec->flag & FLAG_HEX
+	else if (charset_match_c("oO", spec->option) && spec->flag & FLAG_HEX
 		&& (nbr != 0 || (spec->maxlen != NULL
 		&& ft_atoi(spec->maxlen) == 0)))
 	{

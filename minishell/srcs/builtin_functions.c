@@ -63,10 +63,11 @@ void	b_alias(t_shell *shell, char **args)
 			ft_printf("%s=%s\n", args[1], tmp);
 		return ;
 	}
-	if (i == 0)
-		return ;
 	args[1][i] = '\0';
-	set_env_var(args[1], args[1] + i + 1, (t_shell*)&shell->alias);
+	if (charset_unmatch("-()\\'\";><", args[1]))
+		set_env_var(args[1], args[1] + i + 1, (t_shell*)&shell->alias);
+	else
+		ft_putstr_fd("Error: Alias name contains forbidden characters.\n", 2);
 }
 
 void	b_setenv(t_shell *shell, char **args)
@@ -74,7 +75,7 @@ void	b_setenv(t_shell *shell, char **args)
 	if (args[1] != NULL && args[2] != NULL)
 		set_env_var(args[1], args[2], shell);
 	else
-		ft_putstr_fd("usage: setenv NAME VALUE\n", 2);
+		ft_putstr_fd("Usage: setenv NAME VALUE\n", 2);
 }
 
 void	b_unsetenv(t_shell *shell, char **args)
@@ -82,5 +83,5 @@ void	b_unsetenv(t_shell *shell, char **args)
 	if (args[1] != NULL)
 		remove_env_var(args[1], shell->env);
 	else
-		ft_putstr_fd("usage: unsetenv NAME\n", 2);
+		ft_putstr_fd("Usage: unsetenv NAME\n", 2);
 }
