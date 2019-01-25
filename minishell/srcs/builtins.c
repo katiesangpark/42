@@ -80,7 +80,6 @@ void	b_exit(t_shell *shell, char **args)
 void	b_cd(t_shell *shell, char **args)
 {
 	char *tmp;
-	char buf[512];
 
 	if (args[1] == NULL && !(tmp = get_env_var("HOME", shell->env)))
 		ft_putstr_fd(SHELL_NAME": error: HOME variable not set\n", 2);
@@ -90,17 +89,7 @@ void	b_cd(t_shell *shell, char **args)
 		ft_printf_fd(2, SHELL_NAME": error: \"%s\" not available or not a "
 					"dir.\n", tmp);
 	else
-	{
-		if (chdir(tmp) == 0)
-		{
-			if (getcwd(buf, 512) == NULL)
-				return ;
-			set_env_var("PWD", buf, shell);
-			shell->pwd = get_env_var("PWD", shell->env);
-		}
-		else
-			ft_printf_fd(2, "cd: permission denied: %s\n", tmp);
-	}
+		cd(shell, tmp);
 }
 
 void	b_help(t_shell *shell, char **args)

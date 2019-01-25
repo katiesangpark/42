@@ -57,23 +57,9 @@ char	*find_command(char *command, char *path)
 	return ("");
 }
 
-int		exec_command(t_shell *shell, char **args)
+int		start_child_process(t_shell *shell, char **args, char *command)
 {
-	pid_t	process_id;
-	char	*command;
-
-	if (args == NULL || *args == NULL || **args == '\0'
-		|| exec_builtin(args[0], args, shell) != -1)
-		return (0);
-	if ((command = find_command(args[0], shell->path)) == NULL)
-		return (0);
-	if (command[0] == '\0')
-	{
-		ft_printf_fd(2, SHELL_NAME": command not found: %s\n", args[0]);
-		return (0);
-	}
-	process_id = fork();
-	if (process_id == 0)
+	if (fork() == 0)
 		return (execve(command, args, shell->env));
 	else
 	{
@@ -84,4 +70,24 @@ int		exec_command(t_shell *shell, char **args)
 		shell->running_command = 0;
 	}
 	return (0);
+}
+
+int		exec_command(t_shell *shell, char **args)
+{
+	char	*command;
+
+	if (args == NULL || *args == NULL || **args == '\0'
+		|| exec_builtin(args[0], args, shell) != -1)
+		return (0);
+	if ((command = find_command(args[0], shell->path)) == NULL)
+		return (0);
+	if (command[0] == '\0')
+	{
+		if (is_dir(args[0]))
+			cd(shell, args[0]);
+		else
+			ft_printf_fd(2, SHELL_NAME": command not found: %s\n", args[0]);
+		return (0);
+	}
+	return (start_child_process(shell, args, command));
 }

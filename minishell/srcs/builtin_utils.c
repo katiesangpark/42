@@ -53,3 +53,18 @@ void	exec_file(t_shell *shell, char *file)
 	ft_strdel(&buf);
 	close(fd);
 }
+
+void	cd(t_shell *shell, char *folder)
+{
+	char	buf[512];
+
+	if (chdir(folder) == 0)
+	{
+		if (getcwd(buf, 512) == NULL)
+			return ;
+		set_env_var("PWD", buf, shell);
+		shell->pwd = get_env_var("PWD", shell->env);
+	}
+	else
+		ft_printf_fd(2, "cd: permission denied: %s\n", folder);
+}
