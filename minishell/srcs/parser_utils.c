@@ -15,27 +15,25 @@
 
 int		look_for_char(char *dest, char c)
 {
-	unsigned int	i;
+	int				i;
 	unsigned int	escape;
 
-	i = 0;
+	i = -1;
 	escape = 0;
-	while (dest[i] != '\0')
+	while (dest[++i] != '\0')
 	{
-		if (escape && !(escape = 0))
+		if (escape)
 		{
-			++i;
+			escape = 0;
 			continue ;
 		}
 		if (dest[i] == '\\')
 		{
 			escape = 1;
-			++i;
 			continue ;
 		}
 		if (dest[i] == c)
 			return (i);
-		++i;
 	}
 	return (i);
 }

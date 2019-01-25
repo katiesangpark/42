@@ -49,16 +49,18 @@ char	*replace_aliases(char *input, char **alias)
 
 	if ((output = ft_strdup(input)) == NULL)
 		return (NULL);
-	x = -1;
+	x = 0;
 	escape = 0;
-	while (output[++x])
+	while (output[x])
 	{
-		if (escape && !(escape = 0))
+		if (escape && !(escape = 0) && ++x)
 			continue;
-		if (input[x] == '\\' && (escape = 1))
+		if (input[x] == '\\' && (escape = 1) && ++x)
 			continue ;
-		quote_match(output, (unsigned int*)&x, NULL);
+		if (quote_match(output, (unsigned int*)&x, NULL))
+			continue ;
 		output = replace_word(output, alias, x);
+		++x;
 	}
 	return (output);
 }

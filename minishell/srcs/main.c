@@ -112,7 +112,7 @@ int		main(int ac, char **av, char **env)
 		if (read_input(&shell) == 0)
 			continue ;
 		if ((args = parse_input(shell.buf, &shell)) == NULL)
-			continue ;
+			break ;
 		if (exec_command(&shell, args) == -1)
 			break ;
 		ft_free_tab(args);
