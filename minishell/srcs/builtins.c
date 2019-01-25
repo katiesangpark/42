@@ -29,6 +29,7 @@ const t_builtin g_builtins[BUILTINS_AMOUNT] = {
 	{"exit", &b_exit},
 	{"help", &b_help},
 	{"history", &b_history},
+	{"log", &b_log},
 	{"setenv", &b_setenv},
 	{"unsetenv", &b_unsetenv}
 };

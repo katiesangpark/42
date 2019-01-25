@@ -30,6 +30,7 @@ void			b_export(t_shell *shell, char **args);
 void			b_exit(t_shell *shell, char **args);
 void			b_help(t_shell *shell, char **args);
 void			b_history(t_shell *shell, char **args);
+void			b_log(t_shell *shell, char **args);
 void			b_setenv(t_shell *shell, char **args);
 void			b_unsetenv(t_shell *shell, char **args);
 
