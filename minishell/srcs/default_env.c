@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   default_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 23:20:19 by kicausse          #+#    #+#             */
-/*   Updated: 2019/01/23 23:20:19 by kicausse         ###   ########.fr       */
+/*   Created: 2019/01/26 21:09:27 by kicausse          #+#    #+#             */
+/*   Updated: 2019/01/26 21:09:28 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
-# include "shell.h"
+#include "shell.h"
+#include "libft.h"
+#include "constants.h"
 
-int		exists(char *path);
-int		is_dir(char *path);
-int		is_executable(char *path);
-char	*concat_env_string(char *name, char *value);
-char	*get_cwd(t_shell *shell, int realloc);
-
-#endif
+void	set_default_env(t_shell *shell, char **env)
+{
+	if (get_env_var("PATH", env) == NULL)
+		set_env_var("PATH", DEFAULT_PATH, shell);
+}

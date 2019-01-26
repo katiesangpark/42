@@ -40,7 +40,7 @@ char	*find_command(char *command, char *path)
 	if (ft_cfind(command, '/') != -1)
 		return (exists(command) ? command : "");
 	cmdlen = ft_strlen(command);
-	while (*path != '\0')
+	while (path && *path != '\0')
 	{
 		i = 0;
 		while (path[i] != '\0' && path[i] != ':')
@@ -84,7 +84,7 @@ int		exec_command(t_shell *shell, char **args)
 	if (args == NULL || *args == NULL || **args == '\0'
 		|| exec_builtin(args[0], args, shell) != -1)
 		return (0);
-	if ((command = find_command(args[0], shell->path)) == NULL)
+	if (!(command = find_command(args[0], get_env_var("PATH", shell->env))))
 		return (0);
 	if (command[0] == '\0')
 	{

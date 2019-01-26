@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "libft.h"
+#include "utils.h"
 #include "shell.h"
 #include "commands.h"
 #include "constants.h"
@@ -78,15 +79,11 @@ void	b_export2(t_shell *shell, char *var)
 
 void	cd(t_shell *shell, char *folder)
 {
-	char	buf[512];
-
 	if (chdir(folder) == 0)
 	{
-		if (getcwd(buf, 512) == NULL)
-			return ;
+		get_cwd(shell, 1);
 		set_env_var("OLDPWD", get_env_var("PWD", shell->env), shell);
-		set_env_var("PWD", buf, shell);
-		shell->pwd = get_env_var("PWD", shell->env);
+		set_env_var("PWD", shell->pwd, shell);
 	}
 	else
 		ft_printf_fd(2, "cd: permission denied: %s\n", folder);

@@ -33,7 +33,7 @@ void	b_unalias(t_shell *shell, char **args)
 void	b_unalias_all(t_shell *shell, char **args)
 {
 	(void)args;
-	free_env(shell->alias);
+	ft_free_tab(shell->alias);
 	shell->alias = 0;
 }
 

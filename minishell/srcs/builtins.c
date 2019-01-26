@@ -69,11 +69,12 @@ void	b_echo(t_shell *shell, char **args)
 
 void	b_exit(t_shell *shell, char **args)
 {
-	ft_free_tab(args);
-	free_env(shell->env);
-	free_env(shell->alias);
+	if (args != NULL)
+		ft_free_tab(args);
+	ft_free_tab(shell->env);
+	ft_free_tab(shell->alias);
 	free(shell->buf);
-	(void)args;
+	free(shell->pwd);
 	exit(0);
 }
 
@@ -82,13 +83,16 @@ void	b_cd(t_shell *shell, char **args)
 	char *tmp;
 
 	if (args[1] == NULL && !(tmp = get_env_var("HOME", shell->env)))
+	{
 		ft_putstr_fd(SHELL_NAME": error: HOME variable not set\n", 2);
+		return ;
+	}
 	else if (args[1] != NULL)
 		tmp = args[1];
-	if (!is_dir(tmp))
+	if (tmp != NULL && !is_dir(tmp))
 		ft_printf_fd(2, SHELL_NAME": error: \"%s\" not available or not a "
 					"dir.\n", tmp);
-	else
+	else if (tmp != NULL)
 		cd(shell, tmp);
 }
 

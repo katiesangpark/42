@@ -58,21 +58,6 @@ char	**copy_env(char **env, char *newelem)
 	return (output);
 }
 
-void	free_env(char **env)
-{
-	unsigned int	i;
-
-	if (env == 0)
-		return ;
-	i = 0;
-	while (env[i])
-	{
-		ft_strdel(&(env[i]));
-		++i;
-	}
-	free(env);
-}
-
 void	remove_env_var(char *name, char **env)
 {
 	unsigned int tmp;
@@ -114,5 +99,5 @@ void	set_env_var(char *name, char *value, t_shell *shell)
 	}
 	tmpenv = shell->env;
 	shell->env = copy_env(tmpenv, concat_env_string(name, value));
-	free_env(tmpenv);
+	ft_free_tab(tmpenv);
 }

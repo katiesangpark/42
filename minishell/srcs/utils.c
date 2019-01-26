@@ -12,6 +12,8 @@
 
 #include "libft.h"
 #include "shell.h"
+#include "constants.h"
+#include <unistd.h>
 #include <stdlib.h>
 #include <sys/stat.h>
 
@@ -56,21 +58,30 @@ int		is_dir(char *path)
 	return (S_ISDIR(f_stat.st_mode));
 }
 
-char	*get_cwd(t_shell *shell, char *path)
+char	*get_cwd(t_shell *shell, int realloc)
 {
-	int	i;
-	int	last;
+	int		i;
+	int		last;
+	char	buf[512];
 
-	if (path == NULL)
-		return ("");
-	if (ft_strcmp(path, get_env_var("HOME", shell->env)) == 0)
-		return ("~");
 	i = 0;
-	while (path[i])
+	last = 0;
+	if (realloc)
 	{
-		if (path[i] == '/')
+		ft_strdel(&(shell->pwd));
+		if (getcwd(buf, 512) == 0 || ((shell->pwd = ft_strdup(buf)) == NULL))
+			return (NULL);
+	}
+	else if (shell->pwd == NULL)
+		return (SHELL_NAME": error: could not fetch current directory\n");
+	while (shell->pwd[i])
+	{
+		if (shell->pwd[i] == '/')
 			last = i;
 		++i;
 	}
-	return (path + last + 1);
+	if (shell->pwd
+		&& ft_strcmp(shell->pwd, get_env_var("HOME", shell->env)) == 0)
+		return ("~");
+	return (shell->pwd + last + 1);
 }

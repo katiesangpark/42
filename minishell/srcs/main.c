@@ -29,8 +29,8 @@ int		get_env_vars(t_shell *shell, char **env)
 
 	if ((shell->env = copy_env(env, NULL)) == NULL)
 		return (-1);
-	shell->path = get_env_var("PATH", env);
-	shell->pwd = get_env_var("PWD", env);
+	set_default_env(shell, shell->env);
+	get_cwd(shell, 1);
 	shell->shlvl = ft_atoi(get_env_var("SHLVL", env)) + 1;
 	if ((tmp = ft_itoa(shell->shlvl)) == NULL)
 		return (-1);
@@ -43,8 +43,8 @@ void	write_prompt(t_shell *shell)
 {
 	if (shell->showdir == 2)
 		shell->color ? ft_printf(DIR_COLOR"%s/\033[0m ",
-			get_cwd(shell, shell->pwd)) : ft_printf("%s/ ",
-			get_cwd(shell, shell->pwd));
+			get_cwd(shell, 0)) : ft_printf("%s/ ",
+			get_cwd(shell, 0));
 	if (shell->shlvl == 1 || shell->show_shlvl == 0)
 		ft_putstr(shell->color ? PROMPT_COLOR : PROMPT);
 	else
@@ -52,8 +52,8 @@ void	write_prompt(t_shell *shell)
 			shell->shlvl);
 	if (shell->showdir == 1)
 		shell->color ? ft_printf(DIR_COLOR"%s/\033[0m ",
-			get_cwd(shell, shell->pwd)) : ft_printf("%s/ ",
-			get_cwd(shell, shell->pwd));
+			get_cwd(shell, 0)) : ft_printf("%s/ ",
+			get_cwd(shell, 0));
 }
 
 int		config_shell(t_shell *shell, int ac, char **av, char **env)
@@ -67,7 +67,7 @@ int		config_shell(t_shell *shell, int ac, char **av, char **env)
 	if (get_env_vars(shell, env) == -1
 		|| (shell->buf = ft_strnew(BUF_SIZE)) == 0)
 	{
-		free_env(shell->env);
+		ft_free_tab(shell->env);
 		return (0);
 	}
 	shell->show_shlvl = get_arg("--shlvl", ac, av)
@@ -86,12 +86,11 @@ int		config_shell(t_shell *shell, int ac, char **av, char **env)
 
 void	catch_signal(int signal_id)
 {
-	if (signal_id == 2)
+	if (signal_id == 2 && !g_shell->running_command)
 	{
 		fflush(0);
-		ft_putstr("\b\b  \b\b\n");
-		if (!g_shell->running_command)
-			write_prompt(g_shell);
+		ft_putstr("\b\b  \n");
+		write_prompt(g_shell);
 	}
 }
 
@@ -117,9 +116,6 @@ int		main(int ac, char **av, char **env)
 			break ;
 		ft_free_tab(args);
 	}
-	ft_free_tab(args);
-	ft_strdel(&(shell.buf));
-	free_env(shell.env);
-	free_env(shell.alias);
+	b_exit(&shell, args);
 	return (0);
 }

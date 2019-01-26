@@ -35,4 +35,6 @@
 
 # define FORBIDDEN_ALIAS_CHARS 	"()\\'\";><|&[]+/"
 
+# define DEFAULT_PATH			"/usr/bin:/bin"
+
 #endif
