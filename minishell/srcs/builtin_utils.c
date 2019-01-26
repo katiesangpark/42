@@ -71,10 +71,7 @@ void	b_export2(t_shell *shell, char *var)
 	if (i == 0)
 		return ;
 	var[i] = '\0';
-	if (var[i + 1] != '\0')
-		set_env_var(var, var + i + 1, shell);
-	else
-		remove_env_var(var, shell->env);
+	set_env_var(var, var + i + 1, shell);
 }
 
 void	cd(t_shell *shell, char *folder)

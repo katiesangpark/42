@@ -71,6 +71,7 @@ char	*get_cwd(t_shell *shell, int realloc)
 		ft_strdel(&(shell->pwd));
 		if (getcwd(buf, 512) == 0 || ((shell->pwd = ft_strdup(buf)) == NULL))
 			return (NULL);
+		set_env_var("PWD", shell->pwd, shell);
 	}
 	else if (shell->pwd == NULL)
 		return (SHELL_NAME": error: could not fetch current directory\n");
