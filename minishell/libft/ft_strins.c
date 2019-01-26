@@ -38,6 +38,31 @@ char	*ft_strins(char *dest, const char *src, unsigned int pos)
 	return (dest);
 }
 
+char	*ft_strnins(char *dest, const char *src, unsigned int count,
+						unsigned int pos)
+{
+	unsigned int	i;
+	unsigned int	destlen;
+
+	if (dest == NULL || src == NULL)
+		return (NULL);
+	destlen = ft_strlen(dest);
+	i = destlen + count;
+	while (i > pos)
+	{
+		dest[i] = dest[i - count];
+		i--;
+	}
+	i = 0;
+	while (i < count)
+	{
+		dest[pos + i] = src[i];
+		i++;
+	}
+	dest[destlen + count] = '\0';
+	return (dest);
+}
+
 char	*ft_strins_malloc(char *dest, const char *src, unsigned int pos)
 {
 	unsigned int	destlen;

@@ -37,4 +37,9 @@
 
 # define DEFAULT_PATH			"/usr/bin:/bin"
 
+# define INPUT_UP				(65)
+# define INPUT_DOWN				(66)
+# define INPUT_LEFT				(68)
+# define INPUT_RIGHT			(67)
+
 #endif

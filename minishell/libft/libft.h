@@ -95,6 +95,8 @@ char					**ft_strsplit(char const *s, char c);
 char					**ft_split(char const *s, char *c);
 char					*ft_strins(char *dest, const char *src,
 						unsigned int pos);
+char					*ft_strnins(char *dest, const char *src,
+						unsigned int count, unsigned int pos);
 char					*ft_strins_malloc(char *dest, const char *src,
 						unsigned int pos);
 char					*ft_strdup(const char *s);

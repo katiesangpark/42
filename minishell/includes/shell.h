@@ -12,20 +12,22 @@
 
 #ifndef SHELL_H
 # define SHELL_H
+# include <termios.h>
 
 typedef struct	s_shell
 {
-	char	**env;
-	char	**alias;
-	char	*pwd;
-	char	*buf;
-	int		shlvl;
-	int		show_shlvl;
-	int		no_log;
-	int		color;
-	int		showdir;
-	int		running_command;
-	int		no_shrc;
+	char			**env;
+	char			**alias;
+	char			*pwd;
+	char			*buf;
+	int				shlvl;
+	int				show_shlvl;
+	int				no_log;
+	int				color;
+	int				showdir;
+	int				running_command;
+	int				no_shrc;
+	struct termios	termios_p;
 }				t_shell;
 
 char			**copy_env(char **env, char *newelem);

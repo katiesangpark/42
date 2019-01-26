@@ -14,6 +14,7 @@
 # define PARSING_H
 # include "shell.h"
 
+void	config_shell_input(t_shell *shell, int mode);
 int		read_input(t_shell *shell);
 
 int		look_for_char(char *dest, char c);

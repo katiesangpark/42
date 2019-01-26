@@ -70,6 +70,7 @@ int		config_shell(t_shell *shell, int ac, char **av, char **env)
 		ft_free_tab(shell->env);
 		return (0);
 	}
+	config_shell_input(shell, 0);
 	shell->show_shlvl = get_arg("--shlvl", ac, av)
 			|| get_arg_letter('l', ac, av);
 	shell->no_log = get_arg("--no-log", ac, av) || get_arg_letter('s', ac, av);
