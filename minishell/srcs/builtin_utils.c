@@ -54,6 +54,28 @@ void	exec_file(t_shell *shell, char *file)
 	close(fd);
 }
 
+void	b_export2(t_shell *shell, char *var)
+{
+	int		i;
+	char	*tmp;
+
+	i = ft_cfind(var, '=');
+	if (i == -1)
+	{
+		tmp = get_env_var(var, shell->env);
+		if (tmp != NULL)
+			ft_printf("%s=%s\n", var, tmp);
+		return ;
+	}
+	if (i == 0)
+		return ;
+	var[i] = '\0';
+	if (var[i + 1] != '\0')
+		set_env_var(var, var + i + 1, shell);
+	else
+		remove_env_var(var, shell->env);
+}
+
 void	cd(t_shell *shell, char *folder)
 {
 	char	buf[512];

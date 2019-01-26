@@ -41,13 +41,37 @@ char	*replace_word(char *input, char **alias, int x)
 	return (input);
 }
 
+int		get_command_end(char *s)
+{
+	unsigned int	i;
+	unsigned int	escape;
+
+	i = 0;
+	escape = 0;
+	while (s[i])
+	{
+		if (escape && ++i && !(escape = 0))
+			continue ;
+		if (s[i] == '\\' && ++i && (escape = 1))
+			continue ;
+		if (quote_match(s, &i, NULL))
+			continue ;
+		if (s[i] == ';')
+			break ;
+		if (s[i] == '#' && (i == 0 || s[i - 1] == ' '))
+			break ;
+		++i;
+	}
+	return (i);
+}
+
 char	*replace_aliases(char *input, char **alias)
 {
 	int		x;
 	char	*output;
 	int		escape;
 
-	if ((output = ft_strdup(input)) == NULL)
+	if ((output = ft_strsub(input, 0, get_command_end(input))) == NULL)
 		return (NULL);
 	x = 0;
 	escape = 0;

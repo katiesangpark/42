@@ -29,3 +29,20 @@ char	*ft_strdup(const char *s)
 	output[i] = '\0';
 	return (output);
 }
+
+char	*ft_strcdup(const char *s, char c)
+{
+	int		i;
+	char	*output;
+
+	if (s == NULL || (output = (char*)malloc(ft_strclen(s, c) + 1)) == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		output[i] = s[i];
+		i++;
+	}
+	output[i] = '\0';
+	return (output);
+}

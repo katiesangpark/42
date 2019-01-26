@@ -23,7 +23,6 @@ void	b_env(t_shell *shell, char **args)
 
 	if (args[1] != NULL)
 	{
-		args[2] = NULL;
 		b_export(shell, args);
 		return ;
 	}

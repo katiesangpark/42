@@ -56,6 +56,7 @@ unsigned int			ft_strlcmp(const char *str1, const char *str2);
 int						ft_strncmp(const char *str1, const char *str2,
 						size_t num);
 size_t					ft_strlen(const char *s);
+size_t					ft_strclen(const char *s, char c);
 size_t					ft_strlen_if(const char *s, int (*f)(int));
 int						charset_match(char *charset, char *str);
 int						charset_unmatch(char *charset, char *str);
@@ -97,6 +98,7 @@ char					*ft_strins(char *dest, const char *src,
 char					*ft_strins_malloc(char *dest, const char *src,
 						unsigned int pos);
 char					*ft_strdup(const char *s);
+char					*ft_strcdup(const char *s, char c);
 char					*ft_strdup_if(const char *s, int (*f)(int));
 char					*ft_strcpy(char *destination, const char *source);
 char					*ft_strncpy(char *destination, const char *source,

@@ -21,29 +21,16 @@
 
 void	b_export(t_shell *shell, char **args)
 {
-	int		i;
-	char	*tmp;
+	int		x;
 
 	if (args[1] == 0)
 	{
 		b_env(shell, args);
 		return ;
 	}
-	i = ft_cfind(args[1], '=');
-	if (i == -1)
-	{
-		tmp = get_env_var(args[1], shell->env);
-		if (tmp != NULL)
-			ft_printf("%s=%s\n", args[1], tmp);
-		return ;
-	}
-	if (i == 0)
-		return ;
-	args[1][i] = '\0';
-	if (args[1][i + 1] != '\0')
-		set_env_var(args[1], args[1] + i + 1, shell);
-	else
-		remove_env_var(args[1], shell->env);
+	x = 0;
+	while (args[++x])
+		b_export2(shell, args[x]);
 }
 
 void	b_doc(t_shell *shell, char **args)

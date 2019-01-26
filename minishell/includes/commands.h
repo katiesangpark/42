@@ -44,6 +44,7 @@ int				exec_command(t_shell *shell, char **args);
 void			exec_line_command(t_shell *shell, char *cmd);
 void			exec_file(t_shell *shell, char *file);
 
+void			b_export2(t_shell *shell, char *var);
 void			cd(t_shell *shell, char *folder);
 
 #endif
