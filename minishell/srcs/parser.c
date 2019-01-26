@@ -77,7 +77,10 @@ void	fill_args(char **args, char *input, t_shell *shell)
 			break ;
 		get_arg_end(input, &quote, &e);
 		if ((args[count++] = expand_argument(input, e, quote, shell)) == NULL)
+		{
+			reverse_free_tab(args, count - 1);
 			return ;
+		}
 		input += e;
 	}
 	args[count] = NULL;
