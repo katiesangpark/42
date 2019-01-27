@@ -16,20 +16,6 @@
 #include "utils.h"
 #include <termios.h>
 
-void	config_shell_input(t_shell *shell, int mode)
-{
-	struct termios	termios_p;
-
-	if (mode == 0)
-		tcgetattr(0, &(shell->termios_p));
-	if (mode == 0 || mode == 1)
-	{
-		ft_memcpy(&termios_p, &(shell->termios_p), sizeof(struct termios));
-		termios_p.c_lflag &= ~(ECHO | ICANON);
-		tcsetattr(0, 0, &termios_p);
-	}
-}
-
 void	move_cursor(unsigned int *x, unsigned int max_x, int code)
 {
 	if (code == INPUT_RIGHT && *x < max_x)
@@ -56,6 +42,23 @@ void	delete_char(char *buffer, unsigned int *cursor_x, unsigned int *offset)
 	ft_print_char('\b', *offset - *cursor_x);
 }
 
+void	insert_char(char buf, char *buffer,
+		unsigned int *cursor_x, unsigned int *offset)
+{
+	ft_strnins(buffer, &buf, 1, (*cursor_x)++);
+	ft_putstr(buffer + *cursor_x - 1);
+	ft_print_char('\b', ++(*offset) - *cursor_x);
+}
+
+int		get_escape_mode(unsigned int escapemode, char buf)
+{
+	if (escapemode == 0 && buf == 27)
+		return (1);
+	if (escapemode == 1 && buf == 91)
+		return (2);
+	return (0);
+}
+
 int		read_input(t_shell *shell, unsigned int bufsize)
 {
 	unsigned int	offset;
@@ -73,18 +76,12 @@ int		read_input(t_shell *shell, unsigned int bufsize)
 			return (0);
 		if (buf == 127 && cursor_x > 0 && offset > 0)
 			delete_char(shell->buf, &cursor_x, &offset);
-		else if (buf == 27)
-			escapemode = 1;
-		else if (buf == 91)
-			escapemode = 2;
+		else if (buf == 27 || (escapemode == 1 && buf == 91))
+			escapemode = get_escape_mode(escapemode, buf);
 		else if (escapemode == 2 && !(escapemode = 0))
 			move_cursor(&cursor_x, offset, buf);
 		else if (ft_isprint(buf))
-		{
-			ft_strnins(shell->buf, &buf, 1, cursor_x++);
-			ft_putstr(shell->buf + cursor_x - 1);
-			ft_print_char('\b', ++offset - cursor_x);
-		}
+			insert_char(buf, shell->buf, &cursor_x, &offset);
 	}
 	ft_putchar('\n');
 	log_input(shell);

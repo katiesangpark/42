@@ -19,6 +19,20 @@
 #include "shell.h"
 #include "utils.h"
 
+void	config_shell_input(t_shell *shell, int mode)
+{
+	struct termios	termios_p;
+
+	if (mode == 0)
+		tcgetattr(0, &(shell->termios_p));
+	if (mode == 0 || mode == 1)
+	{
+		ft_memcpy(&termios_p, &(shell->termios_p), sizeof(struct termios));
+		termios_p.c_lflag &= ~(ECHO | ICANON);
+		tcsetattr(0, 0, &termios_p);
+	}
+}
+
 int		get_env_vars(t_shell *shell, char **env)
 {
 	char	*tmp;
