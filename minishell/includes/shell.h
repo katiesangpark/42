@@ -37,6 +37,7 @@ void			remove_env_var(char *name, char **env);
 
 void			set_default_env(t_shell *shell, char **env);
 
+char			*get_log_line(unsigned int line);
 void			log_input(t_shell *shell);
 
 void			exec_shrc(t_shell *shell);

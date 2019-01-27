@@ -38,7 +38,7 @@ char	*ft_strcdup(const char *s, char c)
 	if (s == NULL || (output = (char*)malloc(ft_strclen(s, c) + 1)) == NULL)
 		return (NULL);
 	i = 0;
-	while (s[i])
+	while (s[i] && s[i] != c)
 	{
 		output[i] = s[i];
 		i++;
