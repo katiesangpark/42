@@ -15,7 +15,7 @@
 # include "shell.h"
 
 void	config_shell_input(t_shell *shell, int mode);
-int		read_input(t_shell *shell);
+int		read_input(t_shell *shell, unsigned int bufsize);
 
 int		look_for_char(char *dest, char c);
 void	ignore_chars(char **dest, char *charset);

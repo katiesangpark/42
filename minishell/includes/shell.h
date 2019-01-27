@@ -41,4 +41,8 @@ void			log_input(t_shell *shell);
 
 void			exec_shrc(t_shell *shell);
 
+void			write_prompt(t_shell *shell);
+
+void			signal_init(t_shell *shell);
+
 #endif

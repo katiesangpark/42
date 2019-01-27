@@ -18,10 +18,6 @@
 #include "libft.h"
 #include "shell.h"
 #include "utils.h"
-#include <stdio.h>
-#include <signal.h>
-
-t_shell	*g_shell;
 
 int		get_env_vars(t_shell *shell, char **env)
 {
@@ -85,23 +81,12 @@ int		config_shell(t_shell *shell, int ac, char **av, char **env)
 	return (1);
 }
 
-void	catch_signal(int signal_id)
-{
-	if (signal_id == 2 && !g_shell->running_command)
-	{
-		fflush(0);
-		ft_putstr("\b\b  \n");
-		write_prompt(g_shell);
-	}
-}
-
 int		main(int ac, char **av, char **env)
 {
 	char	**args;
 	t_shell	shell;
 
-	g_shell = &shell;
-	signal(SIGINT, catch_signal);
+	signal_init(&shell);
 	if (config_shell(&shell, ac, av, env) == 0)
 		return (0);
 	exec_shrc(&shell);
@@ -109,7 +94,7 @@ int		main(int ac, char **av, char **env)
 	while (1)
 	{
 		write_prompt(&shell);
-		if (read_input(&shell) == 0)
+		if (read_input(&shell, BUF_SIZE) == 0)
 			continue ;
 		if ((args = parse_input(shell.buf, &shell)) == NULL)
 			break ;
