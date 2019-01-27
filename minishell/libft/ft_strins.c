@@ -43,23 +43,25 @@ char	*ft_strnins(char *dest, const char *src, unsigned int count,
 {
 	unsigned int	i;
 	unsigned int	destlen;
+	unsigned int	offset;
 
 	if (dest == NULL || src == NULL)
 		return (NULL);
 	destlen = ft_strlen(dest);
-	i = destlen + count;
+	offset = count;
+	i = destlen + offset;
 	while (i > pos)
 	{
-		dest[i] = dest[i - count];
+		dest[i] = dest[i - offset];
 		i--;
 	}
 	i = 0;
-	while (i < count)
+	while (i < offset)
 	{
 		dest[pos + i] = src[i];
 		i++;
 	}
-	dest[destlen + count] = '\0';
+	dest[destlen + offset] = '\0';
 	return (dest);
 }
 

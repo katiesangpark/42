@@ -80,18 +80,19 @@ int		read_input(t_shell *shell)
 		}
 		else if (escapemode != 2 && (ft_isprint(buf) || buf == '\n'))	
 		{
-			ft_putchar(buf);
 			if (buf == '\n')
 				break ;
-			escapemode = 0;
-			shell->buf[cursor_x++] = buf;
+			/*shell->buf[cursor_x++] = buf;
 			if (cursor_x > offset)
-			{
-				shell->buf[++offset] = '\0';
-			}
+				shell->buf[++offset] = '\0';*/
+			escapemode = 0;
+			ft_strnins(shell->buf, &buf, 1, cursor_x++);
+			ft_putstr(shell->buf + cursor_x - 1);
+			ft_print_char('\b', ++offset - cursor_x);
 		}
 	}
 	shell->buf[offset] = '\0';
+	ft_putchar('\n');
 	log_input(shell);
 	return (1);
 }
