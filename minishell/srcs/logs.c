@@ -20,7 +20,7 @@ void	log_input(t_shell *shell)
 {
 	int	fd;
 
-	if (shell->no_log)
+	if (shell->no_log || ft_strcmp(shell->buf, "") == 0)
 		return ;
 	fd = open(LOG_FILE, O_RDWR | O_CREAT | O_APPEND, 448);
 	if (fd < 0)
@@ -50,7 +50,11 @@ char	*get_log_line(unsigned int line)
 	{
 		while (read(fd, buf, 1) && buf[0] != '\n')
 			lseek(fd, -2, SEEK_CUR);
-		lseek(fd, -2, SEEK_CUR);
+		if (lseek(fd, -2, SEEK_CUR) < 0)
+		{
+			close(fd);
+			return (NULL);
+		}
 	}
 	tmp = read(fd, buf, 256);
 	buf[tmp] = 0;

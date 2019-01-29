@@ -16,9 +16,9 @@
 #include "utils.h"
 #include <termios.h>
 
-void	move_cursor(unsigned int *x, unsigned int max_x, int code)
+void	move_cursor(unsigned int *x, unsigned int *max_x, int code)
 {
-	if (code == INPUT_RIGHT && *x < max_x)
+	if (code == INPUT_RIGHT && *x < *max_x)
 	{
 		*x += 1;
 		ft_putstr("\x1B\x5B\x43");
@@ -69,7 +69,8 @@ int		read_input(t_shell *shell, unsigned int bufsize)
 	ft_bzero(shell->buf, bufsize);
 	offset = 0;
 	cursor_x = 0;
-	while (read(0, &buf, 1) && buf != '\n')
+	escapemode = 0;
+	while ((buf = 1) && read(0, &buf, 1) > 0 && buf != '\n')
 	{
 		if (offset + 1 >= bufsize
 			&& (shell->buf = ft_realloc(shell->buf, bufsize *= 2)) == NULL)
@@ -79,11 +80,10 @@ int		read_input(t_shell *shell, unsigned int bufsize)
 		else if (buf == 27 || (escapemode == 1 && buf == 91))
 			escapemode = get_escape_mode(escapemode, buf);
 		else if (escapemode == 2 && !(escapemode = 0))
-			move_cursor(&cursor_x, offset, buf);
+			move_cursor(&cursor_x, &offset, buf);
 		else if (ft_isprint(buf))
 			insert_char(buf, shell->buf, &cursor_x, &offset);
 	}
-	ft_putchar('\n');
 	log_input(shell);
-	return (1);
+	return (buf == 1 ? 0 : 1);
 }

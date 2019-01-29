@@ -27,7 +27,8 @@ void	b_unalias(t_shell *shell, char **args)
 		ft_putstr_fd("Usage: unalias ALIAS\n", 2);
 		return ;
 	}
-	remove_env_var(args[1], shell->alias);
+	if (remove_env_var(args[1], shell->alias) == 0)
+		ft_printf_fd(2, "unalias: no such alias: %s\n", args[1]);
 }
 
 void	b_unalias_all(t_shell *shell, char **args)

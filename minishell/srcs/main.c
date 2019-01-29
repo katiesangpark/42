@@ -104,12 +104,13 @@ int		main(int ac, char **av, char **env)
 	if (config_shell(&shell, ac, av, env) == 0)
 		return (0);
 	exec_shrc(&shell);
-	args = 0;
 	while (1)
 	{
+		args = 0;
 		write_prompt(&shell);
 		if (read_input(&shell, BUF_SIZE) == 0)
-			continue ;
+			break ;
+		ft_putchar('\n');
 		if ((args = parse_input(shell.buf, &shell)) == NULL)
 			break ;
 		if (exec_command(&shell, args) == -1)

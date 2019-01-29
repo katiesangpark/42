@@ -79,7 +79,7 @@ char	*replace_aliases(char *input, char **alias)
 	{
 		if (escape && !(escape = 0) && ++x)
 			continue;
-		if (input[x] == '\\' && (escape = 1) && ++x)
+		if (output[x] == '\\' && (escape = 1) && ++x)
 			continue ;
 		if (quote_match(output, (unsigned int*)&x, NULL))
 			continue ;

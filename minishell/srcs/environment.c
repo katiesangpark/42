@@ -58,7 +58,7 @@ char	**copy_env(char **env, char *newelem)
 	return (output);
 }
 
-void	remove_env_var(char *name, char **env)
+int		remove_env_var(char *name, char **env)
 {
 	unsigned int tmp;
 
@@ -68,10 +68,11 @@ void	remove_env_var(char *name, char **env)
 		if (tmp != 0 && (*env)[tmp] == '=')
 		{
 			*env[0] = '\0';
-			return ;
+			return (1);
 		}
 		++env;
 	}
+	return (0);
 }
 
 void	set_env_var(char *name, char *value, t_shell *shell)

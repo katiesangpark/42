@@ -74,6 +74,7 @@ void	b_exit(t_shell *shell, char **args)
 	tcsetattr(0, 0, &(shell->termios_p));
 	ft_free_tab(shell->env);
 	ft_free_tab(shell->alias);
+	free(shell->history_line);
 	free(shell->buf);
 	free(shell->pwd);
 	exit(0);

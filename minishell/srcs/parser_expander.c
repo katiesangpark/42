@@ -31,7 +31,7 @@ char	*expand_variables(char *input, t_shell *shell)
 			ft_strcpy(input + i, input + i + 1);
 			--i;
 		}
-		else if (input[i] == '$')
+		else if (input[i] == '$' && input[i + 1] != '\0')
 		{
 			if ((input = insert_variable_value(input, i, shell)) == NULL)
 				return (NULL);
