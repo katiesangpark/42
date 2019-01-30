@@ -12,6 +12,7 @@
 
 #include "shell.h"
 #include "libft.h"
+#include "constants.h"
 #include <signal.h>
 
 t_shell	*g_shell;
@@ -20,8 +21,12 @@ void	catch_signal(int signal_id)
 {
 	if (signal_id == 2 && !g_shell->running_command)
 	{
-		ft_putstr("\b\b  \n");
+		ft_putstr("\n");
 		write_prompt(g_shell);
+		ft_bzero(g_shell->buf, BUF_SIZE);
+		g_shell->cursor = 0;
+		g_shell->offset = 0;
+		g_shell->bufsize = 0;
 	}
 }
 

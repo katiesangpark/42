@@ -21,6 +21,9 @@ typedef struct	s_shell
 	char			*pwd;
 	char			*buf;
 	char			*history_line;
+	int				cursor;
+	int				bufsize;
+	int				offset;
 	int				shlvl;
 	int				show_shlvl;
 	int				no_log;

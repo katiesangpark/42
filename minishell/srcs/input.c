@@ -16,7 +16,7 @@
 #include "utils.h"
 #include <termios.h>
 
-void	move_cursor(unsigned int *x, unsigned int *max_x, int code)
+void	move_cursor(int *x, int *max_x, int code)
 {
 	if (code == INPUT_RIGHT && *x < *max_x)
 	{
@@ -30,7 +30,7 @@ void	move_cursor(unsigned int *x, unsigned int *max_x, int code)
 	}
 }
 
-void	delete_char(char *buffer, unsigned int *cursor_x, unsigned int *offset)
+void	delete_char(char *buffer, int *cursor_x, int *offset)
 {
 	*cursor_x -= 1;
 	*offset -= 1;
@@ -43,14 +43,14 @@ void	delete_char(char *buffer, unsigned int *cursor_x, unsigned int *offset)
 }
 
 void	insert_char(char buf, char *buffer,
-		unsigned int *cursor_x, unsigned int *offset)
+		int *cursor_x, int *offset)
 {
 	ft_strnins(buffer, &buf, 1, (*cursor_x)++);
 	ft_putstr(buffer + *cursor_x - 1);
 	ft_print_char('\b', ++(*offset) - *cursor_x);
 }
 
-int		get_escape_mode(unsigned int escapemode, char buf)
+int		get_escape_mode(int escapemode, char buf)
 {
 	if (escapemode == 0 && buf == 27)
 		return (1);
@@ -61,28 +61,26 @@ int		get_escape_mode(unsigned int escapemode, char buf)
 
 int		read_input(t_shell *shell, unsigned int bufsize)
 {
-	unsigned int	offset;
-	unsigned int	cursor_x;
 	char			buf;
-	unsigned int	escapemode;
+	int				escapemode;
 
 	ft_bzero(shell->buf, bufsize);
-	offset = 0;
-	cursor_x = 0;
+	shell->offset = 0;
+	shell->cursor = 0;
 	escapemode = 0;
 	while ((buf = 1) && read(0, &buf, 1) > 0 && buf != '\n')
 	{
-		if (offset + 1 >= bufsize
+		if (shell->offset + 1 >= (int)bufsize
 			&& (shell->buf = ft_realloc(shell->buf, bufsize *= 2)) == NULL)
 			return (0);
-		if (buf == 127 && cursor_x > 0 && offset > 0)
-			delete_char(shell->buf, &cursor_x, &offset);
+		if (buf == 127 && shell->cursor > 0 && shell->offset > 0)
+			delete_char(shell->buf, &shell->cursor, &shell->offset);
 		else if (buf == 27 || (escapemode == 1 && buf == 91))
 			escapemode = get_escape_mode(escapemode, buf);
 		else if (escapemode == 2 && !(escapemode = 0))
-			move_cursor(&cursor_x, &offset, buf);
+			move_cursor(&shell->cursor, &shell->offset, buf);
 		else if (ft_isprint(buf))
-			insert_char(buf, shell->buf, &cursor_x, &offset);
+			insert_char(buf, shell->buf, &shell->cursor, &shell->offset);
 	}
 	log_input(shell);
 	return (buf == 1 ? 0 : 1);

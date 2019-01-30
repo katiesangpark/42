@@ -1,0 +1,3 @@
+read of size 1 at times 
+exit upon writing spaces or tab only
+ctrl+c not resetting cursor and current buffer
