@@ -19,10 +19,9 @@ int		ft_sqrt(int nb)
 
 	i = 2;
 	while (i * i < nb)
-		i++;
+		++i;
 	return (i);
 }
-#include <stdio.h>
 
 int		main(int ac, char **argv)
 {
@@ -44,7 +43,6 @@ int		main(int ac, char **argv)
 	correct_blocks_starting_pos(blocks);
 	map_size = ft_sqrt(lst_size(blocks) * 4);
 	map_size = solve(blocks, blocks, map_size);
-	//map_size = ((char(*)(t_block*,t_block*,char))&solve2)(blocks, blocks, map_size);
 	print_map(blocks, map_size);
 	lst_clear(blocks);
 	return (0);
