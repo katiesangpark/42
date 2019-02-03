@@ -25,7 +25,6 @@ typedef struct	s_block
 	int				h;
 	int				data;
 	struct s_block	*next;
-	struct s_block	*prev;
 }				t_block;
 
 int				ft_sqrt(int nb);
