@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 15:48:54 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/06 15:48:55 by kicausse         ###   ########.fr       */
+/*   Created: 2018/11/11 16:25:06 by kicausse          #+#    #+#             */
+/*   Updated: 2018/11/11 16:25:07 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define EOF (-1)
+# define BUFF_SIZE (256)
 
-char		*ft_strchr(const char *str, int character)
-{
-	unsigned int	i;
+int			get_next_line(const int fd, char **line);
 
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != character)
-	{
-		i++;
-	}
-	if (str[i] == character)
-		return ((char*)str + i);
-	return (0);
-}
+#endif

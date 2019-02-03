@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 15:48:54 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/06 15:48:55 by kicausse         ###   ########.fr       */
+/*   Created: 2019/01/24 03:39:07 by kicausse          #+#    #+#             */
+/*   Updated: 2019/01/24 03:39:07 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-char		*ft_strchr(const char *str, int character)
+void	ft_free_tab(char **tab)
 {
 	unsigned int	i;
 
-	if (str == NULL)
-		return (NULL);
+	if (tab == 0)
+		return ;
 	i = 0;
-	while (str[i] && str[i] != character)
+	while (tab[i])
 	{
-		i++;
+		ft_strdel(&tab[i]);
+		++i;
 	}
-	if (str[i] == character)
-		return ((char*)str + i);
-	return (0);
+	free(tab);
+}
+
+char	**reverse_free_tab(char **tab, int size)
+{
+	if (tab == 0)
+		return (NULL);
+	while (size >= 0)
+		free(tab[--size]);
+	free(tab);
+	return (NULL);
 }

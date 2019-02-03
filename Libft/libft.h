@@ -31,8 +31,9 @@ void					*ft_memchr(const void *s, int c, size_t n);
 int						ft_memcmp(const void *s1, const void *s2, size_t n);
 void					*ft_memalloc(size_t size);
 void					ft_memdel(void **ap);
-void					*ft_realloc(void *ptr, size_t size);
+void					*ft_memdup(const void *src, size_t size);
 int						ft_adv_memcmp(const void *source, const char *hexdata);
+void					ft_swap(void **str, void **str2);
 
 /*
 ** String comparison / Searching
@@ -43,16 +44,22 @@ char					*ft_strmapi(
 						char const *s, char (*f)(unsigned int, char));
 int						ft_strequ(char const *s1, char const *s2);
 int						ft_strnequ(char const *s1, char const *s2, size_t n);
+int						ft_cfind(char *str, char c);
+int						ft_rcfind(char *str, char c);
 char					*ft_strchr(const char *str, int character);
 char					*ft_strrchr(const char *str, int character);
 char					*ft_strstr(const char *str1, const char *str2);
 char					*ft_strnstr(const char *s1, const char *s2,
 						size_t length);
 int						ft_strcmp(const char *str1, const char *str2);
+unsigned int			ft_strlcmp(const char *str1, const char *str2);
 int						ft_strncmp(const char *str1, const char *str2,
 						size_t num);
 size_t					ft_strlen(const char *s);
+size_t					ft_strclen(const char *s, char c);
 size_t					ft_strlen_if(const char *s, int (*f)(int));
+int						charset_match(char *charset, char *str);
+int						charset_unmatch(char *charset, char *str);
 
 /*
 ** Character comparisons
@@ -71,6 +78,7 @@ int						ft_ishex(int c);
 ** String manipulation / creation
 */
 
+char					*ft_realloc(char *str, int newsize);
 char					*ft_strnew(size_t size);
 void					ft_strdel(char **as);
 void					ft_strclr(char *s);
@@ -84,15 +92,21 @@ char					*ft_strjoin_if(char *source, char *concat,
 						int (*f)(int));
 char					*ft_strtrim(char const *s);
 char					**ft_strsplit(char const *s, char c);
+char					**ft_split(char const *s, char *c);
 char					*ft_strins(char *dest, const char *src,
 						unsigned int pos);
+char					*ft_strnins(char *dest, const char *src,
+						unsigned int count, unsigned int pos);
 char					*ft_strins_malloc(char *dest, const char *src,
 						unsigned int pos);
 char					*ft_strdup(const char *s);
+char					*ft_strcdup(const char *s, char c);
 char					*ft_strdup_if(const char *s, int (*f)(int));
 char					*ft_strcpy(char *destination, const char *source);
 char					*ft_strncpy(char *destination, const char *source,
 						size_t num);
+char					*ft_strlcpy(char *destination, const char *source,
+						size_t size);
 char					*ft_strcat(char *destination, const char *source);
 char					*ft_strncat(char *destination, const char *source,
 						size_t num);
@@ -104,7 +118,8 @@ void					ft_striteri(char *s, void (*f)(unsigned int, char *));
 char					*ft_strtolower(char *string);
 char					*ft_strtoupper(char *string);
 char					*ft_strcut(char *str, int start, int end);
-
+void					ft_free_tab(char **tab);
+char					**reverse_free_tab(char **tab, int size);
 /*
 ** Printing functions
 */
@@ -164,6 +179,8 @@ int						ft_min(int n1, int n2);
 unsigned int			ft_abs(int value);
 int						ft_floor(int min, int value);
 int						ft_ceil(int max, int value);
+int						nbrlen(long long n);
+int						unbrlen(unsigned long long n);
 
 /*
 ** Other
@@ -173,6 +190,7 @@ int						ft_atoi(const char *str);
 unsigned long			ft_atoi_base(const char *str, unsigned int base);
 char					*ft_itoa(int n);
 long long				ft_power(int nb, int power);
+int						get_next_line(const int fd, char **line);
 
 /*
 ** Memory reading

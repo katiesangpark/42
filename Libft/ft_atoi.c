@@ -18,11 +18,11 @@ int			ft_atoi(const char *str)
 	int i;
 	int mult;
 
+	if (str == 0)
+		return (0);
 	i = 0;
 	result = 0;
 	mult = 1;
-	if (str == 0)
-		return (0);
 	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' \
 		|| str[i] == '\n' || str[i] == '\r' || str[i] == '\f')
 		i++;

@@ -49,7 +49,7 @@ int		print_char(t_spec *spec, va_list *args)
 
 	get_padding(spec, 1);
 	prnt_cnt = print_padding(spec);
-	if (charset_match("cC", spec->option))
+	if (charset_match_c("cC", spec->option))
 		c = va_arg(*args, int);
 	else
 		c = spec->option;

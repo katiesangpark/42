@@ -5,23 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 01:26:27 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/19 01:26:28 by kicausse         ###   ########.fr       */
+/*   Created: 2019/01/25 10:44:35 by kicausse          #+#    #+#             */
+/*   Updated: 2019/01/25 10:44:35 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-void			*ft_realloc(void *ptr, size_t size)
+char	*ft_realloc(char *str, int newsize)
 {
-	unsigned char	*tmp;
+	char *output;
 
-	tmp = (unsigned char*)malloc(size);
-	if (tmp != NULL)
-	{
-		ft_memcpy(tmp, ptr, size);
-		free(ptr);
-	}
-	return (tmp);
+	output = ft_strnew(newsize);
+	if (output)
+		ft_strlcpy(output, str, newsize + 1);
+	ft_strdel(&str);
+	return (output);
 }

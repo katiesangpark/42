@@ -66,7 +66,7 @@ int		putstr_color(char *str, int maxlen, int fd)
 		if (str[i] == '{' && (idx = find_next_end(&str[i])) > 1
 			&& is_hexa(str + i + 1, idx))
 		{
-			ft_putnstr(str + last, i - last);
+			ft_putnstr_fd(str + last, i - last, fd);
 			if (str[i + 1] == 'R' || str[i + 1] == 'r')
 				ft_putstr_fd("\033[0m", fd);
 			else
@@ -78,6 +78,6 @@ int		putstr_color(char *str, int maxlen, int fd)
 			i++;
 	}
 	if (last != i)
-		ft_putnstr(str + last, i - last);
+		ft_putnstr_fd(str + last, i - last, fd);
 	return (1);
 }

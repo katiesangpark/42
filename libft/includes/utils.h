@@ -16,10 +16,10 @@
 # include "specifiers.h"
 
 int		is_option(char c);
-int		charset_match(char *s, char c);
 int		search_reverse(char *str, char c, int start);
 int		flag(int nbr, int flags);
 int		is_valid_size_flag(char c);
+int		charset_match_c(char *s, char c);
 int		is_printable(int print, t_spec *spec, int *maxlen);
 
 #endif

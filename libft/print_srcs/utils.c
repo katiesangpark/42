@@ -13,7 +13,7 @@
 #include "utils.h"
 #include "libft.h"
 
-int		charset_match(char *s, char c)
+int		charset_match_c(char *s, char c)
 {
 	while (*s != 0)
 	{
@@ -26,7 +26,7 @@ int		charset_match(char *s, char c)
 
 int		is_option(char c)
 {
-	return (charset_match(OPTIONS, c) == 1);
+	return (charset_match_c(OPTIONS, c) == 1);
 }
 
 int		flag(int nbr, int flags)

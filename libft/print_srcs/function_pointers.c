@@ -41,9 +41,9 @@ t_func	g_func[SPECIFIER_COUNT] =
 void	get_specifier_size(t_spec *spec)
 {
 	spec->size = sizeof(int);
-	if (charset_match("pDO", spec->option))
+	if (charset_match_c("pDO", spec->option))
 		spec->size = sizeof(long);
-	if (charset_match("douxXi", spec->option))
+	if (charset_match_c("douxXi", spec->option))
 	{
 		if (spec->flag & FLAG_S_Z)
 			spec->size = sizeof(size_t);
@@ -59,7 +59,7 @@ void	get_specifier_size(t_spec *spec)
 	if (spec->option == 'U')
 		spec->size = (spec->flag & FLAG_S_H) ? sizeof(long long)
 			: sizeof(size_t);
-	if (charset_match("fF", spec->option))
+	if (charset_match_c("fF", spec->option))
 		spec->size = (spec->flag & FLAG_S_UPPER_L) ? sizeof(long double)
 			: sizeof(double);
 }

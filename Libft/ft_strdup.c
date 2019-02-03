@@ -18,11 +18,27 @@ char	*ft_strdup(const char *s)
 	int		i;
 	char	*output;
 
-	output = (char*)malloc(ft_strlen(s) + 1);
-	if (output == NULL)
+	if (s == NULL || (output = (char*)ft_memalloc(ft_strlen(s) + 1)) == NULL)
 		return (NULL);
 	i = 0;
 	while (s[i])
+	{
+		output[i] = s[i];
+		i++;
+	}
+	output[i] = '\0';
+	return (output);
+}
+
+char	*ft_strcdup(const char *s, char c)
+{
+	int		i;
+	char	*output;
+
+	if (!s || (output = (char*)ft_memalloc(ft_strclen(s, c) + 1)) == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i] && s[i] != c)
 	{
 		output[i] = s[i];
 		i++;

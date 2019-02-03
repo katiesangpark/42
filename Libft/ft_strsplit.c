@@ -21,7 +21,7 @@ static char		*copy_word(const char *src, char limit)
 	i = 0;
 	while (src[i] && src[i] != limit)
 		i++;
-	output = (char*)malloc(i);
+	output = (char*)ft_strnew(i);
 	if (output == NULL)
 		return (NULL);
 	i = 0;
@@ -76,7 +76,7 @@ char			**ft_strsplit(char const *s, char c)
 	int		x;
 
 	if (s == 0 ||
-		(output = (char**)malloc(sizeof(char*) * count_words(s, c))) == NULL)
+		!(output = (char**)ft_memalloc(sizeof(char*) * count_words(s, c))))
 		return (NULL);
 	x = 0;
 	i = 0;

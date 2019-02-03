@@ -13,8 +13,6 @@
 #include "fillit.h"
 #include "libft.h"
 
-int abcd;
-
 int		overlap(t_block *curr, t_block *block)
 {
 	int data;
