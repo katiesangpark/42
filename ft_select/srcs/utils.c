@@ -15,6 +15,27 @@
 #include <unistd.h>
 #include <sys/ioctl.h>
 
+int		get_list_maxlen(t_list *list)
+{
+	int i;
+	int max;
+
+	i = 0;
+	max = 0;
+	while (list[i].str)
+	{
+		if (list[i].len > max)
+			max = list[i].len;
+		++i;
+	}
+	while (list[0].str)
+	{
+		list[0].maxlen = max;
+		++list;
+	}
+	return (max);
+}
+
 int		remove_list_elem(t_list *list, unsigned int *cursor, int *list_size)
 {
 	int i;

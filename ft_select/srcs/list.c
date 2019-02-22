@@ -103,11 +103,11 @@ void		print_selected(t_list *list)
 	}
 }
 
-void		print_from_static(t_list *list, unsigned int *cursor, int maxlen)
+void		print_from_static(t_list *list, unsigned int *cursor, int *maxlen)
 {
 	static t_list		*l = 0;
 	static unsigned int	*c = 0;
-	static int			m = 0;
+	static int			*m = 0;
 
 	if (!c)
 		c = cursor;
@@ -118,6 +118,6 @@ void		print_from_static(t_list *list, unsigned int *cursor, int maxlen)
 	else
 	{
 		clear_current_screen();
-		print_list(l, *c, m);
+		print_list(l, *c, *m);
 	}
 }

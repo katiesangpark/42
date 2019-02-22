@@ -56,9 +56,10 @@ int			main(int ac, char **av)
 	cursor = 0;
 	init_terminal(termios_p);
 	get_list_info(&maxlen, av + 1, list);
-	print_from_static(list, &cursor, maxlen);
+	print_from_static(list, &cursor, &maxlen);
 	while (1)
 	{
+		maxlen = get_list_maxlen(list);
 		print_from_static(0, 0, 0);
 		if ((retval = handle_input(&cursor, list, &ac)) != 0)
 			break ;

@@ -15,6 +15,7 @@
 # include "structs.h"
 
 int		ft_putchar_stdin(int c);
+int		get_list_maxlen(t_list *list);
 void	get_window_size(t_size *size);
 void	print_with_pad(char *str, int len, int maxlen);
 int		remove_list_elem(t_list *list, unsigned int *cursor, int *list_size);
