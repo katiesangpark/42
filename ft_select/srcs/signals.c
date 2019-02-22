@@ -11,34 +11,31 @@
 /* ************************************************************************** */
 
 #include "list.h"
-#include "terminal.h"
+#include "libft.h"
 #include "utils.h"
+#include "terminal.h"
 #include <signal.h>
 #include <stdlib.h>
 
-void	suspend_event(int signo)
+void		signal_handler(int signo)
 {
-	(void)signo;
-	reset_terminal(0);
-	raise(SIGSTOP);
-}
-
-void	resume_event(int signo)
-{
-	(void)signo;
-	init_terminal(0);
-	print_from_static(0, 0, 0);
-}
-
-void	kill_event(int signo)
-{
-	(void)signo;
-	reset_terminal(0);
-	exit(0);
-}
-
-void	resize_event(int signo)
-{
-	(void)signo;
-	print_from_static(0, 0, 0);
+	ft_printf_fd(0, "%d\n", signo);
+	if (signo == 18)
+	{
+		reset_terminal(0);
+		raise(SIGSTOP);
+	}
+	if (signo == 19)
+	{
+		init_terminal(0);
+		print_from_static(0, 0, 0);
+	}
+	if (signo == 2)
+	{
+		reset_terminal(0);
+		free(get_list(0));
+		exit(0);
+	}
+	if (signo == 28)
+		print_from_static(0, 0, 0);
 }

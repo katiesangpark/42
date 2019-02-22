@@ -16,21 +16,40 @@
 #include "structs.h"
 #include "terminal.h"
 #include <term.h>
+#include <stdlib.h>
 #include <termcap.h>
 
-int		main(int ac, char **av)
+static int	error_gestion(int ac, t_list **list)
 {
-	unsigned int	cursor;
-	struct termios	termios_p[2];
-	t_list			list[ac];
-	int				maxlen;
-	int				retval;
-
-	if (--ac == 0)
+	if (ac == 0)
 	{
 		ft_putendl("Usage: ft_select (ARGS)");
 		return (0);
 	}
+	if ((*list = get_list(ac + 1)) == NULL)
+		return (0);
+	return (1);
+}
+
+t_list		*get_list(int size)
+{
+	static t_list *l = NULL;
+
+	if (l == 0)
+		l = ft_memalloc(sizeof(t_list) * (size + 1));
+	return (l);
+}
+
+int			main(int ac, char **av)
+{
+	unsigned int	cursor;
+	struct termios	termios_p[2];
+	t_list			*list;
+	int				maxlen;
+	int				retval;
+
+	if (error_gestion(--ac, &list) == 0)
+		return (0);
 	cursor = 0;
 	init_terminal(termios_p);
 	get_list_info(&maxlen, av + 1, list);
@@ -44,5 +63,6 @@ int		main(int ac, char **av)
 	reset_terminal(0);
 	if (retval == 1)
 		print_selected(list);
+	free(list);
 	return (0);
 }

@@ -21,7 +21,16 @@ void	clear_current_screen(void)
 	char	*cl;
 
 	cl = tgetstr("cl", NULL);
-	tputs(cl, 1, &ft_putchar_stdin);
+	//tputs(cl, 1, &ft_putchar_stdin);
+}
+
+void	init_signals(void)
+{
+	signal(SIGWINCH, signal_handler);
+	signal(SIGINT, signal_handler);
+	signal(SIGCONT, signal_handler);
+	signal(SIGSTOP, signal_handler);
+	signal(SIGTSTP, signal_handler);
 }
 
 void	init_terminal(struct termios *t)
@@ -35,13 +44,9 @@ void	init_terminal(struct termios *t)
 		tgetent(buf, getenv("TERM"));
 		tcgetattr(0, &termios_p[0]);
 		tcgetattr(0, &termios_p[1]);
+		init_signals();
 		reset_terminal(termios_p);
 		termios_p[1].c_lflag &= ~(ECHO | ICANON);
-		signal(SIGWINCH, resize_event);
-		signal(SIGINT, kill_event);
-		signal(SIGCONT, resume_event);
-		signal(SIGSTOP, suspend_event);
-		signal(SIGTSTP, suspend_event);
 	}
 	tcsetattr(0, 0, &termios_p[1]);
 	tputs(tgetstr("vi", NULL), 1, &ft_putchar_stdin);

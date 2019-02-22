@@ -17,7 +17,7 @@
 #include <unistd.h>
 #include <termcap.h>
 
-void	get_list_info(int *maxlen, char **av, t_list *list)
+void		get_list_info(int *maxlen, char **av, t_list *list)
 {
 	int i;
 
@@ -39,7 +39,7 @@ void	get_list_info(int *maxlen, char **av, t_list *list)
 	list[i].str = 0;
 }
 
-void	print_list_elem(t_list *list, int i, int cursor, const int maxlen)
+static void	print_list_elem(t_list *list, int i, int cursor, const int maxlen)
 {
 	char *us;
 	char *mr;
@@ -59,7 +59,7 @@ void	print_list_elem(t_list *list, int i, int cursor, const int maxlen)
 	tputs(me, 1, &ft_putchar_stdin);
 }
 
-void	print_list(t_list *list, unsigned int cursor, const int maxlen)
+void		print_list(t_list *list, unsigned int cursor, const int maxlen)
 {
 	t_size			size;
 	unsigned int	i;
@@ -87,7 +87,7 @@ void	print_list(t_list *list, unsigned int cursor, const int maxlen)
 	}
 }
 
-void	print_selected(t_list *list)
+void		print_selected(t_list *list)
 {
 	unsigned int i;
 
@@ -95,12 +95,15 @@ void	print_selected(t_list *list)
 	while (list[i].str)
 	{
 		if (list[i].selected)
-			write(1, list[i].str, list[i].len + 1);
+		{
+			write(1, list[i].str, list[i].len);
+			ft_putchar(' ');
+		}
 		++i;
 	}
 }
 
-void	print_from_static(t_list *list, unsigned int *cursor, int maxlen)
+void		print_from_static(t_list *list, unsigned int *cursor, int maxlen)
 {
 	static t_list		*l = 0;
 	static unsigned int	*c = 0;

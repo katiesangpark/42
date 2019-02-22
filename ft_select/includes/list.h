@@ -14,6 +14,7 @@
 # define LIST_H
 # include "structs.h"
 
+t_list	*get_list(int size);
 void	print_selected(t_list *list);
 void	get_list_info(int *maxlen, char **av, t_list *list);
 void	print_list(t_list *list, unsigned int cursor, const int maxlen);

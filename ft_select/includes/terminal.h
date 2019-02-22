@@ -20,9 +20,6 @@ void	init_terminal(struct termios *termios_p);
 void	reset_terminal(struct termios *termios_p);
 int		handle_input(unsigned int *cursor, t_list *list, int *list_size);
 
-void	resume_event(int signo);
-void	suspend_event(int signo);
-void	kill_event(int signo);
-void	resize_event(int signo);
+void	signal_handler(int signo);
 
 #endif
