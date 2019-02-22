@@ -58,26 +58,26 @@ static void	handle_arrows(t_list *list, unsigned int *cursor,
 int			handle_input(unsigned int *cursor, t_list *list, int *list_size)
 {
 	char	buffer[9];
-	int		ret;
+	int		sz;
 
-	if ((ret = read(0, buffer, 8)) == 0 || (ret == 1 && *buffer == 27))
+	if ((sz = read(0, buffer, 9)) == 0 || (sz == 1 && *buffer == 27))
 		return (2);
-	if (ret == -1)
+	if (sz == -1)
 		return (0);
-	buffer[ret] = 0;
-	if (ret == 1 && *buffer == 10)
+	buffer[sz] = 0;
+	if (sz == 1 && *buffer == 10)
 		return (1);
-	if (ret == 1 && *buffer == 127)
+	if ((sz == 1 && *buffer == 127) || (sz == 4 && *(int*)buffer == 2117294875))
 	{
 		if (remove_list_elem(list, cursor, list_size) == 0)
 			return (2);
 	}
-	if (ret == 1 && *buffer == 32)
+	if (sz == 1 && *buffer == 32)
 	{
 		list[*cursor].selected = !list[*cursor].selected;
 		*cursor += 1;
 	}
-	else if (ret == 3)
+	else if (sz == 3)
 		handle_arrows(list, cursor, *list_size, *(int*)buffer);
 	if (list[*cursor].str == NULL)
 		*cursor = 0;
