@@ -6,7 +6,7 @@
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 01:39:41 by kicausse          #+#    #+#             */
-/*   Updated: 2019/02/20 01:39:55 by kicausse         ###   ########.fr       */
+/*   Updated: 2019/02/22 07:02:04 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static int	error_gestion(int ac, t_list **list)
 {
 	if (ac == 0)
 	{
-		ft_putendl("Usage: ft_select (ARGS)");
+		ft_putendl_fd("Usage: ft_select (ARGS)", 2);
 		return (0);
 	}
 	if ((*list = get_list(ac + 1)) == NULL)
 	{
-		ft_putendl("Failed to allocate memory for ft_select.");
+		ft_putendl_fd("Failed to allocate memory for ft_select.", 2);
 		return (0);
 	}
 	return (1);
