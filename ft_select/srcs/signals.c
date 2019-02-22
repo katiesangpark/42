@@ -19,7 +19,6 @@
 
 void		signal_handler(int signo)
 {
-	ft_printf_fd(0, "%d\n", signo);
 	if (signo == 18)
 	{
 		reset_terminal(0);
@@ -30,10 +29,11 @@ void		signal_handler(int signo)
 		init_terminal(0);
 		print_from_static(0, 0, 0);
 	}
-	if (signo == 2)
+	if (signo == 2 || signo == 3 || signo == 4 || signo == 9 || signo == 11)
 	{
 		reset_terminal(0);
 		free(get_list(0));
+		raise(signo);
 		exit(0);
 	}
 	if (signo == 28)

@@ -21,16 +21,20 @@ void	clear_current_screen(void)
 	char	*cl;
 
 	cl = tgetstr("cl", NULL);
-	//tputs(cl, 1, &ft_putchar_stdin);
+	tputs(cl, 1, &ft_putchar_stdin);
 }
 
 void	init_signals(void)
 {
+	signal(2, signal_handler);
+	signal(3, signal_handler);
+	signal(4, signal_handler);
+	signal(11, signal_handler);
 	signal(SIGWINCH, signal_handler);
-	signal(SIGINT, signal_handler);
 	signal(SIGCONT, signal_handler);
 	signal(SIGSTOP, signal_handler);
 	signal(SIGTSTP, signal_handler);
+	signal(SIGSEGV, signal_handler);
 }
 
 void	init_terminal(struct termios *t)

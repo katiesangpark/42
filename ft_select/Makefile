@@ -21,7 +21,7 @@ CC		=	gcc
 
 OBJ 	= 	$(SRC:.c=.o)
 
-CFLAGS 	= 	-Wall -Wextra -Werror -Ilibft -Iincludes -fsanitize=address
+CFLAGS 	= 	-Wall -Wextra -Werror -Ilibft -Iincludes
 
 all: $(NAME) libft/
 
