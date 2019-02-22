@@ -53,6 +53,7 @@ void	init_terminal(struct termios *t)
 		termios_p[1].c_lflag &= ~(ECHO | ICANON);
 	}
 	tcsetattr(0, 0, &termios_p[1]);
+	tputs(tgetstr("ti", NULL), 1, &ft_putchar_stdin);
 	tputs(tgetstr("vi", NULL), 1, &ft_putchar_stdin);
 }
 
@@ -66,6 +67,6 @@ void	reset_terminal(struct termios *termios_p)
 		return ;
 	}
 	tcsetattr(0, 0, t);
+	tputs(tgetstr("te", NULL), 1, &ft_putchar_stdin);
 	tputs(tgetstr("ve", NULL), 1, &ft_putchar_stdin);
-	clear_current_screen();
 }

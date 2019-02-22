@@ -27,7 +27,10 @@ static int	error_gestion(int ac, t_list **list)
 		return (0);
 	}
 	if ((*list = get_list(ac + 1)) == NULL)
+	{
+		ft_putendl("Failed to allocate memory for ft_select.");
 		return (0);
+	}
 	return (1);
 }
 
