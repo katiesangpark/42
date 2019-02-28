@@ -6,7 +6,7 @@
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 06:39:44 by kicausse          #+#    #+#             */
-/*   Updated: 2019/02/20 06:39:44 by kicausse         ###   ########.fr       */
+/*   Updated: 2019/02/26 08:31:03 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,32 @@ void	clear_current_screen(void)
 
 void	init_signals(void)
 {
-	signal(2, signal_handler);
-	signal(3, signal_handler);
-	signal(4, signal_handler);
-	signal(11, signal_handler);
-	signal(SIGWINCH, signal_handler);
-	signal(SIGCONT, signal_handler);
-	signal(SIGSTOP, signal_handler);
+	int i;
+
+	i = 1;
+	while (i < 16)
+	{
+		signal(i, signal_handler);
+		++i;
+	}
 	signal(SIGTSTP, signal_handler);
-	signal(SIGSEGV, signal_handler);
+	signal(SIGCONT, signal_handler);
+	signal(SIGWINCH, signal_handler);
+	signal(SIGXCPU, signal_handler);
+	signal(SIGXFSZ, signal_handler);
+	signal(SIGVTALRM, signal_handler);
+	signal(SIGPROF, signal_handler);
+	signal(SIGUSR1, signal_handler);
+	signal(SIGUSR2, signal_handler);
+}
+
+cc_t	*get_special_chars(struct termios *t)
+{
+	static cc_t	*chars = 0;
+
+	if (chars == 0)
+		chars = t->c_cc;
+	return (chars);
 }
 
 void	init_terminal(struct termios *t)
@@ -46,12 +63,14 @@ void	init_terminal(struct termios *t)
 	{
 		termios_p = t;
 		tgetent(buf, getenv("TERM"));
-		tcgetattr(0, &termios_p[0]);
-		tcgetattr(0, &termios_p[1]);
-		init_signals();
+		if (tcgetattr(0, &termios_p[0]) == -1
+			|| tcgetattr(0, &termios_p[1]) == -1)
+			exit_err_term();
+		get_special_chars(termios_p);
 		reset_terminal(termios_p);
 		termios_p[1].c_lflag &= ~(ECHO | ICANON);
 	}
+	init_signals();
 	tcsetattr(0, 0, &termios_p[1]);
 	tputs(tgetstr("ti", NULL), 1, &ft_putchar_stdin);
 	tputs(tgetstr("vi", NULL), 1, &ft_putchar_stdin);

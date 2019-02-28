@@ -43,6 +43,13 @@ t_list		*get_list(int size)
 	return (l);
 }
 
+void		exit_err_term(void)
+{
+	free(get_list(0));
+	ft_putendl("Error: tcgetattr returned -1");
+	exit(0);
+}
+
 int			main(int ac, char **av)
 {
 	unsigned int	cursor;
