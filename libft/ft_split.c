@@ -20,7 +20,7 @@ static char		*copy_word(const char *src, char *limit)
 
 	i = 0;
 	while (src[i] && ft_cfind(limit, src[i]) == -1)
-		i++;
+		++i;
 	output = (char*)ft_strnew(i);
 	if (output == NULL)
 		return (NULL);
@@ -28,7 +28,7 @@ static char		*copy_word(const char *src, char *limit)
 	while (src[i] && ft_cfind(limit, src[i]) == -1)
 	{
 		output[i] = src[i];
-		i++;
+		++i;
 	}
 	output[i] = '\0';
 	return (output);
@@ -75,8 +75,8 @@ char			**ft_split(char const *s, char *limit)
 	int		i;
 	int		x;
 
-	if (s == 0 ||
-		!(output = (char**)ft_memalloc(sizeof(char*) * count_words(s, limit))))
+	if (s == 0 || !(output = (char**)ft_memalloc(
+			sizeof(char*) * count_words(s, limit))))
 		return (NULL);
 	x = 0;
 	i = 0;

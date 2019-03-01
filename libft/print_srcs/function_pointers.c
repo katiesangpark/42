@@ -15,8 +15,7 @@
 #include "flags.h"
 #include "utils.h"
 
-t_func	g_func[SPECIFIER_COUNT] =
-{
+t_func	g_func[SPECIFIER_COUNT] = {
 	{'c', &print_char},
 	{'C', &print_char},
 	{'%', &print_char},
