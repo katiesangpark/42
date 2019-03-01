@@ -76,7 +76,7 @@ char			**ft_strsplit(char const *s, char c)
 	int		x;
 
 	if (s == 0 || !(output = (char**)ft_memalloc(
-			sizeof(char*) * count_words(s, limit))))
+			sizeof(char*) * count_words(s, c))))
 		return (NULL);
 	x = 0;
 	i = 0;
