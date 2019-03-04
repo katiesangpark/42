@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   printf_buffer.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 07:09:22 by kicausse          #+#    #+#             */
-/*   Updated: 2018/11/06 07:09:23 by kicausse         ###   ########.fr       */
+/*   Created: 2019/03/04 00:26:23 by kicausse          #+#    #+#             */
+/*   Updated: 2019/03/04 00:26:23 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PRINTF_BUFFER_H
+# define PRINTF_BUFFER_H
+# define PRINTF_BUFSIZE (2048)
+# include <string.h>
 
-int		ft_strncmp(const char *str1, const char *str2, size_t num)
-{
-	unsigned int i;
+void	write_buffer(int fd, char *str, int len);
+size_t	ft_putnstr_buffer(char *str, size_t n, int fd);
+size_t	ft_putstr_buffer(char *str, int fd);
+int		ft_putchar_buffer(char c, int fd);
+int		ft_print_char_buffer(char c, int count, int fd);
 
-	i = 0;
-	while ((unsigned int)(str1[i]) && i < num
-			&& (unsigned int)(str1[i]) == (unsigned int)(str2[i]))
-		i++;
-	if (i == num)
-		return (0);
-	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
-}
+#endif
