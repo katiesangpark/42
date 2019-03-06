@@ -14,6 +14,7 @@
 #include "libft.h"
 #include <unistd.h>
 #include <stdlib.h>
+#include <limits.h>
 
 static int		copy_line(char **line, char **prevbuffer)
 {
@@ -51,13 +52,20 @@ static int		copy_str(char **line, char **prevbuffer)
 	return (copy_rest(line, prevbuffer));
 }
 
+int				gnlerror(char **prevbuffer)
+{
+	ft_strdel(prevbuffer);
+	return (-1);
+}
+
 int				get_next_line(const int fd, char **line)
 {
 	int				ret;
 	char			buffer[BUFF_SIZE + 1];
 	static char		*prevbuffer = NULL;
+	unsigned int	len;
 
-	if (fd < 0 || line == 0 || BUFF_SIZE <= 0)
+	if (fd < 0 || line == 0 || BUFF_SIZE <= 0 || (len = 0))
 		return (-1);
 	if ((!prevbuffer || ft_strchr(prevbuffer, '\n') == NULL) && (ret = 1))
 	{
@@ -66,8 +74,9 @@ int				get_next_line(const int fd, char **line)
 		{
 			ret = read(fd, buffer, BUFF_SIZE);
 			buffer[ft_floor(0, ret)] = '\0';
-			if (ret >= 0 && !(prevbuffer = ft_strjoinfree(prevbuffer, buffer)))
-				return (-1);
+			if ((len += ret) > INT_MAX || (ret >= 0
+				&& !(prevbuffer = ft_strjoinfree(prevbuffer, buffer))))
+				return (gnlerror(&prevbuffer));
 		}
 		if (ret == -1)
 		{
