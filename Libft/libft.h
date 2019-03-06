@@ -60,8 +60,8 @@ size_t					ft_strclen(const char *s, char c);
 size_t					ft_strlen_if(const char *s, int (*f)(int));
 int						charset_match(char *charset, char *str);
 int						charset_unmatch(char *charset, char *str);
-size_t					ft_ccount(char *str, char c);
-
+int						ft_ccount(char *str, char c);
+int						ft_isstrascii(char *str);
 /*
 ** Character comparisons
 */
@@ -189,6 +189,7 @@ int						unbrlen(unsigned long long n);
 
 int						ft_atoi(const char *str);
 unsigned long			ft_atoi_base(const char *str, unsigned int base);
+unsigned long			ft_atoi_hex(const char *str);
 char					*ft_itoa(int n);
 long long				ft_power(int nb, int power);
 int						get_next_line(const int fd, char **line);

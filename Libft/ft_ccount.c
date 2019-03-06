@@ -5,25 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/04 01:15:29 by kicausse          #+#    #+#             */
-/*   Updated: 2019/03/04 01:15:30 by kicausse         ###   ########.fr       */
+/*   Created: 2019/02/28 18:46:06 by kicausse          #+#    #+#             */
+/*   Updated: 2019/02/28 18:46:06 by kicausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-
-size_t	ft_ccount(char *str, char c)
+int		ft_ccount(char *str, char c)
 {
-	size_t	count;
+	int	count;
+	int	i;
 
 	if (str == 0)
 		return (0);
+	i = 0;
 	count = 0;
-	while (*str)
+	while (str[i])
 	{
-		if (*str == c)
+		if (str[i] == c)
 			++count;
-		++str;
+		++i;
 	}
 	return (count);
 }

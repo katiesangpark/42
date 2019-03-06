@@ -14,11 +14,24 @@
 
 void			ft_bzero(void *sl, size_t n)
 {
-	if (n != 0)
+	while (n >= sizeof(long))
 	{
-		while (n-- != 0)
-		{
-			((unsigned char*)sl)[n] = 0;
-		}
+		n -= sizeof(long);
+		*((long*)(sl + n)) = 0;
+	}
+	while (n >= sizeof(int))
+	{
+		n -= sizeof(int);
+		*((int*)(sl + n)) = 0;
+	}
+	while (n >= sizeof(short))
+	{
+		n -= sizeof(short);
+		*((short*)(sl + n)) = 0;
+	}
+	while (n > 0)
+	{
+		--n;
+		((char*)sl)[n] = 0;
 	}
 }

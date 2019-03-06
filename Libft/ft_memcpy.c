@@ -14,20 +14,25 @@
 
 void			*ft_memcpy(void *destination, const void *source, size_t num)
 {
-	unsigned int	i;
-	unsigned char	*dest;
-	unsigned char	*src;
-
-	if (num != 0)
+	while (num >= sizeof(long))
 	{
-		i = 0;
-		dest = (unsigned char*)destination;
-		src = (unsigned char*)source;
-		while (i < num)
-		{
-			dest[i] = src[i];
-			i++;
-		}
+		num -= sizeof(long);
+		*((long*)(destination + num)) = *((long*)(source + num));
+	}
+	while (num >= sizeof(int))
+	{
+		num -= sizeof(int);
+		*((int*)(destination + num)) = *((int*)(source + num));
+	}
+	while (num >= sizeof(short))
+	{
+		num -= sizeof(short);
+		*((short*)(destination + num)) = *((short*)(source + num));
+	}
+	while (num > 0)
+	{
+		--num;
+		((char*)destination)[num] = ((char*)source)[num];
 	}
 	return (destination);
 }

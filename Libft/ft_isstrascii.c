@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_buffer.h                                    :+:      :+:    :+:   */
+/*   ft_isstrascii.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kicausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/04 00:26:23 by kicausse          #+#    #+#             */
-/*   Updated: 2019/03/04 00:26:23 by kicausse         ###   ########.fr       */
+/*   Created: 2019/03/01 19:56:22 by kicausse          #+#    #+#             */
+/*   Updated: 2019/03/04 23:06:34 by dilaouid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_BUFFER_H
-# define PRINTF_BUFFER_H
-# define PRINTF_BUFSIZE (2048)
-# include <string.h>
+#include "libft.h"
 
-void	write_buffer(int fd, char *str, int len);
-size_t	ft_putnstr_buffer(char *str, size_t n, int fd);
-size_t	ft_putstr_buffer(char *str, int fd);
-int		ft_putchar_buffer(char c, int fd);
-int		ft_print_char_buffer(char c, int count, int fd);
+int		ft_isstrascii(char *str)
+{
+	int	i;
 
-#endif
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isascii(str[i]) == 0)
+			return (0);
+		++i;
+	}
+	return (1);
+}
