@@ -12,13 +12,13 @@
 
 #include "libft.h"
 
-int				get_char_value(char c)
+int				get_char_value(char c, unsigned int base)
 {
-	if (c >= '0' && c <= '9')
+	if (c >= '0' && c <= '9' && (c - '0') < (int)base)
 		return (c - '0');
-	else if (c >= 'a' && c <= 'f')
+	else if (c >= 'a' && c <= 'f' && (c - 'a' + 10) < (int)base)
 		return (c - 'a' + 10);
-	else if (c >= 'A' && c <= 'F')
+	else if (c >= 'A' && c <= 'F' && (c - 'A' + 10) < (int)base)
 		return (c - 'A' + 10);
 	return (-1);
 }
@@ -35,7 +35,7 @@ unsigned long	ft_atoi_base(const char *str, unsigned int base)
 		return (0);
 	if (base == 16 && str[0] == '0' && (str[1] == 'x' || str[1] == 'X'))
 		i = 2;
-	while ((tmp = get_char_value(str[i])) != -1)
+	while ((tmp = get_char_value(str[i], base)) != -1)
 	{
 		result = result * base + tmp;
 		i++;
@@ -53,7 +53,7 @@ unsigned long	ft_atoi_hex(const char *str)
 	result = 0;
 	if (str[0] == '0' && (str[1] == 'x' || str[1] == 'X'))
 		i = 2;
-	while ((tmp = get_char_value(str[i])) != -1)
+	while ((tmp = get_char_value(str[i], 16)) != -1)
 	{
 		result = result * 16 + tmp;
 		++i;
