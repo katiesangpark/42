@@ -66,7 +66,7 @@ int				get_next_line(const int fd, char **line)
 	unsigned int	len;
 
 	if (fd < 0 || line == 0 || BUFF_SIZE <= 0 || (len = 0))
-		return (-1);
+		return (gnlerror(&prevbuffer));
 	if ((!prevbuffer || ft_strchr(prevbuffer, '\n') == NULL) && (ret = 1))
 	{
 		ft_bzero(buffer, BUFF_SIZE + 1);
