@@ -192,9 +192,10 @@ function Init() {
 	notice.outerHTML 	= notice.outerHTML + '<h1 id="custom-title" style="font-size: 65px;">' + currentDate + '</h1>';
 	
 	customTitle 			= document.querySelector("#custom-title");
-	customTitle.outerHTML 	= customTitle.outerHTML + '<button class="btn" ' + display + ' onclick="Turbo()" id="turbo">'+ TurboText + '</button> <button class="btn" id="refresh">' + refreshText + '</button> <button class="btn" id="checkinManual">' + checkinText + '</button>';
+	customTitle.outerHTML 	= customTitle.outerHTML + '<button class="btn" ' + display + ' id="turbo">'+ TurboText + '</button> <button class="btn" id="refresh">' + refreshText + '</button> <button class="btn" id="checkinManual">' + checkinText + '</button>';
     document.querySelector("#checkinManual").onclick = ManualCheckin
     document.querySelector("#refresh").onclick = StopRefresh;
+    document.querySelector("#turbo").onclick = Turbo;
   
 	turboButton = document.querySelector("#turbo");
 	if (getCookieValue("alert") !== "" || getCookieValue("playsound") !== "") 
