@@ -1,3 +1,10 @@
+// ==UserScript==
+// @name aaa
+// @namespace aaa
+// @match https://candidature.42.fr/meetings
+// @grant none
+// ==/UserScript==
+
 var Places;
 var tenmin;
 var twosec;
@@ -110,13 +117,28 @@ function ManualCheckin() {
 	}
 }
 
+function a(e) {
+  if (e == "")
+    return false;
+  return true;
+}
 
 function Init() {	
 	var arr;
+    var tmp;
+
+    console.log(
+      "Refresh: " + a(getCookieValue("stopRefresh")),
+      "\nManual: " + a(getCookieValue("manualCheckin")),
+      "\nTurbo: " + a(getCookieValue("turbo")),
+      "\nStopRefresh: " + a(getCookieValue("stopRefresh"))
+    );
+  
+    tmp = document.querySelector("table .btn.btn-primary");
 	
 	Places 				= document.querySelectorAll(".span12 table.table-hover tr td:nth-child(2)");
-	current 			= document.querySelector("table .btn.btn-primary").parentElement.parentElement;
-	currentDate 		= current.querySelector("td:nth-child(1)").innerText;
+	current 			= tmp == null ? null : tmp.parentElement.parentElement;
+	currentDate 		= current == null ? "" : current.querySelector("td:nth-child(1)").innerText;
 	arr 				= [];
 	tenmin 				= new Date();
 	LastAudioExec		= new Date();
@@ -133,7 +155,7 @@ function Init() {
 	if (document.querySelectorAll("table .btn.btn-primary").length > 1)
 		current = document.querySelector("head");
 	for(var i = Places.length; i--; arr.unshift(Places[i]));
-	if (current != document.querySelector("head"))
+	if (current != document.querySelector("head") && current != null)
 	{
 		current.style.outline = "rgb(129, 129, 129) solid 2px";
 		current.querySelectorAll("td").forEach(function(e) {e.style.border = "none";});
@@ -154,7 +176,8 @@ function Init() {
 	var checkinText;
 	var display;
 	
-	current.scrollIntoView();
+    if (current != null)
+      current.scrollIntoView();
 	display = "";
 	refreshText = "Stop refresh";
 	checkinText = "Automatic (enabled)";
@@ -168,11 +191,11 @@ function Init() {
 	notice 				= document.querySelector("#false");
 	notice.outerHTML 	= notice.outerHTML + '<h1 id="custom-title" style="font-size: 65px;">' + currentDate + '</h1>';
 	
-	if (currentID == Places.length - 1)
-		display = 'style="display: none;"';
 	customTitle 			= document.querySelector("#custom-title");
-	customTitle.outerHTML 	= customTitle.outerHTML + '<button class="btn" ' + display + ' onclick="Turbo()" id="turbo">'+ TurboText + '</button> <button class="btn" onclick="StopRefresh()" id="refresh">' + refreshText + '</button> <button class="btn" onclick="ManualCheckin()" id="checkinManual">' + checkinText + '</button>';
-	
+	customTitle.outerHTML 	= customTitle.outerHTML + '<button class="btn" ' + display + ' onclick="Turbo()" id="turbo">'+ TurboText + '</button> <button class="btn" id="refresh">' + refreshText + '</button> <button class="btn" id="checkinManual">' + checkinText + '</button>';
+    document.querySelector("#checkinManual").onclick = ManualCheckin
+    document.querySelector("#refresh").onclick = StopRefresh;
+  
 	turboButton = document.querySelector("#turbo");
 	if (getCookieValue("alert") !== "" || getCookieValue("playsound") !== "") 
 		turboButton.outerHTML = turboButton.outerHTML + ' <button class="btn" onclick="RemoveAlert()">Remove alerts</button>';
@@ -192,14 +215,15 @@ function Init() {
 	}
 
 	if (getCookieValue("stopRefresh") != "1")
+    {
+        console.log("Starting countdown...")
 	    Countdown(getCookieValue("turbo") === "" ? (10 + random(1.5)) : (3 + random(3)));
+    }
 	
 
 	checkFreeCheckin();
 	updateCheckinStats(0);
 }
-Init();
-
 
 function checkFreeCheckin() {
 	for(i = 0; i <= currentID; i++)
@@ -280,3 +304,5 @@ function updateCheckinStats(x = -1) {
 		i++;
 	}
 }
+
+Init();
