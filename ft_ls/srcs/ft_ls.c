@@ -78,6 +78,8 @@ void	list_files2(DIR *d, t_args *args, t_folder *curr)
 	}
 	else if (curr->exists)
 		error_perm_denied(args, curr);
+	else
+		free_single_folder(&curr);
 }
 
 void	list_files(t_args *args, t_folder *curr)
