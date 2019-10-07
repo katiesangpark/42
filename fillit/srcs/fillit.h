@@ -19,12 +19,12 @@
 
 typedef struct	s_block
 {
+	struct s_block	*next;
 	int				x;
 	int				y;
 	int				w;
 	int				h;
 	int				data;
-	struct s_block	*next;
 }				t_block;
 
 int				ft_sqrt(int nb);
@@ -43,7 +43,6 @@ int				move_bits(int nbr, int leftmost, int upmost);
 void			get_block_size(t_block *block);
 
 int				get_bit_from_coords(const int data, const int x, const int y);
-int				overlap(t_block *curr, t_block *block);
 int				solve(t_block *beginlist, t_block *block, const int map_size);
 void			solve2(void);
 

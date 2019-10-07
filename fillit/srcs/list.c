@@ -44,7 +44,6 @@ t_block		*lst_push(t_block **begin_list, int data)
 		while (tmp2->next != NULL)
 			tmp2 = tmp2->next;
 		tmp2->next = tmp;
-		tmp->prev = tmp2;
 	}
 	return (tmp);
 }

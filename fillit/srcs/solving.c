@@ -21,9 +21,8 @@ int		overlap(t_block *curr, t_block *block)
 
 	while (curr != block)
 	{
-		x = curr->x - block->x;
 		y = curr->y - block->y;
-		if (x <= block->w && y <= block->h)
+		if ((x = curr->x - block->x) <= block->w && y <= block->h)
 		{
 			data = block->data;
 			data = (x >= 0) ? ((data >> x) & (0xF >> x)) | ((data >> x) \
@@ -40,7 +39,7 @@ int		overlap(t_block *curr, t_block *block)
 	return (0);
 }
 
-int		solve(t_block *beginlist, t_block *block, const int map_size)
+int		solve(t_block *beginlist, t_block *block, int map_size)
 {
 	const int h = block->h;
 	const int w = block->w;
@@ -58,5 +57,5 @@ int		solve(t_block *beginlist, t_block *block, const int map_size)
 		}
 		++block->y;
 	}
-	return (beginlist == block ? solve(beginlist, beginlist, map_size + 1) : 0);
+	return (beginlist == block ? solve(beginlist, beginlist, ++map_size) : 0);
 }
